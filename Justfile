@@ -1349,6 +1349,40 @@ git-status:
         check_repo "$plugin" "$dir"
     done
 
+# Generate standalone CLIs for all 8 MCP servers against production.
+# ⚠ Generated CLIs embed your OAuth token — do not commit, share, or distribute.
+# ⚠ Requires bun at runtime. Run 'mcporter auth <name>' for any auth-required server.
+generate-all-clis:
+    #!/usr/bin/env bash
+    set -uo pipefail
+    mkdir -p dist dist/.cache
+    echo "⚠  Generated CLIs embed your OAuth token — do not commit or share"
+    declare -a failed=()
+    for server in arcane gotify swag synapse syslog unifi unraid overseerr; do
+      cache_file="dist/.cache/${server}-cli.schema_hash"
+      current_hash=$(timeout 10 mcporter list "$server" --json 2>/dev/null | sha256sum | cut -d' ' -f1 || echo "nohash")
+      if [[ -f "$cache_file" ]] && [[ "$(cat "$cache_file")" == "$current_hash" ]] && [[ -f "dist/${server}-cli" ]]; then
+        echo "SKIP: ${server} schema unchanged"
+        continue
+      fi
+      echo "Generating ${server}-cli..."
+      if ! timeout 30 mcporter generate-cli \
+          --server "$server" \
+          --name "${server}-cli" \
+          --output "dist/${server}-cli"; then
+        echo "WARNING: failed to generate ${server}-cli"
+        failed+=("$server")
+      else
+        printf '%s' "$current_hash" > "$cache_file"
+      fi
+    done
+    if [[ ${#failed[@]} -gt 0 ]]; then
+      echo "FAILED: ${failed[*]}"
+      echo "Run 'mcporter auth <name>' for failed servers, then retry."
+      exit 1
+    fi
+    echo "Done. CLIs in dist/ (require bun at runtime)"
+
 # ─── Operations ──────────────────────────────────────────────────────
 
 # Quick connectivity check for all configured services
