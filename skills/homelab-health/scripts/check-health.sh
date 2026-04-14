@@ -27,28 +27,32 @@ check_service() {
     local url="$2"
     local auth_header="${3:-}"
 
-    if [[ -z "$url" || "$url" == *"your-"* || "$url" == *"example"* ]]; then
+    # Strict: require a real scheme. Rejects "", "/health" (empty base + path), placeholders.
+    if [[ ! "$url" =~ ^https?:// || "$url" == *"your-"* || "$url" == *"example"* ]]; then
         results+=("{\"service\":\"$name\",\"status\":\"not_configured\",\"url\":\"\"}")
         return
     fi
 
+    # -k allows self-signed certs common on LAN homelab services (UniFi, etc).
     local http_code
     if [[ -n "$auth_header" ]]; then
-        http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        http_code=$(curl -sk -o /dev/null -w "%{http_code}" \
             --max-time "$TIMEOUT" \
             -H "$auth_header" \
             "$url" 2>/dev/null || echo "000")
     else
-        http_code=$(curl -s -o /dev/null -w "%{http_code}" \
+        http_code=$(curl -sk -o /dev/null -w "%{http_code}" \
             --max-time "$TIMEOUT" \
             "$url" 2>/dev/null || echo "000")
     fi
 
+    # Strict: only accept a well-formed HTTP status code (1xx-5xx).
+    # Rejects "000", "000000" (curl failure concat), and any other garbage.
     local status
-    if [[ "$http_code" == "000" ]]; then
-        status="unreachable"
-    else
+    if [[ "$http_code" =~ ^[1-5][0-9]{2}$ ]]; then
         status="reachable"
+    else
+        status="unreachable"
     fi
 
     # Escape URL for JSON
