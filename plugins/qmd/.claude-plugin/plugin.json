@@ -1,0 +1,23 @@
+{
+  "name": "qmd",
+  "displayName": "qmd",
+  "version": "0.1.0",
+  "description": "Local-first semantic markdown search via qmd. Combines BM25 keyword search, vector similarity search, and LLM re-ranking—all running on-device with no cloud calls or API keys required.",
+  "author": {
+    "name": "jmagar"
+  },
+  "repository": "https://github.com/tobi/qmd",
+  "homepage": "https://github.com/tobi/qmd",
+  "license": "MIT",
+  "keywords": [
+    "qmd",
+    "semantic-search",
+    "markdown",
+    "bm25",
+    "vector-search",
+    "local-first",
+    "mcp",
+    "rag",
+    "knowledge-base"
+  ]
+}
