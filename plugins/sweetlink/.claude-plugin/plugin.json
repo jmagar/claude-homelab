@@ -1,0 +1,23 @@
+{
+  "name": "sweetlink",
+  "displayName": "SweetLink",
+  "version": "0.1.0",
+  "description": "macOS Chrome+DevTools browser automation daemon — controlled Chrome sessions, OAuth consent automation, smoke tests, and JS execution via the sweetlink CLI.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/steipete/sweetlink",
+  "license": "MIT",
+  "keywords": [
+    "sweetlink",
+    "browser-automation",
+    "chrome",
+    "devtools",
+    "macos",
+    "oauth",
+    "playwright",
+    "homelab"
+  ]
+}
