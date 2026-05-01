@@ -291,7 +291,7 @@ The agent maintains persistent memory of effective research query patterns, timi
 
 ## Marketplace Scope
 
-The `.claude-plugin/marketplace.json` catalog covers 27 plugins total.
+The `.claude-plugin/marketplace.json` catalog covers 32 plugins total.
 
 ### 1 core plugin
 
@@ -312,6 +312,17 @@ The `.claude-plugin/marketplace.json` catalog covers 27 plugins total.
 | `arcane-mcp` | `jmagar/arcane-mcp` | infrastructure |
 | `syslog-mcp` | `jmagar/syslog-mcp` | infrastructure |
 | `plugin-lab` | `jmagar/plugin-lab` | dev-tools |
+
+### 6 in-repo CLI wrapper plugins
+
+| Plugin | Source | Category | Description |
+|---|---|---|---|
+| `qmd` | `./plugins/qmd` | utilities | Local-first semantic markdown search (BM25 + vector + LLM re-ranking, no cloud) |
+| `sweetlink` | `./plugins/sweetlink` | dev-tools | macOS Chrome+DevTools browser automation via sweetlink CLI |
+| `summarize` | `./plugins/summarize` | utilities | Multi-source LLM summarizer for URLs, PDFs, YouTube, podcasts, RSS |
+| `discrawl` | `./plugins/discrawl` | utilities | Discord archiver (bot-token TOS-compliant) to local SQLite with FTS + semantic search |
+| `birdclaw` | `./plugins/birdclaw` | utilities | Local-first X/Twitter archive (likes, bookmarks, DMs) to SQLite via xurl or bird |
+| `gogcli` | `./plugins/gogcli` | automation | Google Workspace CLI (Gmail, Calendar, Drive, Docs, Sheets, Chat, Admin, and more) |
 
 ### 16 bundled skill-only plugins
 
@@ -521,7 +532,7 @@ Justfile                Validation and maintenance recipes
 - `AGENTS.md` — canonical development and repo-structure guidance
 - `CLAUDE.md` — Claude-facing project instructions including symlink architecture, command format, and skill development workflow
 - `.env.example` — shared credential template for all 16 services and 10 MCP repos
-- `.claude-plugin/marketplace.json` — marketplace source of truth (27 plugin entries)
+- `.claude-plugin/marketplace.json` — marketplace source of truth (32 plugin entries)
 - `.claude-plugin/plugin.json` — `homelab-core` plugin manifest
 - `CHANGELOG.md` — release history
 - `docs/references/security-patterns.md` — reusable patterns for input sanitization, injection prevention, and API key protection

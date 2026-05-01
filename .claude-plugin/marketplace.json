@@ -341,6 +341,60 @@
       "category": "infrastructure",
       "tags": ["zfs", "storage", "snapshots", "homelab"],
       "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "qmd",
+      "source": "./plugins/qmd",
+      "description": "Local-first semantic markdown search via qmd. Combines BM25 keyword search, vector similarity search, and LLM re-ranking—all running on-device with no cloud calls or API keys required.",
+      "version": "0.1.0",
+      "category": "utilities",
+      "tags": ["qmd", "semantic-search", "markdown", "bm25", "vector-search", "local-first", "rag", "knowledge-base"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "sweetlink",
+      "source": "./plugins/sweetlink",
+      "description": "macOS Chrome+DevTools browser automation daemon — controlled Chrome sessions, OAuth consent automation, smoke tests, and JS execution via the sweetlink CLI.",
+      "version": "0.1.0",
+      "category": "dev-tools",
+      "tags": ["sweetlink", "browser-automation", "chrome", "devtools", "oauth", "playwright"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "summarize",
+      "source": "./plugins/summarize",
+      "description": "Multi-source LLM summarizer — URLs, PDFs, files, YouTube, podcasts, RSS — via Peter Steinberger's summarize CLI. BYO API key.",
+      "version": "0.1.0",
+      "category": "utilities",
+      "tags": ["summarize", "llm", "summarization", "youtube", "podcast", "pdf"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "discrawl",
+      "source": "./plugins/discrawl",
+      "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search.",
+      "version": "0.1.0",
+      "category": "utilities",
+      "tags": ["discrawl", "discord", "archiver", "sqlite", "fts", "semantic-search", "local-first"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "birdclaw",
+      "source": "./plugins/birdclaw",
+      "description": "Local-first X/Twitter archive CLI by Peter Steinberger. Syncs likes, bookmarks, DMs, and mentions to a local SQLite database. Transport-agnostic: xurl (X API v2, paid tier) or bird (external cookie-backed CLI). No MCP server — pure CLI.",
+      "version": "0.1.0",
+      "category": "utilities",
+      "tags": ["birdclaw", "twitter", "x", "archive", "local-first", "sqlite", "bookmarks", "cli"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
+    },
+    {
+      "name": "gogcli",
+      "source": "./plugins/gogcli",
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, and more (NOT GOG.com). Wraps Peter Steinberger's gogcli — a script-friendly CLI for Gmail, Calendar, Drive, Docs, Sheets, Slides, Chat, Contacts, Tasks, People, Admin, Groups, Keep, Classroom, Forms, and Apps Script. Pure CLI, no MCP server required.",
+      "version": "0.1.0",
+      "category": "automation",
+      "tags": ["google-workspace", "gmail", "google-calendar", "google-drive", "google-sheets", "workspace-admin", "cli", "automation"],
+      "homepage": "https://github.com/jmagar/claude-homelab"
     }
   ]
 }
