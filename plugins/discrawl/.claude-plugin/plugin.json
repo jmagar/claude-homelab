@@ -1,0 +1,22 @@
+{
+  "name": "discrawl",
+  "displayName": "discrawl",
+  "version": "0.1.0",
+  "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search.",
+  "author": {
+    "name": "jmagar"
+  },
+  "repository": "https://github.com/steipete/discrawl",
+  "homepage": "https://github.com/steipete/discrawl",
+  "license": "MIT",
+  "keywords": [
+    "discrawl",
+    "discord",
+    "archiver",
+    "sqlite",
+    "fts",
+    "semantic-search",
+    "local-first",
+    "bot-token"
+  ]
+}
