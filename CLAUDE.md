@@ -33,7 +33,7 @@ claude-homelab/
 ├── CLAUDE.md                        # This file - development guidelines
 ├── .env.example                     # Credential template (tracked, no secrets)
 ├── .claude-plugin/
-│   ├── marketplace.json             # Plugin catalog (27 plugins)
+│   ├── marketplace.json             # Plugin catalog (32 plugins)
 │   └── plugin.json                  # homelab-core manifest (root IS the plugin)
 │
 ├── agents/                          # homelab-core agents

@@ -74,7 +74,7 @@ birdclaw auth status --json
 }
 ```
 
-**Cookie storage:** bird manages its own session cookie storage outside `~/.birdclaw/`. birdclaw never reads those cookies directly — it invokes the `bird` binary and receives output. Consult the bird tool's own documentation for its cookie file location and how to refresh authentication.
+**Cookie storage:** bird manages its own session cookie storage outside `~/.birdclaw/`. birdclaw never reads those cookies directly — it invokes the `bird` binary and receives output. Consult the bird tool's own documentation for its cookie file location and how to refresh authentication. The bird session cookie file is managed by the `bird` binary outside `~/.birdclaw/`. Consult bird's documentation for its cookie file path and set `chmod 600` on it to prevent other local users from reading it.
 
 **launchd env file:** when running birdclaw under macOS launchd (scheduled jobs), if bird relies on browser cookies or environment variables unavailable to the launch agent, write an env file:
 

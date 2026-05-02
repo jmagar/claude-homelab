@@ -4,7 +4,8 @@
   "version": "1.4.1",
   "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search.",
   "author": {
-    "name": "jmagar"
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
   },
   "repository": "https://github.com/jmagar/claude-homelab",
   "homepage": "https://github.com/steipete/discrawl",

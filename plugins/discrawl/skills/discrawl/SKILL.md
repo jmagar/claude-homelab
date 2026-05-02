@@ -90,14 +90,14 @@ discrawl subscribe --remote <url> --no-auto-update
 
 Used to restore an archive on a new machine or share read-only access. Existing local DM data is preserved on import.
 
-### `embed` — generate semantic vectors
+### Semantic vectors — enable and use semantic search
 
 ```bash
-discrawl sync --guild <id> --with-embeddings   # queue during sync
-discrawl search "topic" --mode semantic         # use vectors in search
+discrawl sync --guild <id> --with-embeddings   # queue embeddings during sync
+discrawl search "topic" --mode semantic         # search using vector similarity
 ```
 
-Requires `[search.embeddings]` configured with an API key. Defaults to OpenAI `text-embedding-3-small`.
+Requires `[search.embeddings]` configured with an API key. Defaults to OpenAI `text-embedding-3-small`. Use `--mode hybrid` to combine full-text and semantic ranking.
 
 ## doctor and status
 

@@ -1,6 +1,6 @@
 # Changelog
 
-## Unreleased
+## [0.1.0] - 2026-05-01
 
 - Add `summarize` plugin wrapping Peter Steinberger's `summarize` CLI.
 - Add `skills/summarize/SKILL.md` with BYO-API-key guidance and 6 usage highlights.

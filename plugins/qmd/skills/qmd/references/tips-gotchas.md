@@ -150,19 +150,7 @@ Docids (e.g. `#a1b2c3`) are content hashes. Editing a document changes its docid
 
 **Who hits this:** Users who enable the plugin via the marketplace (or add it to `.mcp.json`) before running any CLI setup steps.
 
-**Fix — run the full collection setup sequence:**
-
-```sh
-# 1. Add your markdown directory as a collection
-qmd collection add ~/notes
-# (substitute any directory containing .md files)
-
-# 2. Build the vector index
-qmd embed
-
-# 3. Verify — should return results if setup succeeded
-qmd query "test"
-```
+**Fix:** See SKILL.md Prerequisites section for the initial setup steps. Run the three-step sequence described there (`qmd collection add`, `qmd embed`, `qmd query "test"`) before enabling the MCP plugin.
 
 After all three steps complete, MCP search tools will return results.
 

@@ -70,7 +70,7 @@ stale_after = "15m"
 
 ## Bot token setup
 
-discrawl requires a **bot token** — not a user token. Selfbots (user tokens used with third-party tools) violate Discord's Terms of Service.
+discrawl requires a **bot token** — not a user token. Selfbots (user tokens used with third-party tools) violate Discord's Terms of Service. For common token format errors and 401 diagnostics, see [Token troubleshooting](../tips-gotchas.md#bot-token-format).
 
 ### Create a Discord bot
 
