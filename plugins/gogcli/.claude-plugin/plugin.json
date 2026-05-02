@@ -1,12 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "gogcli",
-  "displayName": "gogcli",
-  "version": "0.1.0",
+  "version": "1.4.1",
   "description": "Google Workspace CLI for Gmail, Calendar, Drive, and more (NOT GOG.com). Wraps Peter Steinberger's gogcli — a script-friendly CLI for Gmail, Calendar, Drive, Docs, Sheets, Slides, Chat, Contacts, Tasks, People, Admin, Groups, Keep, Classroom, Forms, and Apps Script. Pure CLI, no MCP server required.",
   "author": {
     "name": "jmagar"
   },
-  "repository": "https://github.com/steipete/gogcli",
+  "repository": "https://github.com/jmagar/claude-homelab",
   "homepage": "https://github.com/steipete/gogcli",
   "license": "MIT",
   "keywords": [

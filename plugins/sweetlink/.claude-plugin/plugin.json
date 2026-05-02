@@ -1,7 +1,7 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "sweetlink",
-  "displayName": "SweetLink",
-  "version": "0.1.0",
+  "version": "1.4.1",
   "description": "macOS Chrome+DevTools browser automation daemon — controlled Chrome sessions, OAuth consent automation, smoke tests, and JS execution via the sweetlink CLI.",
   "author": {
     "name": "Jacob Magar",
@@ -16,8 +16,6 @@
     "chrome",
     "devtools",
     "macos",
-    "oauth",
-    "playwright",
-    "homelab"
+    "oauth"
   ]
 }

@@ -1,12 +1,12 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "discrawl",
-  "displayName": "discrawl",
-  "version": "0.1.0",
+  "version": "1.4.1",
   "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search.",
   "author": {
     "name": "jmagar"
   },
-  "repository": "https://github.com/steipete/discrawl",
+  "repository": "https://github.com/jmagar/claude-homelab",
   "homepage": "https://github.com/steipete/discrawl",
   "license": "MIT",
   "keywords": [
