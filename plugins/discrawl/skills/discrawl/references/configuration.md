@@ -86,24 +86,53 @@ discrawl requires a **bot token** — not a user token. Selfbots (user tokens us
 
 ### Set the token
 
-```bash
-# Recommended: environment variable
-export DISCORD_BOT_TOKEN="your-token-here"
+#### Option 1: OS Keyring (recommended — most secure)
 
-# Or: OS keyring (more secure)
+The keyring never exposes the token to the process environment or shell history.
+
+```bash
 # macOS
-security add-generic-password -U -s discrawl -a discord_bot_token -w "$DISCORD_BOT_TOKEN"
+security add-generic-password -U -s discrawl -a discord_bot_token -w "your-token-here"
 
 # Linux (requires libsecret)
-printf %s "$DISCORD_BOT_TOKEN" | secret-tool store \
+printf %s "your-token-here" | secret-tool store \
   --label="discrawl Discord bot token" \
   service discrawl username discord_bot_token
 
 # Windows
-cmdkey /generic:discrawl:discord_bot_token /user:discord_bot_token /pass:%DISCORD_BOT_TOKEN%
+cmdkey /generic:discrawl:discord_bot_token /user:discord_bot_token /pass:your-token-here
 ```
 
-To use the keyring, set `token_source = "keyring"` in `config.toml`.
+Then set `token_source = "keyring"` in `config.toml`.
+
+#### Option 2: Config file (moderate security)
+
+Store the token directly in `~/.discrawl/config.toml` under `[discord]`:
+
+```toml
+[discord]
+token_source = "env"
+token_env = "DISCORD_BOT_TOKEN"
+```
+
+Ensure the file has restrictive permissions: `chmod 600 ~/.discrawl/config.toml`.
+
+#### Option 3: Environment variable (development only)
+
+> **Development only.** Do not set this permanently in `.bashrc` or `.zshrc` — shell-exported
+> variables are readable via `/proc/<pid>/environ`, appear in process listings, and inherit
+> into all child processes. Never use in shared or CI environments without scoping the variable
+> to a single invocation:
+>
+> ```bash
+> DISCORD_BOT_TOKEN="your-token-here" discrawl sync
+> ```
+
+If you must export for a shell session:
+
+```bash
+export DISCORD_BOT_TOKEN="your-token-here"
+```
 
 ---
 
