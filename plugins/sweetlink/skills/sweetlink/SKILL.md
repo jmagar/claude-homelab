@@ -1,6 +1,6 @@
 ---
 name: sweetlink
-description: macOS-only Chrome+DevTools browser automation daemon by Peter Steinberger. Use when the user mentions sweetlink, controlled Chrome sessions, browser automation against a local dev server, OAuth consent automation, smoke-testing routes, JavaScript execution in a browser tab, or capturing page screenshots via the sweetlink CLI. All commands require the daemon to be running first.
+description: macOS-only Chrome+DevTools browser automation daemon by Peter Steinberger. This skill should be used when the user mentions sweetlink, controlled Chrome sessions, browser automation against a local dev server, OAuth consent automation, smoke-testing routes, JavaScript execution in a browser tab, or capturing page screenshots via the sweetlink CLI. All commands require the daemon to be running first.
 ---
 
 # SweetLink

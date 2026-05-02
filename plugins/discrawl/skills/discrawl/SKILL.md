@@ -1,6 +1,6 @@
 ---
 name: discrawl
-description: Discord archiver CLI by Peter Steinberger. Use when the user mentions discrawl, archiving Discord messages, searching Discord history locally, syncing a Discord guild to SQLite, Discord full-text or semantic search, wiretap mode, or publishing a Discord archive snapshot. Bot-token-based (TOS-compliant). Do NOT use for user-token or selfbot workflows.
+description: Discord archiver CLI by Peter Steinberger. This skill should be used when the user mentions discrawl, archiving Discord messages, searching Discord history locally, syncing a Discord guild to SQLite, Discord full-text or semantic search, wiretap mode, or publishing a Discord archive snapshot. Bot-token-based (TOS-compliant). Do NOT use for user-token or selfbot workflows.
 ---
 
 # discrawl

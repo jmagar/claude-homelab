@@ -1,6 +1,6 @@
 ---
 name: birdclaw
-description: Local-first X/Twitter archive CLI by Peter Steinberger. Use when the user mentions birdclaw, syncing Twitter likes or bookmarks, archiving DMs, searching a local Twitter archive, exporting mentions, managing blocks or mutes, or composing posts via CLI. All commands require birdclaw installed and at least one transport configured.
+description: Local-first X/Twitter archive CLI by Peter Steinberger. This skill should be used when the user mentions birdclaw, syncing Twitter likes or bookmarks, archiving DMs, searching a local Twitter archive, exporting mentions, managing blocks or mutes, or composing posts via CLI. All commands require birdclaw installed and at least one transport configured.
 ---
 
 # birdclaw
