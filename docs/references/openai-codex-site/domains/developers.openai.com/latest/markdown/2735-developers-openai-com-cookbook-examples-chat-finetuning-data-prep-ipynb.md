@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/chat\_finetuning\_data\_prep [Redirecting from `/cookbook/examples/chat\_finetuning\_data\_prep.ipynb/` to `/cookbook/examples/chat\_finetuning\_data\_prep`](/cookbook/examples/chat_finetuning_data_prep)

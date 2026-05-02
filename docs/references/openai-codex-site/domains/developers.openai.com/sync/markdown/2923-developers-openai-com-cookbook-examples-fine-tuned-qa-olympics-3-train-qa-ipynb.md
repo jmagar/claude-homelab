@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/fine-tuned\_qa/olympics-3-train-qa [Redirecting from `/cookbook/examples/fine-tuned\_qa/olympics-3-train-qa.ipynb/` to `/cookbook/examples/fine-tuned\_qa/olympics-3-train-qa`](/cookbook/examples/fine-tuned_qa/olympics-3-train-qa)

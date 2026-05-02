@@ -1,0 +1,19 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "rust",
+  "version": "1.4.1",
+  "description": "Rust development skills including best practices and Cargo performance workflows.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "license": "MIT",
+  "keywords": [
+    "rust",
+    "cargo",
+    "performance",
+    "best-practices"
+  ]
+}

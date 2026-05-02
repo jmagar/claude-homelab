@@ -1,0 +1,164 @@
+List group organization role assignments | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/python)
+[Admin](/api/reference/python/resources/admin)
+[Organization](/api/reference/python/resources/admin/subresources/organization)
+[Groups](/api/reference/python/resources/admin/subresources/organization/subresources/groups)
+[Roles](/api/reference/python/resources/admin/subresources/organization/subresources/groups/subresources/roles)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# List group organization role assignments
+admin.organization.groups.roles.list(strgroup\_id, RoleListParams\*\*kwargs) -\> SyncCursorPage[[RoleListResponse](</api/reference/python/resources/admin#(resource) admin.organization.groups.roles > (model) role_list_response > (schema)>)]
+GET/organization/groups/{group\_id}/roles
+Lists the organization roles assigned to a group within the organization.
+##### ParametersExpand Collapse
+group\_id: str
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) group_id > (schema)>)
+after: Optional[str]
+Cursor for pagination. Provide the value from the previous response’s `next` field to continue listing organization roles.
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) after > (schema)>)
+limit: Optional[int]
+A limit on the number of organization role assignments to return.
+minimum0
+maximum1000
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) limit > (schema)>)
+order: Optional[Literal["asc", "desc"]]
+Sort order for the returned organization roles.
+One of the following:
+"asc"
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) order > (schema) > (member) 0>)
+"desc"
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) order > (schema) > (member) 1>)
+[](<#(resource) admin.organization.groups.roles > (method) list > (params) default > (param) order > (schema)>)
+##### ReturnsExpand Collapse
+class RoleListResponse: …
+Detailed information about a role assignment entry returned when listing assignments.
+id: str
+Identifier for the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) id>)
+created\_at: Optional[int]
+When the role was created.
+formatunixtime
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) created_at>)
+created\_by: Optional[str]
+Identifier of the actor who created the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) created_by>)
+created\_by\_user\_obj: Optional[Dict[str, object]]
+User details for the actor that created the role, when available.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) created_by_user_obj>)
+description: Optional[str]
+Description of the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) description>)
+metadata: Optional[Dict[str, object]]
+Arbitrary metadata stored on the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) metadata>)
+name: str
+Name of the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) name>)
+permissions: List[str]
+Permissions associated with the role.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) permissions>)
+predefined\_role: bool
+Whether the role is predefined by OpenAI.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) predefined_role>)
+resource\_type: str
+Resource type the role applies to.
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) resource_type>)
+updated\_at: Optional[int]
+When the role was last updated.
+formatint64
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema) > (property) updated_at>)
+[](<#(resource) admin.organization.groups.roles > (model) role_list_response > (schema)>)
+### List group organization role assignments
+Python
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`import os
+from openai import OpenAI
+client = OpenAI(
+admin\_api\_key=os.environ.get("OPENAI\_ADMIN\_KEY"), # This is the default and can be omitted
+)
+page = client.admin.organization.groups.roles.list(
+group\_id="group\_id",
+)
+page = page.data[0]
+print(page.id)`
+```
+```
+`{
+"object": "list",
+"data": [
+{
+"id": "role\_01J1F8ROLE01",
+"name": "API Group Manager",
+"permissions": [
+"api.groups.read",
+"api.groups.write"
+],
+"resource\_type": "api.organization",
+"predefined\_role": false,
+"description": "Allows managing organization groups",
+"created\_at": 1711471533,
+"updated\_at": 1711472599,
+"created\_by": "user\_abc123",
+"created\_by\_user\_obj": {
+"id": "user\_abc123",
+"name": "Ada Lovelace",
+"email": "ada@example.com"
+},
+"metadata": {}
+}
+],
+"has\_more": false,
+"next": null
+}
+`
+```
+##### Returns Examples
+```
+`{
+"object": "list",
+"data": [
+{
+"id": "role\_01J1F8ROLE01",
+"name": "API Group Manager",
+"permissions": [
+"api.groups.read",
+"api.groups.write"
+],
+"resource\_type": "api.organization",
+"predefined\_role": false,
+"description": "Allows managing organization groups",
+"created\_at": 1711471533,
+"updated\_at": 1711472599,
+"created\_by": "user\_abc123",
+"created\_by\_user\_obj": {
+"id": "user\_abc123",
+"name": "Ada Lovelace",
+"email": "ada@example.com"
+},
+"metadata": {}
+}
+],
+"has\_more": false,
+"next": null
+}
+`
+```

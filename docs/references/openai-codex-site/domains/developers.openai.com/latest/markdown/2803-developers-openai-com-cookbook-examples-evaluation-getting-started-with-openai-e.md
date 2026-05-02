@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/getting\_started\_with\_openai\_evals [Redirecting from `/cookbook/examples/evaluation/getting\_started\_with\_openai\_evals.ipynb/` to `/cookbook/examples/evaluation/getting\_started\_with\_openai\_evals`](/cookbook/examples/evaluation/getting_started_with_openai_evals)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/use-cases/evalsapi\_image\_inputs [Redirecting from `/cookbook/examples/evaluation/use-cases/evalsapi\_image\_inputs.ipynb/` to `/cookbook/examples/evaluation/use-cases/evalsapi\_image\_inputs`](/cookbook/examples/evaluation/use-cases/evalsapi_image_inputs)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/fine\_tuning\_for\_function\_calling [Redirecting from `/cookbook/examples/fine\_tuning\_for\_function\_calling.ipynb/` to `/cookbook/examples/fine\_tuning\_for\_function\_calling`](/cookbook/examples/fine_tuning_for_function_calling)

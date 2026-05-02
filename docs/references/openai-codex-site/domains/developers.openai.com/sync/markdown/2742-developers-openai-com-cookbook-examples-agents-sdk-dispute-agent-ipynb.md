@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/agents\_sdk/dispute\_agent [Redirecting from `/cookbook/examples/agents\_sdk/dispute\_agent.ipynb/` to `/cookbook/examples/agents\_sdk/dispute\_agent`](/cookbook/examples/agents_sdk/dispute_agent)

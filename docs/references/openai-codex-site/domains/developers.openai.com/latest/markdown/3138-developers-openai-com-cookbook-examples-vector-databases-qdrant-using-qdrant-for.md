@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/qdrant/using\_qdrant\_for\_embeddings\_search [Redirecting from `/cookbook/examples/vector\_databases/qdrant/using\_qdrant\_for\_embeddings\_search.ipynb/` to `/cookbook/examples/vector\_databases/qdrant/using\_qdrant\_for\_embeddings\_search`](/cookbook/examples/vector_databases/qdrant/using_qdrant_for_embeddings_search)

@@ -13,8 +13,10 @@ data/
 *.pid
 *.bak
 *.bak-*
+storage/
 
 # ── Claude Code / AI tooling ────────────────────────────────────────────────
+/.mcp.json
 .claude/settings.local.json
 .claude/worktrees/
 .omc/

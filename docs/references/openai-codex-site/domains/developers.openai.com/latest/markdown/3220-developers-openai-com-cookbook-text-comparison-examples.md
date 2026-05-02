@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/articles/text\_comparison\_examples [Redirecting from `/cookbook/text\_comparison\_examples/` to `/cookbook/articles/text\_comparison\_examples`](/cookbook/articles/text_comparison_examples)

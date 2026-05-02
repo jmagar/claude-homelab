@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/gpt\_with\_vision\_for\_video\_understanding [Redirecting from `/cookbook/examples/gpt\_with\_vision\_for\_video\_understanding.ipynb/` to `/cookbook/examples/gpt\_with\_vision\_for\_video\_understanding`](/cookbook/examples/gpt_with_vision_for_video_understanding)

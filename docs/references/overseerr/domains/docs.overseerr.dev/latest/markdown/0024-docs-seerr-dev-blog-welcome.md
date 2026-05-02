@@ -1,0 +1,10 @@
+Welcome to the Seerr Blog | Seerr
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+We are pleased to introduce the official Seerr blog.
+This space will serve as the central place for:
+* Release announcements
+* Updates on new features and improvements
+* Technical articles, such as details on our [**DNS caching package**](https://github.com/seerr/dns-caching) and other enhancements
+* Community-related news
+Our goal is to keep the community informed and provide deeper insights into the ongoing development of Seerr.
+Thank you for being part of the Seerr project. More updates will follow soon.

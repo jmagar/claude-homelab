@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/agents\_sdk/context\_personalization [Redirecting from `/cookbook/examples/agents\_sdk/context\_personalization.ipynb/` to `/cookbook/examples/agents\_sdk/context\_personalization`](/cookbook/examples/agents_sdk/context_personalization)

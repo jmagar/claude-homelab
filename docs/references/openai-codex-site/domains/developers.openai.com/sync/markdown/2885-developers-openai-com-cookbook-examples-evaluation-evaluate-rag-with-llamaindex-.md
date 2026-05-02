@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/evaluate\_rag\_with\_llamaindex [Redirecting from `/cookbook/examples/evaluation/evaluate\_rag\_with\_llamaindex.ipynb/` to `/cookbook/examples/evaluation/evaluate\_rag\_with\_llamaindex`](/cookbook/examples/evaluation/evaluate_rag_with_llamaindex)

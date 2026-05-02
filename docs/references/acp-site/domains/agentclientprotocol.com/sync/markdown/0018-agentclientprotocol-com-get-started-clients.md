@@ -1,0 +1,104 @@
+Clients - Agent Client Protocol
+[Protocol
+](/get-started/introduction)[RFDs
+](/rfds/about)[Community
+](/community/communication)[Publications
+](/publications)[Updates
+](/updates)[Brand
+](/brand)
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://agentclientprotocol.com/llms.txt
+](https://agentclientprotocol.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+The following projects implement ACP directly, connect ACP agents to other environments, or support adjacent coding-agent workflows.
+##
+[​
+](#editors-and-ides)
+Editors and IDEs
+* [Chrome ACP](https://github.com/Areo-Joe/chrome-acp) (Chrome extension / PWA)
+* Emacs via [agent-shell.el](https://github.com/xenodium/agent-shell)
+* [JetBrains](https://www.jetbrains.com/help/ai-assistant/acp.html)
+* [neovim](https://neovim.io)
+* through the [CodeCompanion](https://github.com/olimorris/codecompanion.nvim) plugin
+* through the [carlos-algms/agentic.nvim](https://github.com/carlos-algms/agentic.nvim) plugin
+* through the [yetone/avante.nvim](https://github.com/yetone/avante.nvim) plugin
+* [Obsidian](https://obsidian.md) — through the [Agent Client](https://github.com/RAIT-09/obsidian-agent-client) plugin
+* [Unity ACP Client](https://github.com/3DLabInstruments/UnityACPClient)(Unity plugin)
+* [Unity Agent Client](https://github.com/nuskey8/UnityAgentClient) (Unity editor)
+* Visual Studio Code — through the [ACP Client](https://github.com/formulahendry/vscode-acp) extension
+* [Zed](https://zed.dev/docs/ai/external-agents)
+##
+[​
+](#clients-and-apps)
+Clients and apps
+* [ACP UI](https://github.com/formulahendry/acp-ui)
+* [acpx (CLI)](https://github.com/openclaw/acpx)
+* [gemini-cli-desktop](https://github.com/Piebald-AI/gemini-cli-desktop)
+* [Agent Studio](https://github.com/sxhxliang/agent-studio)
+* [AionUi](https://github.com/iOfficeAI/AionUi)
+* [aizen](https://aizen.win)
+* [DeepChat](https://github.com/ThinkInAIXYZ/deepchat)
+* [fabriqa.ai](https://fabriqa.ai)
+* [Harnss](https://github.com/OpenSource03/harnss)
+* [iflow-cli](https://github.com/iflow-ai/iflow-cli)
+* [Jockey](https://github.com/recailai/jockey) — open-source multi-agent orchestrator (Tauri + Rust + SolidJS) that coordinates Claude Code, Gemini CLI, and Codex CLI via ACP
+* [Lody](https://lody.ai)
+* [Minion Mind](https://minion-mind.nebulame.com/) — through the [Agent Client](https://github.com/RAIT-09/obsidian-agent-client) plugin
+* [Mitto](https://github.com/inercia/mitto)
+* [Nori CLI](https://github.com/tilework-tech/nori-cli)
+* [Ngent](https://github.com/beyond5959/ngent)
+* [pool](https://github.com/poolsideai/pool)
+* [RayClaw](https://github.com/rayclaw/rayclaw?tab=readme-ov-file#acp-agent-client-protocol)
+* [RLM Code](https://github.com/SuperagenticAI/rlm-code)
+* [Sidequery *(coming soon)*](https://sidequery.dev)
+* [Tidewave](https://tidewave.ai/)
+* [Toad](https://www.batrachian.ai/)
+* [Web Browser with AI SDK](https://github.com/mcpc-tech/ai-elements-remix-template) (powered by [@mcpc/acp-ai-provider](https://github.com/mcpc-tech/mcpc/tree/main/packages/acp-ai-provider))
+##
+[​
+](#notebook-and-data-tools)
+Notebook and data tools
+* [agent-client-kernel](https://github.com/wiki3-ai/agent-client-kernel) (Jupyter notebooks)
+* DuckDB — through the [sidequery/duckdb-acp](https://github.com/sidequery/duckdb-acp) extension
+* [marimo notebook](https://github.com/marimo-team/marimo)
+##
+[​
+](#mobile-clients)
+Mobile clients
+These mobile-first tools bring ACP and related coding-agent workflows to phones and tablets:
+* [Agmente](https://agmente.halliharp.com) ([GitHub](https://github.com/rebornix/Agmente)) (iOS)
+* [Ferngeist](https://github.com/arafatamim/Ferngeist) (Android)
+* [Happy](https://happy.engineering/) ([GitHub](https://github.com/slopus/happy)) (iOS, Android, Web)
+* [Mobvibe](https://github.com/Eric-Song-Nop/mobvibe) (iOS, Android, Web)
+##
+[​
+](#messaging)
+Messaging
+* [ACP Discord](https://github.com/broven/acp-discord) (Discord)
+* [duckdb-claude-slack](https://github.com/sidequery/duckdb-claude-slack) (Slack)
+* [Juan](https://github.com/DiscreteTom/juan) (Slack)
+* [OpenACP](https://github.com/Open-ACP/OpenACP) (Telegram, Discord, Slack) — self-hosted bridge for ACP agents; streams tool calls and responses in real time
+* [Telegram ACP Bot](https://github.com/mgaitan/telegram-acp-bot) (Telegram) — through the [`telegram-acp-bot`](https://github.com/mgaitan/telegram-acp-bot) connector
+* [Telegram-ACP](https://github.com/SuperKenVery/Telegram-ACP/) (Telegram) — Supports multi-thread chat and message streaming
+* [WeChat ACP](https://github.com/formulahendry/wechat-acp) (WeChat)
+##
+[​
+](#frameworks)
+Frameworks
+These frameworks add ACP support through dedicated integrations or adapters:
+* [AgentPool](https://phil65.github.io/agentpool/) — with built-in ACP integration for IDEs and external ACP agents
+* [fast-agent](https://fast-agent.ai/acp/) — through [`fast-agent-acp`](https://fast-agent.ai/acp/)
+* [Koog](https://docs.koog.ai/agent-client-protocol/) — through the [`agents-features-acp`](https://github.com/JetBrains/koog/tree/develop/examples/notebooks/acp) integration
+* [LangChain / LangGraph](https://docs.langchain.com/oss/python/deepagents/acp) — through [Deep Agents ACP](https://docs.langchain.com/oss/python/deepagents/acp)
+* [LlamaIndex](https://github.com/AstraBert/workflows-acp) — through the [`workflows-acp`](https://github.com/AstraBert/workflows-acp) adapter for Agent Workflows
+* [LLMling-Agent](https://github.com/phil65/llmling-agent) — with built-in ACP support for running agents through ACP clients
+##
+[​
+](#connectors)
+Connectors
+These connectors bridge ACP into other environments and transport layers:
+* [AgentRQ](https://github.com/agentrq/acp-gateway) — bridges stdio-based ACP agents to the AgentRQ - Human-in-the-loop task collaboration service using MCP server.
+* [Aptove Bridge](https://github.com/aptove/bridge) — bridges stdio-based ACP agents to the Aptove mobile client over WebSocket
+* [OpenClaw](https://docs.openclaw.ai/cli/acp) — through the [`openclaw acp`](https://docs.openclaw.ai/cli/acp) bridge to an OpenClaw Gateway
+* [stdio Bus](https://stdiobus.com) – deterministic stdio-based kernel providing transport-level routing for ACP/MCP-style agent protocols.

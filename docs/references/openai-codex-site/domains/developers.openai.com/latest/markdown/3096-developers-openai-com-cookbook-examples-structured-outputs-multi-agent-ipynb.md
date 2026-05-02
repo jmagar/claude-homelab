@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/structured\_outputs\_multi\_agent [Redirecting from `/cookbook/examples/structured\_outputs\_multi\_agent.ipynb/` to `/cookbook/examples/structured\_outputs\_multi\_agent`](/cookbook/examples/structured_outputs_multi_agent)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/book\_translation/translate\_latex\_book [Redirecting from `/cookbook/examples/book\_translation/translate\_latex\_book.ipynb/` to `/cookbook/examples/book\_translation/translate\_latex\_book`](/cookbook/examples/book_translation/translate_latex_book)

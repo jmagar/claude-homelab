@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "memos": {
+      "command": "lab",
+      "args": ["mcp", "--services", "memos"]
+    }
+  }
+}

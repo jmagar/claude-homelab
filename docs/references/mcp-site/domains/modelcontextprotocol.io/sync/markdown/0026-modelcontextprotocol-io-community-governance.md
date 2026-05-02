@@ -1,0 +1,126 @@
+Governance and Stewardship - Model Context Protocol
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://modelcontextprotocol.io/llms.txt
+](https://modelcontextprotocol.io/llms.txt)
+> Use this file to discover all available pages before exploring further.
+The Model Context Protocol (MCP) follows a formal governance model to ensure transparent decision-making and community participation. This document outlines how the project is organized and how decisions are made.
+##
+[​
+](#general-project-policies)
+General Project Policies
+Model Context Protocol has been established as **Model Context Protocol a Series of LF Projects, LLC**. Policies applicable to Model Context Protocol and participants in Model Context Protocol, including guidelines on the usage of trademarks, are located at [https://www.lfprojects.org/policies/](https://www.lfprojects.org/policies/). Governance changes approved as per the provisions of this governance document must also be approved by LF Projects, LLC.
+Model Context Protocol participants acknowledge that the copyright in all new contributions will be retained by the copyright holder as independent works of authorship and that no contributor or copyright holder will be required to assign copyrights to the project.
+Except as described below, all code and specification contributions to the project must be made using the Apache License, Version 2.0 (available here: [https://www.apache.org/licenses/LICENSE-2.0](https://www.apache.org/licenses/LICENSE-2.0)) (the “Project License”).
+All outbound code and specifications will be made available under the Project License. The Core Maintainers may approve the use of an alternative open license or licenses for inbound or outbound contributions on an exception basis.
+All documentation (excluding specifications) will be made available under Creative Commons Attribution 4.0 International license, available at: [https://creativecommons.org/licenses/by/4.0](https://creativecommons.org/licenses/by/4.0).
+##
+[​
+](#technical-governance)
+Technical Governance
+The MCP project adopts a hierarchical structure, similar to Python, PyTorch, and other open source projects:
+|Role|Scope|
+|**Lead Maintainers (BDFL)**|Final decision authority|
+|**Core Maintainers**|Overall project direction|
+|**Maintainers**|Working Groups, SDKs, components|
+|**Contributors**|Issues, PRs, discussions|
+* **Contributors** file issues, make pull requests, and contribute to the project.
+* **Maintainers** drive components within the MCP project, such as SDKs, documentation, and Working Groups.
+* **Core Maintainers** drive the overall project direction and oversee contributors and maintainers.
+* **Lead Maintainers** are the final decision makers (also known as BDFL - Benevolent Dictator for Life).
+Together, Maintainers, Core Maintainers, and Lead Maintainers form the **MCP Steering Group**.
+All maintainers are expected to have a strong bias towards MCP’s design philosophy. Membership in the technical governance process is for individuals, not companies. That is, there are no seats reserved for specific companies, and membership is associated with the person rather than the company employing that person.
+###
+[​
+](#communication-channels)
+Communication Channels
+Technical governance is facilitated through a shared [Discord server](https://discord.gg/6CSzBmMkjX) for all maintainers. Each maintainer group can choose additional communication channels, but all decisions and their supporting discussions must be recorded and made transparently available on the Discord server.
+###
+[​
+](#roles)
+Roles
+The [Contributor Ladder](/community/contributor-ladder) is the canonical definition of each role — its requirements, responsibilities, privileges, advancement process, and inactivity policy. This section gives a conceptual overview of how the roles relate to governance.
+**Maintainers** steward specific areas such as SDKs, documentation, or [Working Groups](/community/working-interest-groups). They make decisions for their area independently and escalate to Core Maintainers when needed. Maintainers have write access to their respective repositories.
+**Core Maintainers** steer the MCP specification and overall project direction. They can veto Maintainer decisions by majority vote, resolve disputes, and appoint or remove Maintainers. Core Maintainers have admin access to all MCP repositories but use the same pull-request workflow as outside contributors.
+**Lead Maintainers** hold final authority and can veto any decision by Core Maintainers or Maintainers — the role commonly known as Benevolent Dictator for Life (BDFL). Lead Maintainers appoint and remove Core Maintainers, and are administrators on all project infrastructure. They are part of the Core Maintainer group and are expected to publicly articulate their reasoning.
+The [Contributor Ladder](/community/contributor-ladder) also defines the **Member** and **Community Moderator** roles, which sit outside the Steering Group.
+###
+[​
+](#decision-process)
+Decision Process
+The Core Maintainer group meets every two weeks to discuss and vote on proposals, as well as discuss any topics needed. The shared Discord server can be used to discuss and vote on smaller proposals if needed.
+The Lead Maintainer, Core Maintainer, and Maintainer group should attempt to meet in person every three to six months.
+##
+[​
+](#processes)
+Processes
+Core Maintainers and Lead Maintainers are responsible for all aspects of Model Context Protocol, including documentation, issues, suggestions for content, and all other parts under the [MCP project](https://github.com/modelcontextprotocol). Maintainers are responsible for documentation, issues, and suggestions of content for their area of the MCP project, but are encouraged to partake in general maintenance of the MCP projects.
+Maintainers, Core Maintainers, and Lead Maintainers should use the same contribution process as external contributors, rather than making direct changes to repos. This provides insight into intent and opportunity for discussion.
+###
+[​
+](#working-groups-and-interest-groups)
+Working Groups and Interest Groups
+MCP collaboration and contributions are organized around two structures: [Working Groups and Interest Groups](/community/working-interest-groups).
+* **Interest Groups** identify and articulate problems that MCP should address through open discussions
+* **Working Groups** develop concrete solutions by producing deliverables like SEPs or implementations
+For details on how to create, participate in, and facilitate these groups, see the [Working and Interest Groups](/community/working-interest-groups) documentation.
+###
+[​
+](#specification-enhancement-proposals-seps)
+Specification Enhancement Proposals (SEPs)
+Proposed changes to the specification must be submitted as [Specification Enhancement Proposals (SEPs)](/community/sep-guidelines). SEPs are the primary mechanism for proposing major new features, collecting community input, and documenting design decisions.
+For the complete SEP process, format requirements, and status workflow, see the [SEP Guidelines](/community/sep-guidelines).
+###
+[​
+](#maintenance-responsibilities)
+Maintenance Responsibilities
+Components without dedicated maintainers (such as documentation) fall under Core Maintainer responsibility. These follow standard contribution guidelines through pull requests, with maintainers handling reviews and escalating to Core Maintainer review for any significant changes.
+Core Maintainers and Maintainers are encouraged to improve any part of the MCP project, regardless of formal maintenance assignments.
+##
+[​
+](#communication)
+Communication
+###
+[​
+](#core-maintainer-meetings)
+Core Maintainer Meetings
+The Core Maintainer group meets on a bi-weekly basis to discuss proposals and the project. Notes on proposals should be made public. The Core Maintainer group will strive to meet in person every 3-6 months.
+###
+[​
+](#public-chat)
+Public Chat
+The MCP project maintains a [public Discord server](https://discord.gg/6CSzBmMkjX) with open chats for interest groups. The MCP project may have private channels for certain communications.
+##
+[​
+](#nominating-confirming-and-removing-maintainers)
+Nominating, Confirming, and Removing Maintainers
+Membership in maintainer groups is given to **individuals** on a merit basis after demonstrated expertise and alignment with MCP’s direction. Membership is associated with the person, not their employer, and has no term limit.
+The nomination process, sponsorship requirements, review timeline, and inactivity criteria for each role are defined in the [Contributor Ladder’s Advancement Process](/community/contributor-ladder#advancement-process).
+##
+[​
+](#current-lead-maintainers)
+Current Lead Maintainers
+* David Soria Parra
+* Den Delimarsky
+##
+[​
+](#current-core-maintainers)
+Current Core Maintainers
+* Peter Alexander
+* Caitie McCaffrey
+* Kurtis Van Gent
+* Clare Liguori
+* Paul Carleton
+* Nick Cooper
+* Nick Aldridge
+* Che Liu
+##
+[​
+](#emeritus)
+Emeritus
+* Justin Spahr-Summers (Co-Inventor, Lead Maintainer Emeritus)
+##
+[​
+](#current-maintainers-and-working-groups)
+Current Maintainers and Working Groups
+Refer to [the maintainer list](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/MAINTAINERS.md).

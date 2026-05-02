@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/zero-shot\_classification\_with\_embeddings [Redirecting from `/cookbook/examples/zero-shot\_classification\_with\_embeddings.ipynb/` to `/cookbook/examples/zero-shot\_classification\_with\_embeddings`](/cookbook/examples/zero-shot_classification_with_embeddings)

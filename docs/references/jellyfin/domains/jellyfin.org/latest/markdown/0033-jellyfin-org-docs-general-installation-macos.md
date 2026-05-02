@@ -1,0 +1,19 @@
+macOS | Jellyfin
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+On this page
+## Installing on macOS[​](#installing-on-macos)
+1. Download the latest version DMG image from [the downloads page](/downloads/macos). For Apple Silicon Macs below macOS 14, please update to a newer version of macOS or download the x86 release.
+2. Drag the `.app` package into the Applications folder.
+3. Start the application.
+4. Click the icon in the menu bar and select "Launch".
+## Updating on macOS[​](#updating-on-macos)
+1. Download the latest version DMG image from [the downloads page](/downloads/macos).
+2. Stop the currently running server either via the dashboard or using the menu bar icon.
+3. Drag the new `.app` package into the Applications folder and click yes to replace the files.
+4. Start the application.
+## Uninstalling on macOS[​](#uninstalling-on-macos)
+1. Stop the currently running server either via the dashboard or using the application icon.
+2. Move the `.app` package to the trash.
+* [Installing on macOS](#installing-on-macos)
+* [Updating on macOS](#updating-on-macos)
+* [Uninstalling on macOS](#uninstalling-on-macos)

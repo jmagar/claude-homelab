@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/multiclass\_classification\_for\_transactions [Redirecting from `/cookbook/examples/multiclass\_classification\_for\_transactions.ipynb/` to `/cookbook/examples/multiclass\_classification\_for\_transactions`](/cookbook/examples/multiclass_classification_for_transactions)

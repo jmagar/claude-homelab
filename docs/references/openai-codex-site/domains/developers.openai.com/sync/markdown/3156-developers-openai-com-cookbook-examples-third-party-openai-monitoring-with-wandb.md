@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/third\_party/openai\_monitoring\_with\_wandb\_weave [Redirecting from `/cookbook/examples/third\_party/openai\_monitoring\_with\_wandb\_weave.ipynb/` to `/cookbook/examples/third\_party/openai\_monitoring\_with\_wandb\_weave`](/cookbook/examples/third_party/openai_monitoring_with_wandb_weave)

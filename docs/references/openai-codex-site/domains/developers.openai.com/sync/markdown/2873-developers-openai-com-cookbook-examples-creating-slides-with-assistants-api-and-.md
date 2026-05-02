@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/creating\_slides\_with\_assistants\_api\_and\_dall-e3 [Redirecting from `/cookbook/examples/creating\_slides\_with\_assistants\_api\_and\_dall-e3.ipynb/` to `/cookbook/examples/creating\_slides\_with\_assistants\_api\_and\_dall-e3`](/cookbook/examples/creating_slides_with_assistants_api_and_dall-e3)

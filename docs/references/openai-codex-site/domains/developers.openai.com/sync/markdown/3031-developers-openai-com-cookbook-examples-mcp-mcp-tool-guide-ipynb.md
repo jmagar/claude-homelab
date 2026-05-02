@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/mcp/mcp\_tool\_guide [Redirecting from `/cookbook/examples/mcp/mcp\_tool\_guide.ipynb/` to `/cookbook/examples/mcp/mcp\_tool\_guide`](/cookbook/examples/mcp/mcp_tool_guide)

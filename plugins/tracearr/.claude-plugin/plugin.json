@@ -1,0 +1,23 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "tracearr",
+  "version": "1.4.1",
+  "description": "Tracearr media-server monitoring workflows for Plex, Jellyfin, and Emby.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "license": "MIT",
+  "keywords": [
+    "tracearr",
+    "plex",
+    "jellyfin",
+    "emby",
+    "media",
+    "monitoring",
+    "analytics",
+    "homelab"
+  ]
+}

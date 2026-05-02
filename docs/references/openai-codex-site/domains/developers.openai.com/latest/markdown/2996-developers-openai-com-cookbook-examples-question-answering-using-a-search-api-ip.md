@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/question\_answering\_using\_a\_search\_api [Redirecting from `/cookbook/examples/question\_answering\_using\_a\_search\_api.ipynb/` to `/cookbook/examples/question\_answering\_using\_a\_search\_api`](/cookbook/examples/question_answering_using_a_search_api)

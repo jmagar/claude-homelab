@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/using\_tool\_required\_for\_customer\_service [Redirecting from `/cookbook/examples/using\_tool\_required\_for\_customer\_service.ipynb/` to `/cookbook/examples/using\_tool\_required\_for\_customer\_service`](/cookbook/examples/using_tool_required_for_customer_service)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_snowflake\_direct [Redirecting from `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_snowflake\_direct.ipynb/` to `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_snowflake\_direct`](/cookbook/examples/chatgpt/gpt_actions_library/gpt_action_snowflake_direct)

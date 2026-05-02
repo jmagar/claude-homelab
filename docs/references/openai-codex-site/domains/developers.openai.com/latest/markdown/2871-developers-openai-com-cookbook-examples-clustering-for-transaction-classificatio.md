@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/clustering\_for\_transaction\_classification [Redirecting from `/cookbook/examples/clustering\_for\_transaction\_classification.ipynb/` to `/cookbook/examples/clustering\_for\_transaction\_classification`](/cookbook/examples/clustering_for_transaction_classification)

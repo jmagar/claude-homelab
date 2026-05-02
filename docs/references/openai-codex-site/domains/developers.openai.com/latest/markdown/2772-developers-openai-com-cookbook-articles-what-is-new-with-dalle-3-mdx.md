@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/articles/what\_is\_new\_with\_dalle\_3 [Redirecting from `/cookbook/articles/what\_is\_new\_with\_dalle\_3.mdx/` to `/cookbook/articles/what\_is\_new\_with\_dalle\_3`](/cookbook/articles/what_is_new_with_dalle_3)

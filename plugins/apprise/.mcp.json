@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "apprise": {
+      "command": "lab",
+      "args": [
+        "mcp",
+        "--services",
+        "apprise"
+      ]
+    }
+  }
+}

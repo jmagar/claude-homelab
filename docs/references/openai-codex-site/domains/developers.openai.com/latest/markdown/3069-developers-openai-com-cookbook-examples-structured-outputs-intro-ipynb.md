@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/structured\_outputs\_intro [Redirecting from `/cookbook/examples/structured\_outputs\_intro.ipynb/` to `/cookbook/examples/structured\_outputs\_intro`](/cookbook/examples/structured_outputs_intro)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/how\_to\_eval\_abstractive\_summarization [Redirecting from `/cookbook/examples/evaluation/how\_to\_eval\_abstractive\_summarization.ipynb/` to `/cookbook/examples/evaluation/how\_to\_eval\_abstractive\_summarization`](/cookbook/examples/evaluation/how_to_eval_abstractive_summarization)

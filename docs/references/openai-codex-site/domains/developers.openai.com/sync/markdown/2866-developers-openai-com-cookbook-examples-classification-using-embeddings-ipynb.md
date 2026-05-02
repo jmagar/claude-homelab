@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/classification\_using\_embeddings [Redirecting from `/cookbook/examples/classification\_using\_embeddings.ipynb/` to `/cookbook/examples/classification\_using\_embeddings`](/cookbook/examples/classification_using_embeddings)

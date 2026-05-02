@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/whisper\_correct\_misspelling [Redirecting from `/cookbook/examples/whisper\_correct\_misspelling.ipynb/` to `/cookbook/examples/whisper\_correct\_misspelling`](/cookbook/examples/whisper_correct_misspelling)

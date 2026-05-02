@@ -1,0 +1,2 @@
+VPN Replacement for Multi-Cloud Infrastructure | Secure Cloud Access with Tailscale
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)

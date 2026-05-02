@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/use-cases/structured-outputs-evaluation [Redirecting from `/cookbook/examples/evaluation/use-cases/structured-outputs-evaluation.ipynb/` to `/cookbook/examples/evaluation/use-cases/structured-outputs-evaluation`](/cookbook/examples/evaluation/use-cases/structured-outputs-evaluation)

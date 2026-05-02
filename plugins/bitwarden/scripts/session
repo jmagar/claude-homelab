@@ -1,0 +1,102 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: session <command>
+
+Commands:
+  unlock   Prompt for the Bitwarden master password and write the MCP session file
+  lock     Lock Bitwarden and remove the MCP session file
+  ensure   Write a usable MCP session file when the current one is missing or stale
+  status   Exit 0 when the saved MCP session is usable
+  path     Print the MCP session file path
+EOF
+}
+
+session_file() {
+  printf '%s/bitwarden-mcp/session\n' "${XDG_RUNTIME_DIR:-/run/user/$(id -u)}"
+}
+
+require_bw() {
+  if ! command -v bw >/dev/null 2>&1; then
+    printf 'bitwarden session: Bitwarden CLI %s is not on PATH\n' "'bw'" >&2
+    exit 1
+  fi
+}
+
+unlock() {
+  require_bw
+
+  local file dir
+  file="$(session_file)"
+  dir="$(dirname "$file")"
+
+  mkdir -p "$dir"
+  chmod 700 "$dir"
+  bw unlock --raw > "$file"
+  chmod 600 "$file"
+  printf 'Bitwarden MCP session written to %s\n' "$file"
+}
+
+lock() {
+  require_bw
+
+  local file
+  file="$(session_file)"
+
+  bw lock
+  rm -f "$file"
+  printf 'Bitwarden MCP session removed\n'
+}
+
+status() {
+  require_bw
+
+  local file
+  file="$(session_file)"
+
+  [[ -r "$file" ]] || exit 1
+  BW_SESSION="$(<"$file")" bw unlock --check >/dev/null 2>&1
+}
+
+ensure() {
+  if status; then
+    return 0
+  fi
+
+  printf 'Unlocking Bitwarden for MCP...\n' >&2
+  unlock
+}
+
+main() {
+  local command_name="${1:-}"
+
+  case "$command_name" in
+    unlock)
+      unlock
+      ;;
+    lock)
+      lock
+      ;;
+    ensure)
+      ensure
+      ;;
+    status)
+      status
+      ;;
+    path)
+      session_file
+      ;;
+    -h|--help|help|'')
+      usage
+      ;;
+    *)
+      printf 'Unknown command: %s\n\n' "$command_name" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+}
+
+main "$@"

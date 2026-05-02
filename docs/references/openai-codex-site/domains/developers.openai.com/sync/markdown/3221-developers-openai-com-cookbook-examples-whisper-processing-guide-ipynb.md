@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/whisper\_processing\_guide [Redirecting from `/cookbook/examples/whisper\_processing\_guide.ipynb/` to `/cookbook/examples/whisper\_processing\_guide`](/cookbook/examples/whisper_processing_guide)

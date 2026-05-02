@@ -1,0 +1,5 @@
+One post tagged with "testing" | Jellyfin
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+We are pleased to announce that we are now beginning the process for the 10.10.0 release, with a *planned* release date of Saturday, October 26th (updated - see below), 2024! We said 6 months in our 10.9.0 release posts, and we're sticking by that! The feature freeze proper starts next week, with a soft "new PR freeze" today, so here's what you need to know about the timeline and a recap of how to help us test 10.10.0 before release. Remember, the more people who help test it out before release, the less bugs we're likely to find *after* release, so fire up those secondary servers and warn your users: 10.10.0 is coming!
+Developers/contributors, and those users who want a bit more information, please read on!
+- Joshua

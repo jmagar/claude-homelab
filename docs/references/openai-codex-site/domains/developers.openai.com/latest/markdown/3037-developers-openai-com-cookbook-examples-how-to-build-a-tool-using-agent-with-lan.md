@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_build\_a\_tool-using\_agent\_with\_langchain [Redirecting from `/cookbook/examples/how\_to\_build\_a\_tool-using\_agent\_with\_langchain.ipynb/` to `/cookbook/examples/how\_to\_build\_a\_tool-using\_agent\_with\_langchain`](/cookbook/examples/how_to_build_a_tool-using_agent_with_langchain)

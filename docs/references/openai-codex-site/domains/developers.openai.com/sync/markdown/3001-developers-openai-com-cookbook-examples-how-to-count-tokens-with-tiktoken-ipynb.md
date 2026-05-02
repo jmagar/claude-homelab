@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_count\_tokens\_with\_tiktoken [Redirecting from `/cookbook/examples/how\_to\_count\_tokens\_with\_tiktoken.ipynb/` to `/cookbook/examples/how\_to\_count\_tokens\_with\_tiktoken`](/cookbook/examples/how_to_count_tokens_with_tiktoken)

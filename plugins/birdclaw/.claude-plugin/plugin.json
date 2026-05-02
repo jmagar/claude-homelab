@@ -1,7 +1,7 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
   "name": "birdclaw",
-  "displayName": "birdclaw",
-  "version": "0.1.0",
+  "version": "1.4.1",
   "description": "Local-first X/Twitter archive CLI by Peter Steinberger. Syncs likes, bookmarks, DMs, and mentions to a local SQLite database. Transport-agnostic: xurl (X API v2, paid tier) or bird (external cookie-backed CLI). No MCP server — pure CLI.",
   "author": {
     "name": "Jacob Magar",

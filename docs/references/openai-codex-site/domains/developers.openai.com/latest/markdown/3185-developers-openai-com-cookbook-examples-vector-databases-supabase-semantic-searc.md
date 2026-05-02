@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/supabase/semantic-search [Redirecting from `/cookbook/examples/vector\_databases/supabase/semantic-search.mdx/` to `/cookbook/examples/vector\_databases/supabase/semantic-search`](/cookbook/examples/vector_databases/supabase/semantic-search)

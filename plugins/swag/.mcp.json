@@ -1,0 +1,41 @@
+{
+  "mcpServers": {
+    "swag-mcp": {
+      "command": "uv",
+      "args": [
+        "run",
+        "--project",
+        "${CLAUDE_PLUGIN_ROOT}",
+        "python",
+        "-m",
+        "swag_mcp"
+      ],
+      "env": {
+        "UV_PROJECT_ENVIRONMENT": "${CLAUDE_PLUGIN_DATA}/.venv",
+        "SWAG_MCP_PROXY_CONFS_PATH": "${userConfig.swag_proxy_confs_path}",
+        "SWAG_MCP_PROXY_CONFS_URI": "${userConfig.swag_proxy_confs_uri}",
+        "SWAG_MCP_NO_AUTH": "true",
+        "SWAG_MCP_TOKEN": "",
+        "SWAG_MCP_DEFAULT_AUTH_METHOD": "authelia",
+        "SWAG_MCP_DEFAULT_QUIC_ENABLED": "false",
+        "SWAG_MCP_BACKUP_RETENTION_DAYS": "30",
+        "SWAG_MCP_LOG_LEVEL": "INFO",
+        "SWAG_MCP_LOG_FILE_ENABLED": "false",
+        "SWAG_MCP_ENABLE_STRUCTURED_LOGGING": "false",
+        "SWAG_MCP_RATE_LIMIT_ENABLED": "false",
+        "SWAG_MCP_ENABLE_RETRY_MIDDLEWARE": "true",
+        "SWAG_MCP_MAX_RETRIES": "3"
+      }
+    },
+    "swag-mcp-remote": {
+      "command": "mcp-remote",
+      "args": [
+        "${SWAG_MCP_URL}"
+      ],
+      "env": {
+        "SWAG_MCP_URL": "",
+        "SWAG_MCP_TOKEN": ""
+      }
+    }
+  }
+}

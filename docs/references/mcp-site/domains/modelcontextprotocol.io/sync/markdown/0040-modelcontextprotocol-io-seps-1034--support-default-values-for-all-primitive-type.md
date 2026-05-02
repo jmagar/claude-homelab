@@ -1,0 +1,158 @@
+SEP-1034: Support default values for all primitive types in elicitation schemas - Model Context Protocol
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://modelcontextprotocol.io/llms.txt
+](https://modelcontextprotocol.io/llms.txt)
+> Use this file to discover all available pages before exploring further.
+FinalStandards Track
+|Field|Value|
+|**SEP**|1034|
+|**Title**|Support default values for all primitive types in elicitation schemas|
+|**Status**|Final|
+|**Type**|Standards Track|
+|**Created**|2025-07-22|
+|**Author(s)**|Tapan Chugh (chugh.tapan[@gmail](https://github.com/gmail).com)|
+|**Sponsor**|None|
+|**PR**|[#1034](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/1034)|
+##
+[​
+](#abstract)
+Abstract
+This SEP recommends adding support for default values to all primitive types in the MCP elicitation schema (StringSchema, NumberSchema, and EnumSchema), extending the existing support that only covers BooleanSchema.
+##
+[​
+](#motivation)
+Motivation
+Elicitations in MCP offer a way to mitigate complex API designs: tools can request information on-demand rather than resorting to convoluted parameter handling. The challenge however is that users must manually enter obvious information that could be pre-populated for more natural interactions. Currently, only `BooleanSchema` supports default values in elicitation requests. This limitation prevents servers from providing sensible defaults for text inputs, numbers, and enum selections leading to more user overhead.
+###
+[​
+](#real-world-example)
+Real-World Example
+Consider implementing an email reply function. Without elicitation, the tool becomes unwieldy:
+```
+`def reply\_to\_email\_thread(
+thread\_id: str,
+content: str,
+recipient\_list: List[str] = [],
+cc\_list: List[str] = []
+) -\> None:
+# Ambiguity: Does empty list mean "no recipients" or "use defaults"?
+# Complex logic needed to handle different combinations
+`
+```
+With elicitation, the tool signature itself can be much simpler
+```
+`def reply\_to\_email\_thread(
+thread\_id: str,
+content: Optional[str] = ""
+) -\> None:
+# Code can lookup the participants from the original thread
+# and prepare an elicitation request with the defaults setup
+`
+```
+```
+`const response = await client.request("elicitation/create", {
+message: "Configure email reply",
+requestedSchema: {
+type: "object",
+properties: {
+recipients: {
+type: "string",
+title: "Recipients",
+default: "alice@company.com, bob@company.com" // Pre-filled
+},
+cc: {
+type: "string",
+title: "CC",
+default: "john@company.com" // Pre-filled
+},
+content: {
+type: "string",
+title: "Message"
+default: "" // If provided in the tool above
+}
+}
+}
+});
+`
+```
+###
+[​
+](#implementation)
+Implementation
+A working implementation demonstrating clients require minimal changes to display defaults (\~10 lines of code):
+* Implementation PR: [https://github.com/chughtapan/fast-agent/pull/2](https://github.com/chughtapan/fast-agent/pull/2)
+* A demo with the above email reply workflow: [https://asciinema.org/a/X7aQZjT2B5jVwn9dJ9sqQVkOM](https://asciinema.org/a/X7aQZjT2B5jVwn9dJ9sqQVkOM)
+##
+[​
+](#specification)
+Specification
+###
+[​
+](#schema-changes)
+Schema Changes
+Extend the elicitation primitive schemas to include optional default values:
+```
+`export interface StringSchema {
+type: "string";
+title?: string;
+description?: string;
+minLength?: number;
+maxLength?: number;
+format?: "email" | "uri" | "date" | "date-time";
+default?: string; // NEW
+}
+export interface NumberSchema {
+type: "number" | "integer";
+title?: string;
+description?: string;
+minimum?: number;
+maximum?: number;
+default?: number; // NEW
+}
+export interface EnumSchema {
+type: "string";
+title?: string;
+description?: string;
+enum: string[];
+enumNames?: string[];
+default?: string; // NEW - must be one of enum values
+}
+// BooleanSchema already has default?: boolean
+`
+```
+###
+[​
+](#behavior)
+Behavior
+1. The `default` field is optional, maintaining full backward compatibility
+2. Default values must match the schema type
+3. For EnumSchema, the default must be one of the valid enum values
+4. Clients that support defaults SHOULD pre-populate form fields. Clients that don’t support defaults MAY ignore the field entirely.
+##
+[​
+](#rationale)
+Rationale
+1. The high-level rationale is to follow the precedent set by BooleanSchema rather than creating new mechanisms.
+2. Making defaults optional ensures backward compatibility.
+3. This maintains the high-level intuition of keeping the client implementation simple.
+###
+[​
+](#alternatives-considered)
+Alternatives Considered
+1. **Server-side Templates**: Servers could maintain templates separately, but this adds complexity
+2. **New Request Type**: A separate request type for forms with defaults would fragment the API
+3. **Required Defaults**: Making defaults required would break existing implementations
+##
+[​
+](#backwards-compatibility)
+Backwards Compatibility
+This change is fully backward compatible with no breaking changes. Clients that don’t understand defaults will ignore them, and existing elicitation requests continue to work unchanged. Clients can adopt default support at their own pace
+##
+[​
+](#security-implications)
+Security Implications
+No new security concerns:
+1. **No Sensitive Data**: The existing guidance against requesting sensitive information still applies
+2. **Client Control**: Clients retain full control over what data is sent to servers
+3. **User Visibility**: Default values are visible to users who can modify them before submission

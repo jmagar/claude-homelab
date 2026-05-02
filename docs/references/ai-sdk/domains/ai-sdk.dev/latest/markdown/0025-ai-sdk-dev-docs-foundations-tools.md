@@ -1,0 +1,288 @@
+Foundations: Tools
+[](https://vercel.com/oss)
+Menu
+v6 (Latest)
+AI SDK 6.x
+[AI SDK by Vercel](/docs/introduction)
+[Foundations](/docs/foundations)
+[Overview](/docs/foundations/overview)
+[Providers and Models](/docs/foundations/providers-and-models)
+[Prompts](/docs/foundations/prompts)
+[Tools](/docs/foundations/tools)
+[Streaming](/docs/foundations/streaming)
+[Provider Options](/docs/foundations/provider-options)
+[Getting Started](/docs/getting-started)
+[Choosing a Provider](/docs/getting-started/choosing-a-provider)
+[Navigating the Library](/docs/getting-started/navigating-the-library)
+[Next.js App Router](/docs/getting-started/nextjs-app-router)
+[Next.js Pages Router](/docs/getting-started/nextjs-pages-router)
+[Svelte](/docs/getting-started/svelte)
+[Vue.js (Nuxt)](/docs/getting-started/nuxt)
+[Node.js](/docs/getting-started/nodejs)
+[Expo](/docs/getting-started/expo)
+[TanStack Start](/docs/getting-started/tanstack-start)
+[Coding Agents](/docs/getting-started/coding-agents)
+[Agents](/docs/agents)
+[Overview](/docs/agents/overview)
+[Building Agents](/docs/agents/building-agents)
+[Workflow Patterns](/docs/agents/workflows)
+[Loop Control](/docs/agents/loop-control)
+[Configuring Call Options](/docs/agents/configuring-call-options)
+[Memory](/docs/agents/memory)
+[Subagents](/docs/agents/subagents)
+[AI SDK Core](/docs/ai-sdk-core)
+[Overview](/docs/ai-sdk-core/overview)
+[Generating Text](/docs/ai-sdk-core/generating-text)
+[Generating Structured Data](/docs/ai-sdk-core/generating-structured-data)
+[Tool Calling](/docs/ai-sdk-core/tools-and-tool-calling)
+[Model Context Protocol (MCP)](/docs/ai-sdk-core/mcp-tools)
+[Prompt Engineering](/docs/ai-sdk-core/prompt-engineering)
+[Settings](/docs/ai-sdk-core/settings)
+[Embeddings](/docs/ai-sdk-core/embeddings)
+[Reranking](/docs/ai-sdk-core/reranking)
+[Image Generation](/docs/ai-sdk-core/image-generation)
+[Transcription](/docs/ai-sdk-core/transcription)
+[Speech](/docs/ai-sdk-core/speech)
+[Video Generation](/docs/ai-sdk-core/video-generation)
+[Language Model Middleware](/docs/ai-sdk-core/middleware)
+[Provider & Model Management](/docs/ai-sdk-core/provider-management)
+[Error Handling](/docs/ai-sdk-core/error-handling)
+[Testing](/docs/ai-sdk-core/testing)
+[Telemetry](/docs/ai-sdk-core/telemetry)
+[DevTools](/docs/ai-sdk-core/devtools)
+[Event Callbacks](/docs/ai-sdk-core/event-listeners)
+[AI SDK UI](/docs/ai-sdk-ui)
+[Overview](/docs/ai-sdk-ui/overview)
+[Chatbot](/docs/ai-sdk-ui/chatbot)
+[Chatbot Message Persistence](/docs/ai-sdk-ui/chatbot-message-persistence)
+[Chatbot Resume Streams](/docs/ai-sdk-ui/chatbot-resume-streams)
+[Chatbot Tool Usage](/docs/ai-sdk-ui/chatbot-tool-usage)
+[Generative User Interfaces](/docs/ai-sdk-ui/generative-user-interfaces)
+[Completion](/docs/ai-sdk-ui/completion)
+[Object Generation](/docs/ai-sdk-ui/object-generation)
+[Streaming Custom Data](/docs/ai-sdk-ui/streaming-data)
+[Error Handling](/docs/ai-sdk-ui/error-handling)
+[Transport](/docs/ai-sdk-ui/transport)
+[Reading UIMessage Streams](/docs/ai-sdk-ui/reading-ui-message-streams)
+[Message Metadata](/docs/ai-sdk-ui/message-metadata)
+[Stream Protocols](/docs/ai-sdk-ui/stream-protocol)
+[AI SDK RSC](/docs/ai-sdk-rsc)
+[Advanced](/docs/advanced)
+[Reference](/docs/reference)
+[AI SDK Core](/docs/reference/ai-sdk-core)
+[AI SDK UI](/docs/reference/ai-sdk-ui)
+[AI SDK RSC](/docs/reference/ai-sdk-rsc)
+[AI SDK Errors](/docs/reference/ai-sdk-errors)
+[Migration Guides](/docs/migration-guides)
+[Troubleshooting](/docs/troubleshooting)
+Copy markdown
+# [Tools](#tools)
+While [large language models (LLMs)](/docs/foundations/overview#large-language-models) have incredible generation capabilities,
+they struggle with discrete tasks (e.g. mathematics) and interacting with the outside world (e.g. getting the weather).
+Tools are actions that an LLM can invoke.
+The results of these actions can be reported back to the LLM to be considered in the next response.
+For example, when you ask an LLM for the "weather in London", and there is a weather tool available, it could call a tool
+with London as the argument. The tool would then fetch the weather data and return it to the LLM. The LLM can then use this
+information in its response.
+## [What is a tool?](#what-is-a-tool)
+A tool is an object that can be called by the model to perform a specific task.
+You can use tools with [`generateText`](/docs/reference/ai-sdk-core/generate-text)
+and [`streamText`](/docs/reference/ai-sdk-core/stream-text) by passing one or more tools to the `tools` parameter.
+A tool consists of three properties:
+* **`description`**: An optional description of the tool that can influence when the tool is picked.
+* **`inputSchema`**: A [Zod schema](/docs/reference/ai-sdk-core/zod-schema) or a [JSON schema](/docs/reference/ai-sdk-core/json-schema) that defines the input required for the tool to run. The schema is consumed by the LLM, and also used to validate the LLM tool calls.
+* **`execute`**: An optional async function that is called with the arguments from the tool call.
+`streamUI` uses UI generator tools with a `generate` function that can return
+React components.
+If the LLM decides to use a tool, it will generate a tool call.
+Tools with an `execute` function are run automatically when these calls are generated.
+The output of the tool calls are returned using tool result objects.
+You can automatically pass tool results back to the LLM
+using [multi-step calls](/docs/ai-sdk-core/tools-and-tool-calling#multi-step-calls) with `streamText` and `generateText`.
+## [Types of Tools](#types-of-tools)
+The AI SDK supports three types of tools, each with different trade-offs:
+### [Custom Tools](#custom-tools)
+Custom tools are tools you define entirely yourself, including the description, input schema, and execute function. They are provider-agnostic and give you full control.
+```
+`
+import { tool } from 'ai';
+import { z } from 'zod';
+const weatherTool = tool({
+description: 'Get the weather in a location',
+inputSchema: z.object({
+location: z.string().describe('The location to get the weather for'),
+}),
+execute: async ({ location }) =\> {
+// Your implementation
+return { temperature: 72, conditions: 'sunny' };
+},
+});
+`
+```
+**When to use**: When you need full control, want provider portability, or are implementing application-specific functionality.
+### [Provider-Defined Tools](#provider-defined-tools)
+Provider-defined tools are tools where the provider specifies the tool's `inputSchema` and `description`, but you provide the `execute` function. These are sometimes called "client tools" because execution happens on your side.
+Examples include Anthropic's `bash` and `text\_editor` tools. The model has been specifically trained to use these tools effectively, which can result in better performance for supported tasks.
+```
+`
+import { anthropic } from '@ai-sdk/anthropic';
+import { generateText } from 'ai';
+const result = await generateText({
+model: anthropic('claude-opus-4-5'),
+tools: {
+bash: anthropic.tools.bash\_20250124({
+execute: async ({ command }) =\> {
+// Your implementation to run the command
+return runCommand(command);
+},
+}),
+},
+prompt: 'List files in the current directory',
+});
+`
+```
+**When to use**: When the provider offers a tool the model is trained to use well, and you want better performance for that specific task.
+### [Provider-Executed Tools](#provider-executed-tools)
+Provider-executed tools are tools that run entirely on the provider's servers. You configure them, but the provider handles execution. These are sometimes called "server-side tools".
+Examples include OpenAI's web search and Anthropic's code execution. These provide out-of-the-box functionality without requiring you to set up infrastructure.
+```
+`
+import { openai } from '@ai-sdk/openai';
+import { generateText } from 'ai';
+const result = await generateText({
+model: openai('gpt-5.2'),
+tools: {
+web\_search: openai.tools.webSearch(),
+},
+prompt: 'What happened in the news today?',
+});
+`
+```
+**When to use**: When you want powerful functionality (like web search or sandboxed code execution) without managing the infrastructure yourself.
+### [Comparison](#comparison)
+|Aspect|Custom Tools|Provider-Defined Tools|Provider-Executed Tools|
+|**Execution**|Your code|Your code|Provider's servers|
+|**Schema**|You define|Provider defines|Provider defines|
+|**Portability**|Works with any provider|Provider-specific|Provider-specific|
+|**Model Training**|General tool use|Optimized for the tool|Optimized for the tool|
+|**Setup**|You implement everything|You implement execute|Configuration only|
+Provider-defined and provider-executed tools are documented in each provider's
+page. See [Anthropic Provider](/providers/ai-sdk-providers/anthropic) and
+[OpenAI Provider](/providers/ai-sdk-providers/openai) for examples.
+## [Schemas](#schemas)
+Schemas are used to define and validate the [tool input](/docs/ai-sdk-core/tools-and-tool-calling), tools outputs, and structured output generation.
+The AI SDK supports the following schemas:
+* [Zod](https://zod.dev/) v3 and v4 directly or via [`zodSchema()`](/docs/reference/ai-sdk-core/zod-schema)
+* [Valibot](https://valibot.dev/) via [`valibotSchema()`](/docs/reference/ai-sdk-core/valibot-schema) from `@ai-sdk/valibot`
+* [Standard JSON Schema](https://standardschema.dev/json-schema) compatible schemas
+* Raw JSON schemas via [`jsonSchema()`](/docs/reference/ai-sdk-core/json-schema)
+You can also use schemas for structured output generation with
+[`generateText`](/docs/reference/ai-sdk-core/generate-text) and
+[`streamText`](/docs/reference/ai-sdk-core/stream-text) using the `output`
+setting.
+## [Tool Packages](#tool-packages)
+Given tools are JavaScript objects, they can be packaged and distributed through npm like any other library. This makes it easy to share reusable tools across projects and with the community.
+### [Using Ready-Made Tool Packages](#using-ready-made-tool-packages)
+Install a tool package and import the tools you need:
+```
+`
+pnpm add some-tool-package
+`
+```
+Then pass them directly to `generateText`, `streamText`, or your agent definition:
+```
+`
+import { generateText, stepCountIs } from 'ai';
+import { searchTool } from 'some-tool-package';
+const { text } = await generateText({
+model: 'anthropic/claude-haiku-4.5',
+prompt: 'When was Vercel Ship AI?',
+tools: {
+webSearch: searchTool,
+},
+stopWhen: stepCountIs(10),
+});
+`
+```
+### [Publishing Your Own Tools](#publishing-your-own-tools)
+You can publish your own tool packages to npm for others to use. Simply export your tool objects from your package:
+my-tools/index.ts
+```
+`
+import { tool } from 'ai';
+import { z } from 'zod';
+export const myTool = tool({
+description: 'A helpful tool',
+inputSchema: z.object({
+query: z.string(),
+}),
+execute: async ({ query }) =\> {
+// your tool logic
+return result;
+},
+});
+`
+```
+Anyone can then install and use your tools by importing them.
+To get started, you can use the [AI SDK Tool Package Template](https://github.com/vercel-labs/ai-sdk-tool-as-package-template) which provides a ready-to-use starting point for publishing your own tools.
+## [Toolsets](#toolsets)
+When you work with tools, you typically need a mix of application-specific tools and general-purpose tools. The community has created various toolsets and resources to help you build and use tools.
+### [Ready-to-Use Tool Packages](#ready-to-use-tool-packages)
+These packages provide pre-built tools you can install and use immediately:
+* **[@exalabs/ai-sdk](https://www.npmjs.com/package/@exalabs/ai-sdk)** - Web search tool that lets AI search the web and get real-time information.
+* **[@parallel-web/ai-sdk-tools](https://www.npmjs.com/package/@parallel-web/ai-sdk-tools)** - Web search and extract tools powered by Parallel Web API for real-time information and content extraction.
+* **[@perplexity-ai/ai-sdk](https://www.npmjs.com/package/@perplexity-ai/ai-sdk)** - Search the web with real-time results and advanced filtering powered by Perplexity's Search API.
+* **[@tavily/ai-sdk](https://www.npmjs.com/package/@tavily/ai-sdk)** - Search, extract, crawl, and map tools for enterprise-grade agents to explore the web in real-time.
+* **[Stripe agent tools](https://docs.stripe.com/agents?framework=vercel)** - Tools for interacting with Stripe.
+* **[StackOne ToolSet](https://docs.stackone.com/agents/typescript/frameworks/vercel-ai-sdk)** - Agentic integrations for hundreds of [enterprise SaaS](https://www.stackone.com/integrations) platforms.
+* **[agentic](https://docs.agentic.so/marketplace/ts-sdks/ai-sdk)** - A collection of 20+ tools that connect to external APIs such as [Exa](https://exa.ai/) or [E2B](https://e2b.dev/).
+* **[Amazon Bedrock AgentCore](https://github.com/aws/bedrock-agentcore-sdk-typescript)** - Fully managed AI agent services including [**Browser**](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/built-in-tools.html) (a fast and secure cloud-based browser runtime to enable agents to interact with web applications, fill forms, navigate websites, and extract information) and [**Code Interpreter**](https://docs.aws.amazon.com/bedrock-agentcore/latest/devguide/built-in-tools.html) (an isolated sandbox environment for agents to execute code in Python, JavaScript, and TypeScript, enhancing accuracy and expanding ability to solve complex end-to-end tasks).
+* **[@airweave/vercel-ai-sdk](https://www.npmjs.com/package/@airweave/vercel-ai-sdk)** - Unified semantic search across 35+ data sources (Notion, Slack, Google Drive, databases, and more) for AI agents.
+* **[Composio](https://docs.composio.dev/providers/vercel)** - 250+ tools like GitHub, Gmail, Salesforce and [more](https://composio.dev/tools).
+* **[JigsawStack](http://www.jigsawstack.com/docs/integration/vercel)** - Over 30+ small custom fine-tuned models available for specific uses.
+* **[AI Tools Registry](https://ai-tools-registry.vercel.app)** - A Shadcn-compatible tool definitions and components registry for the AI SDK.
+* **[Toolhouse](https://docs.toolhouse.ai/toolhouse/toolhouse-sdk/using-vercel-ai)** - AI function-calling in 3 lines of code for over 25 different actions.
+* **[bash-tool](https://www.npmjs.com/package/bash-tool)** - Provides `bash`, `readFile`, and `writeFile` tools for AI agents. Supports [@vercel/sandbox](https://vercel.com/docs/vercel-sandbox) for full VM isolation.
+### [MCP Tools](#mcp-tools)
+These are pre-built tools available as MCP servers:
+* **[Smithery](https://smithery.ai/docs/integrations/vercel_ai_sdk)** - An open marketplace of 6,000+ MCPs, including [Browserbase](https://browserbase.com/) and [Exa](https://exa.ai/).
+* **[Pipedream](https://pipedream.com/docs/connect/mcp/ai-frameworks/vercel-ai-sdk)** - Developer toolkit that lets you easily add 3,000+ integrations to your app or AI agent.
+* **[Apify](https://docs.apify.com/platform/integrations/vercel-ai-sdk)** - Apify provides a [marketplace](https://apify.com/store) of thousands of tools for web scraping, data extraction, and browser automation.
+### [Tool Building Tutorials](#tool-building-tutorials)
+These tutorials and guides help you build your own tools that integrate with specific services:
+* **[browserbase](https://docs.browserbase.com/integrations/vercel/introduction#vercel-ai-integration)** - Tutorial for building browser tools that run a headless browser.
+* **[browserless](https://docs.browserless.io/ai-integrations/vercel-ai-sdk)** - Guide for integrating browser automation (self-hosted or cloud-based).
+* **[AI Tool Maker](https://github.com/nihaocami/ai-tool-maker)** - A CLI utility to generate AI SDK tools from OpenAPI specs.
+* **[Interlify](https://www.interlify.com/docs/integrate-with-vercel-ai)** - Guide for converting APIs into tools.
+* **[DeepAgent](https://deepagent.amardeep.space/docs/vercel-ai-sdk)** - A suite of 50+ AI tools and integrations, seamlessly connecting with APIs like Tavily, E2B, Airtable and [more](https://deepagent.amardeep.space/docs).
+Do you have open source tools or tool libraries that are compatible with the
+AI SDK? Please [file a pull request](https://github.com/vercel/ai/pulls) to
+add them to this list.
+## [Learn more](#learn-more)
+The AI SDK Core [Tool Calling](/docs/ai-sdk-core/tools-and-tool-calling)
+and [Agents](/docs/agents) documentation has more information about tools and tool calling.
+On this page
+[Tools](#tools)
+[What is a tool?](#what-is-a-tool)
+[Types of Tools](#types-of-tools)
+[Custom Tools](#custom-tools)
+[Provider-Defined Tools](#provider-defined-tools)
+[Provider-Executed Tools](#provider-executed-tools)
+[Comparison](#comparison)
+[Schemas](#schemas)
+[Tool Packages](#tool-packages)
+[Using Ready-Made Tool Packages](#using-ready-made-tool-packages)
+[Publishing Your Own Tools](#publishing-your-own-tools)
+[Toolsets](#toolsets)
+[Ready-to-Use Tool Packages](#ready-to-use-tool-packages)
+[MCP Tools](#mcp-tools)
+[Tool Building Tutorials](#tool-building-tutorials)
+[Learn more](#learn-more)
+Deploy and Scale AI Apps with Vercel
+Deliver AI experiences globally with one push.
+Trusted by industry leaders:
+*
+*
+*
+*
+[Sign Up](https://vercel.com/signup?utm_source=ai-sdk_site&amp;utm_medium=docs_card&amp;utm_content=sign-up)

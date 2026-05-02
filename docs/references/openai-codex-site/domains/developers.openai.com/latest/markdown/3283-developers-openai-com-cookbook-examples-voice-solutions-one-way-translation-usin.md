@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/voice\_solutions/one\_way\_translation\_using\_realtime\_api [Redirecting from `/cookbook/examples/voice\_solutions/one\_way\_translation\_using\_realtime\_api.mdx/` to `/cookbook/examples/voice\_solutions/one\_way\_translation\_using\_realtime\_api`](/cookbook/examples/voice_solutions/one_way_translation_using_realtime_api)

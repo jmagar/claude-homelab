@@ -1,0 +1,132 @@
+Docker (Recommended) | Seerr
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+On this page
+info
+This is the recommended method for most users.
+Details on how to install Docker can be found on the [official Docker website](https://docs.docker.com/get-docker/).
+Refer to [Configuring Databases](/extending-seerr/database-config#postgresql-options) for details on how to configure your database.
+info
+An alternative Docker image is available on Docker Hub for this project. You can find it at [Docker Hub Repository Link](https://hub.docker.com/r/seerr/seerr)
+Our Docker images are available with the following tags:
+* `latest`: Always points to the most recent stable release.
+* Version tags (e.g., `v3.0.0`): For specific stable versions.
+* Major version aliases (e.g., `v3`): Alias for the latest stable release in the respective major version series.
+* Minor version aliases (e.g., `v3.0`): Alias for the latest stable release in the respective minor version series.
+* `develop`: Rolling release/nightly builds for using the latest changes (use with caution).
+info
+All official Seerr images are cryptographically signed and include a verified [Software Bill of Materials (SBOM)](https://cyclonedx.org/).
+To confirm that the container image you are using is authentic and unmodified, please refer to the [Verifying Signed Artifacts](/using-seerr/advanced/verifying-signed-artifacts#verifying-signed-images) guide.
+## Unix (Linux, macOS)[​](#unix-linux-macos)
+warning
+Be sure to replace `/path/to/appdata/config` in the below examples with a valid host directory path. If this volume mount is not configured correctly, your Seerr settings/data will not be persisted when the container is recreated (e.g., when updating the image or rebooting your machine).
+The `TZ` environment variable value should also be set to the [TZ database name](https://en.wikipedia.org/wiki/List_of_tz_database_time_zones) of your time zone!
+* Docker CLI
+* Docker Compose
+For details on the Docker CLI, please [review the official `docker run` documentation](https://docs.docker.com/engine/reference/run/).
+#### Installation:[​](#installation)
+```
+`# Create the appdata folder
+mkdir /path/to/appdata/config
+# Chown the folder as the container runs as the `node` user (UID 1000).
+chown -R 1000:1000 /path/to/appdata/config
+`
+```
+```
+`docker run -d \\
+--name seerr \\
+--init \\
+-e LOG\_LEVEL=debug \\
+-e TZ=Asia/Tashkent \\
+-e PORT=5055 \\
+-p 5055:5055 \\
+-v /path/to/appdata/config:/app/config \\
+--restart unless-stopped \\
+--health-cmd "wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1" \\
+--health-start-period 20s \\
+--health-timeout 3s \\
+--health-interval 15s \\
+--health-retries 3 \\
+ghcr.io/seerr-team/seerr:latest
+`
+```
+The argument `-e PORT=5055` is optional.
+To run the container as a specific user/group, you may optionally add `--user=[ user | user:group | uid | uid:gid | user:gid | uid:group ]` to the above command.
+#### Updating:[​](#updating)
+Stop and remove the existing container:
+```
+`docker stop seerr && docker rm seerr
+`
+```
+Pull the latest image:
+```
+`docker pull ghcr.io/seerr-team/seerr:latest
+`
+```
+Finally, run the container with the same parameters originally used to create the container:
+```
+`docker run -d ...
+`
+```
+tip
+You may alternatively use a third-party updating mechanism, such as [Watchtower](https://github.com/containrrr/watchtower) or [Ouroboros](https://github.com/pyouroboros/ouroboros), to keep Seerr up-to-date automatically.
+You could also use [diun](https://github.com/crazy-max/diun) to receive notifications when a new image is available.
+## Windows[​](#windows)
+Please refer to the [Docker Desktop for Windows user manual](https://docs.docker.com/docker-for-windows/) for details on how to install Docker on Windows. There is no need to install a Linux distro if using named volumes like in the example below.
+warning
+**WSL2 will need to be installed to prevent DB corruption!** Please see the [Docker Desktop WSL 2 backend documentation](https://docs.docker.com/docker-for-windows/wsl/) for instructions on how to enable WSL2. The commands below will only work with WSL2 installed!
+First, create a volume to store the configuration data for Seerr using using either the Docker CLI:
+```
+`docker volume create seerr-data
+`
+```
+or the Docker Desktop app:
+1. Open the Docker Desktop app
+2. Head to the Volumes tab
+3. Click on the "Create a volume" in the center of the page. Or if you have other volumes already, click on the "Create" button on the top right of the page.
+4. Enter a name for the volume (example: `seerr-data`) and hit "Create"
+Then, create and start the Seerr container:
+* Docker CLI (PowerShell)
+* Docker CLI (CMD)
+* Docker Compose
+```
+`docker run -d `
+--name seerr `
+--init `
+-e LOG\_LEVEL=debug `
+-e TZ=Asia/Tashkent `
+-e PORT=5055 `
+-p 5055:5055 `
+-v seerr-data:/app/config `
+--restart unless-stopped `
+--health-cmd "wget --no-verbose --tries=1 --spider http://localhost:5055/api/v1/settings/public || exit 1" `
+--health-start-period 20s `
+--health-timeout 3s `
+--health-interval 15s `
+--health-retries 3 `
+ghcr.io/seerr-team/seerr:latest
+`
+```
+The argument `-e PORT=5055` is optional.
+#### Updating:[​](#updating-2)
+Stop and remove the existing container:
+```
+`docker stop seerr; docker rm seerr
+`
+```
+Pull the latest image:
+```
+`docker pull ghcr.io/seerr-team/seerr:latest
+`
+```
+Finally, run the container with the same parameters originally used to create the container:
+```
+`docker run -d ...
+`
+```
+To access the files inside the volume created above, navigate to `\\\\wsl$\\docker-desktop-data\\version-pack-data\\community\\docker\\volumes\\seerr-data\\\_data` using File Explorer.
+info
+Docker on Windows works differently than it does on Linux; it runs Docker inside of a stripped-down Linux VM. Volume mounts are exposed to Docker inside this VM via SMB mounts. While this is fine for media, it is unacceptable for the `/app/config` directory because SMB does not support file locking. This will eventually corrupt your database, which can lead to slow behavior and crashes.
+**If you must run Docker on Windows, you should put the `/app/config` directory mount inside the VM and not on the Windows host.** (This also applies to other containers with SQLite databases.)
+Named volumes, like in the example commands above, are automatically mounted inside the VM. Therefore the warning on the setup about the `/app/config` folder being incorrectly mounted page should be ignored.
+* [Unix (Linux, macOS)](#unix-linux-macos)
+* [Windows](#windows)

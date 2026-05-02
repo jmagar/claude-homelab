@@ -1,0 +1,26 @@
+DNS problems with internal services and DNS rebinding protection · Tailscale Docs
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+# DNS problems with internal services and DNS rebinding protection
+Last validated: Apr 1, 2025
+Some DNS servers have a feature called DNS rebinding protection. This can prevent a [particular type of security issue](https://en.wikipedia.org/wiki/DNS_rebinding) but can impact the ability to access your internal services, particularly those hosted behind a subnet router using [private IP addresses](https://www.rfc-editor.org/rfc/rfc1918.html). Some DNS servers might also apply this policy to the [Tailscale IP address](/docs/concepts/tailscale-ip-addresses) range (addresses defined in [RFC6598](https://www.rfc-editor.org/rfc/rfc6598.html)).
+This issue can affect home routers (for example, [Google Wi-Fi](https://support.google.com/googlenest/answer/9144137)), corporate DNS servers, and internet service provider (ISP) DNS servers.
+## [How does DNS rebinding protection work?](#how-does-dns-rebinding-protection-work)
+DNS servers that have DNS rebinding protection enabled block DNS responses that include a private IP address. On the public internet, that does not cause any problems because public websites do not use private IP addresses. When accessing devices on your private network, this becomes an issue if the DNS names of those devices are visible to public DNS servers because sometimes those DNS responses will be blocked.
+## [How does DNS rebinding protection affect Tailscale?](#how-does-dns-rebinding-protection-affect-tailscale)
+When accessing internal services over Tailscale, it might be convenient to use DNS names. For example, imagine an internal dashboard located at `dashboard.internal.example.com` which uses an address of `10.0.0.1`. `10.0.0.1` is a private IP address and can not be reached over the public internet. If that IP address is shared with your tailnet using a [subnet router](/docs/features/subnet-routers), then members of your tailnet can easily access the dashboard using its name.
+Unfortunately, if someone in your tailnet tries to load `dashboard.internal.example.com` from their home, and their home router or ISP has DNS rebinding protection enabled, the internal dashboard will not be accessible.
+[MagicDNS](/docs/features/magicdns) is not affected by DNS rebinding protection because it works entirely within the Tailscale client without involving external DNS servers.
+## [Workarounds to consider when using Tailscale](#workarounds-to-consider-when-using-tailscale)
+You can work around issues with DNS rebinding protection in any of the following ways. However, keep in mind that DNS rebinding protection is a security feature. Consider consulting with a person responsible for network security before completely disabling DNS rebinding protection. Using the Tailscale DNS configuration workaround or adjusting DNS rebinding protection for only specific domains are the safest options.
+1. Use the [Tailscale DNS configuration](/docs/reference/dns-in-tailscale#tailscale-dns-settings) to configure a restricted nameserver (also known as split DNS) to send DNS requests for just the domain name of your internal service to a DNS server you control.
+In the above example, configuring `internal.example.com` to use an internal DNS server (either directly in the tailnet with a `100.x.y.z` address or through a subnet router with a `10.a.b.c` address) could be a reasonable approach. This also makes it harder for someone to discover what names are in use within your network (which does not necessarily improve security, but is also unlikely to hurt security).
+If you do not want to host this domain on an internal DNS server, then you can configure `internal.example.com` to use a public DNS server, such as Google Public DNS, Cloudflare Public DNS, or Quad9.
+2. Configure the problematic DNS server to not perform DNS rebinding protection on the particular domain name (for example, `internal.example.com`). You will have to consult your router or DNS server instructions to determine if you can exclude domain names from DNS rebinding protection.
+3. Disable DNS rebinding protection entirely. You will have to consult your router or DNS server instructions for the required steps.
+4. Reconfigure your device to use a public DNS service that does not include DNS rebinding protection. For example, Google Public DNS, Cloudflare Public DNS, or Quad9.
+5. Use the [Tailscale DNS configuration](/docs/reference/dns-in-tailscale#tailscale-dns-settings) with the **Override DNS servers** option enabled to send all DNS queries (other than [MagicDNS](/docs/features/magicdns) or domain names configured to use specific nameservers) to a public DNS service that does not include DNS rebinding protection. This is similar to the previous option but applies to the entire tailnet.
+On this page
+* [How does DNS rebinding protection work?](#how-does-dns-rebinding-protection-work)
+* [How does DNS rebinding protection affect Tailscale?](#how-does-dns-rebinding-protection-affect-tailscale)
+* [Workarounds to consider when using Tailscale](#workarounds-to-consider-when-using-tailscale)
+Scroll to top

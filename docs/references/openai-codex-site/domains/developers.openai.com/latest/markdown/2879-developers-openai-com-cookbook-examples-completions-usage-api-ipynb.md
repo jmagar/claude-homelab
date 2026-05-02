@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/completions\_usage\_api [Redirecting from `/cookbook/examples/completions\_usage\_api.ipynb/` to `/cookbook/examples/completions\_usage\_api`](/cookbook/examples/completions_usage_api)

@@ -1,0 +1,51 @@
+November Tailscale newsletter
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+[Blog](/blog)|companyNovember 13, 2024
+# November Tailscale newsletter
+In technology, you don’t want to mindlessly chase trends — but you also don’t want them to leave you behind. In that spirit, about a year ago we decided to look into all of this AI business and see what it had to do with Tailscale. Our CEO and co-founder Avery Pennarun describes what we found in a new piece called (spoiler alert!) [“AI companies are surprisingly normal.”](https://tailscale.com/blog/ai-normal?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+In fact, we learned that Tailscale had become very popular among AI companies! And we learned that the reasons are pretty much structural to their requirements and how Tailscale works. AI companies have networking needs that Tailscale solves, and those needs just aren’t that unusual. But to really understand what that means, you’ll have to [read Avery’s post](https://tailscale.com/blog/ai-normal?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1).
+If you’re running an AI startup confronting networking challenges, check out [our AI startup program](https://tailscale.com/ai-startup-program?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1). But first, check out the rest of this newsletter for updates on Tailscale, our community, and upcoming events.
+### [Product Updates](#product-updates)
+* [Tailscale log streaming now supports S3 destinations](https://tailscale.com/blog/s3-log-streaming?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Tailscale administrators can now use Amazon S3 and S3-compatible buckets as streaming destinations for both configuration audit logs and network flow logs. This adds flexibility for teams that want to stream logging data for compliance reasons, but don’t want the overhead and costs of a full SIEM solution.
+* [Kubernetes, direct connections, and you](https://tailscale.com/blog/kubernetes-direct-connections?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Tailscale can help you securely connect to anything on the internet, including remote resources in Kubernetes clusters. And we can establish connections even when the path is not ideal — but that may involve trade-offs that aren't right for your application. Solutions engineer Lee Briggs outlines how to minimize latency with direct connections in Kubernetes environments.
+* [Google Workspace access provisioning is now generally available](https://tailscale.com/blog/google-workspace-sync-ga?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+We’re excited to announce the general availability of our latest Google Workspace integration — user and group provisioning. This powerful new feature is designed to allow admins to seamlessly sync users and groups in their Google Workspace with Tailscale, streamlining access provisioning and making secure networking even easier.
+* [Tailscale and 1Password Device Trust, now generally available](https://tailscale.com/blog/1password-extended-access-kolide?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Tailscale’s device posture integration with 1Password Extended Access Management's device trust (previously called Kolide) is now generally available. This integration is designed to address the access-trust gap of devices in your network, and helps ensure that only trusted and compliant devices are accessing your company’s network and resources.
+* [Tailscale named in Deloitte’s Technology Fast 50](https://tailscale.com/blog/fast-50-2024?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Tailscale has been recognized in Deloitte’s Technology Fast 50 as one of Canada’s fastest-growing tech innovators. It’s an honour to be included alongside other companies that are pushing boundaries, both abroad and right here at home.
+📆 Need help using Tailscale? Join our [SE Office Hours](https://tailscale.com/events-webinars/solutions-engineer-office-hours?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1).
+Our Solutions Engineering team hosts an interactive monthly office hour where they answer common technical questions and rotate through demos for new and existing features.
+### [Community Highlights](#community-highlights)
+* [TSD Proxy](https://almeidapaulopt.github.io/tsdproxy/?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1) by Paulo Almeida
+“TSDProxy is a Tailscale + Docker application that automatically creates a proxy to virtual addresses in your Tailscale network based on Docker container labels. It simplifies traffic redirection to services running inside Docker containers, without the need for a separate Tailscale container for each service.”
+* [Video: Share a multiplayer Factorio server over Tailscale](https://tailscale.com/blog/factorio-multiplayer-video?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+In the latest video on [Tailscale’s YouTube channel](https://www.youtube.com/tailscale?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), Alex shows how he celebrated the recent release of Factorio’s Space Age expansion by setting up a multiplayer server and sharing it into his friends’ tailnets. And if you’re not yet a subscriber, check out the other recent videos! Lots of great comments on the recent explainers touching on [exit nodes](https://www.youtube.com/watch?v=Ad7D2pkFNdA&amp;utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), [remote monitoring](https://www.youtube.com/watch?v=ChXN7pDTo5k&amp;utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), and [accessing Synology devices](https://www.youtube.com/watch?v=0o2EhK-QvmY&amp;utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1).
+* [Tailscale is now on Bluesky](https://bsky.app/profile/tailscale.com?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Give us a follow and we promise not to make too many puns about connecting your clouds on Bluesky. In terms of “social,” our Bluesky page joins a list that includes [our X account](https://twitter.com/tailscale?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), [our fediverse presence](https://hachyderm.io/@tailscale?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), [our YouTube channel](https://www.youtube.com/tailscale?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), and of course [our bustling subreddit](https://www.reddit.com/r/Tailscale/?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1).### [**Upcoming Events**](#upcoming-events)
+* [**KubeCon NA**](https://events.linuxfoundation.org/kubecon-cloudnativecon-north-america/?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Salt Lake City, Utah
+November 12-15, 2024
+[Come hang out with the Tailscale team](https://tailscale.com/kubecon-na?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1) at booth R12 to see a demo of our Kubernetes operator and hear about how our users are integrating Tailscale into their k8s deploys.
+* [**AWS re:Invent**](https://reinvent.awsevents.com/?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1)
+Las Vegas, Nevada
+December 2-6, 2024
+[We’re back at the big annual AWS gathering](https://tailscale.com/reinvent?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), ready to work with new and existing users on how to work with Tailscale and many different offerings from the Amazon Web Services stack.
+🚀Are you building something cool or exciting using Tailscale? We love hearing about [how our customers use Tailscale](https://tailscale.dev/blog/tailscale-sucks?utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1) for their personal setups or at the workplace. We want to share these examples with the broader Tailscale community. If interested, [fill out this form](https://docs.google.com/forms/d/e/1FAIpQLSeYT_K9sDRRmelweRDJ3YBv_PVN0w46_uOK5SvRVGm9Wlx66g/viewform?usp=sf_link&amp;utm_source=hs_email&amp;utm_medium=email&amp;_hsenc=p2ANqtz-8T1zmzYchENaj9xoMzDOaRyHdMdHfh_WvZ0UsJHKU6I-Fnk81MYO5b6LmY1sMmAwH-bhX1), and we will share your experience in an upcoming newsletter.
+Share
+Author
+Parker Higgins
+Author
+Parker Higgins
+Share
+Loading...
+## Try Tailscale for free
+[
+Get started
+](https://login.tailscale.com/start)
+Schedule a demo
+[
+Contact sales
+](/contact/sales)

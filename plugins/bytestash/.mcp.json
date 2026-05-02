@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "bytestash": {
+      "command": "lab",
+      "args": ["mcp", "--services", "bytestash"]
+    }
+  }
+}

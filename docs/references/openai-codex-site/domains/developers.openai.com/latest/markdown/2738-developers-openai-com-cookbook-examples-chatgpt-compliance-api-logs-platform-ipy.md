@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/chatgpt/compliance\_api/logs\_platform [Redirecting from `/cookbook/examples/chatgpt/compliance\_api/logs\_platform.ipynb/` to `/cookbook/examples/chatgpt/compliance\_api/logs\_platform`](/cookbook/examples/chatgpt/compliance_api/logs_platform)

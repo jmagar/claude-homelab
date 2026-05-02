@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/embedding\_wikipedia\_articles\_for\_search [Redirecting from `/cookbook/examples/embedding\_wikipedia\_articles\_for\_search.ipynb/` to `/cookbook/examples/embedding\_wikipedia\_articles\_for\_search`](/cookbook/examples/embedding_wikipedia_articles_for_search)

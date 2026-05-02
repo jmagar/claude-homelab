@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "lab": {
+      "command": "lab",
+      "args": ["mcp"]
+    }
+  }
+}

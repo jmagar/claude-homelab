@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/multimodal/image-gen-1.5-prompting\_guide [Redirecting from `/cookbook/examples/multimodal/image-gen-1.5-prompting\_guide.ipynb/` to `/cookbook/examples/multimodal/image-gen-1.5-prompting\_guide`](/cookbook/examples/multimodal/image-gen-1.5-prompting_guide)

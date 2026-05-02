@@ -1,0 +1,4 @@
+interface:
+  display_name: "Bitwarden"
+  short_description: "Manage Bitwarden MCP sessions"
+  default_prompt: "Use $bitwarden to unlock and validate the Bitwarden MCP session for Claude Code."

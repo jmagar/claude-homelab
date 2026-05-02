@@ -1,0 +1,42 @@
+Key Changes - Model Context Protocol
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://modelcontextprotocol.io/llms.txt
+](https://modelcontextprotocol.io/llms.txt)
+> Use this file to discover all available pages before exploring further.
+This document lists changes made to the Model Context Protocol (MCP) specification since
+the previous revision, [2025-11-25](/specification/2025-11-25).
+##
+[​
+](#major-changes)
+Major changes
+N/A
+##
+[​
+](#minor-changes)
+Minor changes
+1. Add `extensions` field to `ClientCapabilities` and `ServerCapabilities` to support optional [extensions](/docs/extensions/overview) beyond the core protocol.
+2. Document OpenTelemetry trace context propagation conventions for `\_meta` keys (`traceparent`, `tracestate`, `baggage`) ([SEP-414](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/414)).
+3. Servers **SHOULD** return tools from `tools/list` in a deterministic order to enable client-side caching and improve LLM prompt cache hit rates.
+4. Require standard MCP request headers (`Mcp-Method`, `Mcp-Name`) on Streamable HTTP POST requests, and add support for custom headers from tool parameters via `x-mcp-header` ([SEP-2243](https://github.com/modelcontextprotocol/modelcontextprotocol/pull/2243)).
+##
+[​
+](#other-schema-changes)
+Other schema changes
+N/A
+##
+[​
+](#governance-and-process-updates)
+Governance and process updates
+N/A
+##
+[​
+](#process-changes)
+Process changes
+1. Formalize PR-based SEP workflow with markdown files in `seps/` directory, PR-derived numbering, sponsor responsibilities, and status management via PR labels ([SEP-1850](https://github.com/modelcontextprotocol/specification/pull/1850)).
+##
+[​
+](#full-changelog)
+Full changelog
+For a complete list of all changes that have been made since the last protocol revision,
+[see GitHub](https://github.com/modelcontextprotocol/specification/compare/2025-11-25...draft).

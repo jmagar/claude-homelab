@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/enhance\_your\_prompts\_with\_meta\_prompting [Redirecting from `/cookbook/examples/enhance\_your\_prompts\_with\_meta\_prompting.ipynb/` to `/cookbook/examples/enhance\_your\_prompts\_with\_meta\_prompting`](/cookbook/examples/enhance_your_prompts_with_meta_prompting)

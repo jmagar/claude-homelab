@@ -1,0 +1,40 @@
+Tailscale messages · Tailscale Docs
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+# Tailscale messages
+Last validated: Jan 30, 2026
+Informational and error messages can appear in the admin console, the Tailscale client UI, and the Tailscale client command-line interface (CLI). Understanding the context and purpose of these different message types can help you manage and troubleshoot issues related to your tailnet.
+If the information in these topics doesn't resolve your issue and the message persists, contact [Tailscale Support](/contact/support).
+## [Admin console messages](#admin-console-messages)
+* [Authentication failed while retrieving details from your identity provider](/docs/reference/messages/console/auth-failed-sso)
+* [Failed to load sharing information](/docs/reference/messages/console/sharing-failure)
+* [Login name change detected](/docs/reference/messages/console/login-name-change)
+* [Multiple users with login](/docs/reference/messages/console/multi-user-login)
+* [No auth service](/docs/reference/messages/console/no-auth-service)
+* [Reached use limit](/docs/reference/messages/console/reached-use-limit)
+* [You don't have access to the admin console](/docs/reference/messages/console/no-access)
+* [Your account is not an administrator](/docs/reference/messages/console/account-not-admin)
+* [Your organization has restricted members from joining external tailnets](/docs/reference/messages/console/org-has-restrictions)
+## [Client messages](#client-messages)
+* [Coordination server reports an issue](/docs/reference/messages/client/coordination-server-issue)
+* [Could not apply configuration](/docs/reference/messages/client/could-not-apply-config)
+* [Docker with stateful filtering](/docs/reference/messages/client/docker-stateful-filtering)
+* [Encrypted connection failed](/docs/reference/messages/client/tls-connection-failed)
+* [Invalid packet filter](/docs/reference/messages/client/invalid-packet-filter)
+* [Linux DNS configuration issue](/docs/reference/messages/client/resolv-conf-overwritten)
+* [Local log misconfiguration](/docs/reference/messages/client/local-log-config-error)
+* [MagicSock function not running](/docs/reference/messages/client/magicsock-receive-func-error)
+* [Network down](/docs/reference/messages/client/network-status)
+* [Network map response timeout](/docs/reference/messages/client/network-map-response-timeout)
+* [No home relay server](/docs/reference/messages/client/no-derp-home)
+* [Out of sync](/docs/reference/messages/client/not-in-map-poll)
+* [Relay server unavailable](/docs/reference/messages/client/no-derp-connection)
+* [Security update available](/docs/reference/messages/client/security-update-available)
+* [Tailscale blocked by Screen Time](/docs/reference/messages/client/screen-time-controlclient)
+* [Tailscale SSH and SELinux](/docs/reference/messages/client/ssh-unavailable-selinux-enabled)
+* [Update available](/docs/reference/messages/client/update-available)
+* [Using an unstable version](/docs/reference/messages/client/using-unstable-version)
+* [Windows network configuration failed](/docs/reference/messages/client/set-network-category-failed)
+On this page
+* [Admin console messages](#admin-console-messages)
+* [Client messages](#client-messages)
+Scroll to top

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/tair/getting\_started\_with\_tair\_and\_openai [Redirecting from `/cookbook/examples/vector\_databases/tair/getting\_started\_with\_tair\_and\_openai.ipynb/` to `/cookbook/examples/vector\_databases/tair/getting\_started\_with\_tair\_and\_openai`](/cookbook/examples/vector_databases/tair/getting_started_with_tair_and_openai)

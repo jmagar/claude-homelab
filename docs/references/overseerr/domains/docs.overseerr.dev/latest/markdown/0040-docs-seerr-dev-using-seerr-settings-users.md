@@ -1,0 +1,27 @@
+User Settings | Seerr
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+On this page
+## Enable Local Sign-In[​](#enable-local-sign-in)
+When enabled, users who have configured passwords will be allowed to sign in using their email address.
+When disabled, your mediaserver OAuth becomes the only sign-in option, and any "local users" you have created will not be able to sign in to Seerr.
+This setting is **enabled** by default.
+## Enable Jellyfin/Emby/Plex Sign-In[​](#enable-jellyfinembyplex-sign-in)
+When enabled, users will be able to sign in to Seerr using their Jellyfin/Emby/Plex credentials, provided they have linked their media server accounts.
+When disabled, users will only be able to sign in using their email address. Users without a password set will not be able to sign in to Seerr.
+This setting is **enabled** by default.
+## Enable New Jellyfin/Emby/Plex Sign-In[​](#enable-new-jellyfinembyplex-sign-in)
+When enabled, users with access to your media server will be able to sign in to Seerr even if they have not yet been imported. Users will be automatically assigned the permissions configured in the [Default Permissions](#default-permissions) setting upon first sign-in.
+This setting is **enabled** by default.
+## Global Movie Request Limit & Global Series Request Limit[​](#global-movie-request-limit--global-series-request-limit)
+Select the request limits you would like granted to users.
+Unless an override is configured, users are granted these global request limits.
+Note that users with the **Manage Users** permission are exempt from request limits, since that permission also grants the ability to submit requests on behalf of other users.
+## Default Permissions[​](#default-permissions)
+Select the permissions you would like assigned to new users to have by default upon account creation.
+If [Enable New Jellyfin/Emby/Plex Sign-In](#enable-new-jellyfinembyplex-sign-in) is enabled, any user with access to your media server will be able to sign in to Seerr, and they will be granted the permissions you select here upon first sign-in.
+This setting only affects new users, and has no impact on existing users. In order to modify permissions for existing users, you will need to edit the users.
+* [Enable Local Sign-In](#enable-local-sign-in)
+* [Enable Jellyfin/Emby/Plex Sign-In](#enable-jellyfinembyplex-sign-in)
+* [Enable New Jellyfin/Emby/Plex Sign-In](#enable-new-jellyfinembyplex-sign-in)
+* [Global Movie Request Limit & Global Series Request Limit](#global-movie-request-limit--global-series-request-limit)
+* [Default Permissions](#default-permissions)

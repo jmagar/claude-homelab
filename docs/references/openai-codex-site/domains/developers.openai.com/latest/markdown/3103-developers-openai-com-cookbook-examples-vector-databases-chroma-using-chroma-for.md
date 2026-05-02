@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/chroma/using\_chroma\_for\_embeddings\_search [Redirecting from `/cookbook/examples/vector\_databases/chroma/using\_chroma\_for\_embeddings\_search.ipynb/` to `/cookbook/examples/vector\_databases/chroma/using\_chroma\_for\_embeddings\_search`](/cookbook/examples/vector_databases/chroma/using_chroma_for_embeddings_search)

@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "download-stack": {
+      "command": "lab",
+      "args": ["mcp", "--services", "sabnzbd,qbittorrent"]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/agents\_sdk/evaluate\_agents [Redirecting from `/cookbook/examples/agents\_sdk/evaluate\_agents.ipynb/` to `/cookbook/examples/agents\_sdk/evaluate\_agents`](/cookbook/examples/agents_sdk/evaluate_agents)

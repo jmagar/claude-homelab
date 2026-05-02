@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/function\_calling\_finding\_nearby\_places [Redirecting from `/cookbook/examples/function\_calling\_finding\_nearby\_places.ipynb/` to `/cookbook/examples/function\_calling\_finding\_nearby\_places`](/cookbook/examples/function_calling_finding_nearby_places)

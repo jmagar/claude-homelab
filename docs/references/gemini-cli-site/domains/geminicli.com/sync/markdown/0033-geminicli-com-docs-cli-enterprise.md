@@ -1,0 +1,562 @@
+Gemini CLI for the enterprise | Gemini CLI
+[Skip to content](#_top)
+# Gemini CLI for the enterprise
+Copy as Markdown Copied!
+This document outlines configuration patterns and best practices for deploying
+and managing Gemini CLI in an enterprise environment. By leveraging system-level
+settings, administrators can enforce security policies, manage tool access, and
+ensure a consistent experience for all users.
+The patterns described in this document are intended to help
+administrators create a more controlled and secure environment for using
+Gemini CLI. However, they should not be considered a foolproof security
+boundary. A determined user with sufficient privileges on their local machine
+may still be able to circumvent these configurations. These measures are
+designed to prevent accidental misuse and enforce corporate policy in a
+managed environment, not to defend against a malicious actor with local
+administrative rights.
+## Centralized configuration: The system settings file
+[Section titled “Centralized configuration: The system settings file”](#centralized-configuration-the-system-settings-file)
+The most powerful tools for enterprise administration are the system-wide
+settings files. These files allow you to define a baseline configuration
+(`system-defaults.json`) and a set of overrides (`settings.json`) that apply to
+all users on a machine. For a complete overview of configuration options, see
+the [Configuration documentation](/docs/reference/configuration).
+Settings are merged from four files. The precedence order for single-value
+settings (like `theme`) is:
+1. System Defaults (`system-defaults.json`)
+2. User Settings (`\~/.gemini/settings.json`)
+3. Workspace Settings (`\<project\>/.gemini/settings.json`)
+4. System Overrides (`settings.json`)
+This means the System Overrides file has the final say. For settings that are
+arrays (`includeDirectories`) or objects (`mcpServers`), the values are merged.
+**Example of merging and precedence:**
+Here is how settings from different levels are combined.
+* **System defaults `system-defaults.json`:**
+```
+`
+{
+"ui": {
+"theme": "default-corporate-theme"
+},
+"context": {
+"includeDirectories": ["/etc/gemini-cli/common-context"]
+}
+}
+`
+```
+* **User `settings.json` (`\~/.gemini/settings.json`):**
+```
+`
+{
+"ui": {
+"theme": "user-preferred-dark-theme"
+},
+"mcpServers": {
+"corp-server": {
+"command": "/usr/local/bin/corp-server-dev"
+},
+"user-tool": {
+"command": "npm start --prefix \~/tools/my-tool"
+}
+},
+"context": {
+"includeDirectories": ["\~/gemini-context"]
+}
+}
+`
+```
+* **Workspace `settings.json` (`\<project\>/.gemini/settings.json`):**
+```
+`
+{
+"ui": {
+"theme": "project-specific-light-theme"
+},
+"mcpServers": {
+"project-tool": {
+"command": "npm start"
+}
+},
+"context": {
+"includeDirectories": ["./project-context"]
+}
+}
+`
+```
+* **System overrides `settings.json`:**
+```
+`
+{
+"ui": {
+"theme": "system-enforced-theme"
+},
+"mcpServers": {
+"corp-server": {
+"command": "/usr/local/bin/corp-server-prod"
+}
+},
+"context": {
+"includeDirectories": ["/etc/gemini-cli/global-context"]
+}
+}
+`
+```
+This results in the following merged configuration:
+* **Final merged configuration:**
+```
+`
+{
+"ui": {
+"theme": "system-enforced-theme"
+},
+"mcpServers": {
+"corp-server": {
+"command": "/usr/local/bin/corp-server-prod"
+},
+"user-tool": {
+"command": "npm start --prefix \~/tools/my-tool"
+},
+"project-tool": {
+"command": "npm start"
+}
+},
+"context": {
+"includeDirectories": [
+"/etc/gemini-cli/common-context",
+"\~/gemini-context",
+"./project-context",
+"/etc/gemini-cli/global-context"
+]
+}
+}
+`
+```
+**Why:**
+* **`theme`**: The value from the system overrides (`system-enforced-theme`) is
+used, as it has the highest precedence.
+* **`mcpServers`**: The objects are merged. The `corp-server` definition from
+the system overrides takes precedence over the user’s definition. The unique
+`user-tool` and `project-tool` are included.
+* **`includeDirectories`**: The arrays are concatenated in the order of System
+Defaults, User, Workspace, and then System Overrides.
+* **Location**:
+* **Linux**: `/etc/gemini-cli/settings.json`
+* **Windows**: `C:\\ProgramData\\gemini-cli\\settings.json`
+* **macOS**: `/Library/Application Support/GeminiCli/settings.json`
+* The path can be overridden using the `GEMINI\_CLI\_SYSTEM\_SETTINGS\_PATH`
+environment variable.
+* **Control**: This file should be managed by system administrators and
+protected with appropriate file permissions to prevent unauthorized
+modification by users.
+By using the system settings file, you can enforce the security and
+configuration patterns described below.
+### Enforcing system settings with a wrapper script
+[Section titled “Enforcing system settings with a wrapper script”](#enforcing-system-settings-with-a-wrapper-script)
+While the `GEMINI\_CLI\_SYSTEM\_SETTINGS\_PATH` environment variable provides
+flexibility, a user could potentially override it to point to a different
+settings file, bypassing the centrally managed configuration. To mitigate this,
+enterprises can deploy a wrapper script or alias that ensures the environment
+variable is always set to the corporate-controlled path.
+This approach ensures that no matter how the user calls the `gemini` command,
+the enterprise settings are always loaded with the highest precedence.
+**Example wrapper script:**
+Administrators can create a script named `gemini` and place it in a directory
+that appears earlier in the user’s `PATH` than the actual Gemini CLI binary (for
+example, `/usr/local/bin/gemini`).
+```
+`
+#!/bin/bash
+# Enforce the path to the corporate system settings file.
+# This ensures that the company's configuration is always applied.
+export GEMINI\_CLI\_SYSTEM\_SETTINGS\_PATH="/etc/gemini-cli/settings.json"
+# Find the original gemini executable.
+# This is a simple example; a more robust solution might be needed
+# depending on the installation method.
+REAL\_GEMINI\_PATH=$(type -aP gemini | grep -v "^$(type -P gemini)$" | head -n 1)
+if [ -z "$REAL\_GEMINI\_PATH" ]; then
+echo "Error: The original 'gemini' executable was not found." \>&2
+exit 1
+fi
+# Pass all arguments to the real Gemini CLI executable.
+exec "$REAL\_GEMINI\_PATH" "$@"
+`
+```
+By deploying this script, the `GEMINI\_CLI\_SYSTEM\_SETTINGS\_PATH` is set within
+the script’s environment, and the `exec` command replaces the script process
+with the actual Gemini CLI process, which inherits the environment variable.
+This makes it significantly more difficult for a user to bypass the enforced
+settings.
+**PowerShell Profile (Windows alternative):**
+On Windows, administrators can achieve similar results by adding the environment
+variable to the system-wide or user-specific PowerShell profile:
+Terminal window
+```
+`
+Add-Content -Path $PROFILE -Value '$env:GEMINI\_CLI\_SYSTEM\_SETTINGS\_PATH="C:\\ProgramData\\gemini-cli\\settings.json"'
+`
+```
+## User isolation in shared environments
+[Section titled “User isolation in shared environments”](#user-isolation-in-shared-environments)
+In shared compute environments (like ML experiment runners or shared build
+servers), you can isolate Gemini CLI state by overriding the user’s home
+directory.
+By default, Gemini CLI stores configuration and history in `\~/.gemini`. You can
+use the `GEMINI\_CLI\_HOME` environment variable to point to a unique directory
+for a specific user or job. The CLI will create a `.gemini` folder inside the
+specified path.
+**macOS/Linux**
+Terminal window
+```
+`
+# Isolate state for a specific job
+export GEMINI\_CLI\_HOME="/tmp/gemini-job-123"
+gemini
+`
+```
+**Windows (PowerShell)**
+Terminal window
+```
+`
+# Isolate state for a specific job
+$env:GEMINI\_CLI\_HOME="C:\\temp\\gemini-job-123"
+gemini
+`
+```
+## Restricting tool access
+[Section titled “Restricting tool access”](#restricting-tool-access)
+You can significantly enhance security by controlling which tools the Gemini
+model can use. This is achieved through the `tools.core` setting and the
+[Policy Engine](/docs/reference/policy-engine). For a list of available tools,
+see the [Tools reference](/docs/reference/tools).
+### Allowlisting with `coreTools`
+[Section titled “Allowlisting with coreTools”](#allowlisting-with-coretools)
+The most secure approach is to explicitly add the tools and commands that users
+are permitted to execute to an allowlist. This prevents the use of any tool not
+on the approved list.
+**Example:** Allow only safe, read-only file operations and listing files.
+```
+`
+{
+"tools": {
+"core": ["ReadFileTool", "GlobTool", "ShellTool(ls)"]
+}
+}
+`
+```
+### Blocklisting with `excludeTools` (Deprecated)
+[Section titled “Blocklisting with excludeTools (Deprecated)”](#blocklisting-with-excludetools-deprecated)
+>
+**> Deprecated:
+**> Use the
+[> Policy Engine
+](/docs/reference/policy-engine)> formore robust control.
+>
+Alternatively, you can add specific tools that are considered dangerous in your
+environment to a blocklist.
+**Example:** Prevent the use of the shell tool for removing files.
+```
+`
+{
+"tools": {
+"exclude": ["ShellTool(rm -rf)"]
+}
+}
+`
+```
+Blocklisting with `excludeTools` is less secure than
+allowlisting with `coreTools`, as it relies on blocking known-bad commands,
+and clever users may find ways to bypass simple string-based blocks.
+**Allowlisting is the recommended approach.**
+### Disabling YOLO mode
+[Section titled “Disabling YOLO mode”](#disabling-yolo-mode)
+To ensure that users cannot bypass the confirmation prompt for tool execution,
+you can disable YOLO mode at the policy level. This adds a critical layer of
+safety, as it prevents the model from executing tools without explicit user
+approval.
+**Example:** Force all tool executions to require user confirmation.
+```
+`
+{
+"security": {
+"disableYoloMode": true
+}
+}
+`
+```
+This setting is highly recommended in an enterprise environment to prevent
+unintended tool execution.
+## Managing custom tools (MCP servers)
+[Section titled “Managing custom tools (MCP servers)”](#managing-custom-tools-mcp-servers)
+If your organization uses custom tools via
+[Model-Context Protocol (MCP) servers](/docs/tools/mcp-server), it is crucial to
+understand how server configurations are managed to apply security policies
+effectively.
+### How MCP server configurations are merged
+[Section titled “How MCP server configurations are merged”](#how-mcp-server-configurations-are-merged)
+Gemini CLI loads `settings.json` files from three levels: System, Workspace, and
+User. When it comes to the `mcpServers` object, these configurations are
+**merged**:
+1. **Merging:** The lists of servers from all three levels are combined into a
+single list.
+2. **Precedence:** If a server with the **same name** is defined at multiple
+levels (for example, a server named `corp-api` exists in both system and
+user settings), the definition from the highest-precedence level is used.
+The order of precedence is: **System \> Workspace \> User**.
+This means a user **cannot** override the definition of a server that is already
+defined in the system-level settings. However, they **can** add new servers with
+unique names.
+### Enforcing a catalog of tools
+[Section titled “Enforcing a catalog of tools”](#enforcing-a-catalog-of-tools)
+The security of your MCP tool ecosystem depends on a combination of defining the
+canonical servers and adding their names to an allowlist.
+### Restricting tools within an MCP server
+[Section titled “Restricting tools within an MCP server”](#restricting-tools-within-an-mcp-server)
+For even greater security, especially when dealing with third-party MCP servers,
+you can restrict which specific tools from a server are exposed to the model.
+This is done using the `includeTools` and `excludeTools` properties within a
+server’s definition. This lets you use a subset of tools from a server without
+allowing potentially dangerous ones.
+Following the principle of least privilege, it is highly recommended to use
+`includeTools` to create an allowlist of only the necessary tools.
+**Example:** Only allow the `code-search` and `get-ticket-details` tools from a
+third-party MCP server, even if the server offers other tools like
+`delete-ticket`.
+```
+`
+{
+"mcp": {
+"allowed": ["third-party-analyzer"]
+},
+"mcpServers": {
+"third-party-analyzer": {
+"command": "/usr/local/bin/start-3p-analyzer.sh",
+"includeTools": ["code-search", "get-ticket-details"]
+}
+}
+}
+`
+```
+#### More secure pattern: Define and add to allowlist in system settings
+[Section titled “More secure pattern: Define and add to allowlist in system settings”](#more-secure-pattern-define-and-add-to-allowlist-in-system-settings)
+To create a secure, centrally-managed catalog of tools, the system administrator
+**must** do both of the following in the system-level `settings.json` file:
+1. **Define the full configuration** for every approved server in the
+`mcpServers` object. This ensures that even if a user defines a server with
+the same name, the secure system-level definition will take precedence.
+2. **Add the names** of those servers to an allowlist using the `mcp.allowed`
+setting. This is a critical security step that prevents users from running
+any servers that are not on this list. If this setting is omitted, the CLI
+will merge and allow any server defined by the user.
+**Example system `settings.json`:**
+1. Add the *names* of all approved servers to an allowlist. This will prevent
+users from adding their own servers.
+2. Provide the canonical *definition* for each server on the allowlist.
+```
+`
+{
+"mcp": {
+"allowed": ["corp-data-api", "source-code-analyzer"]
+},
+"mcpServers": {
+"corp-data-api": {
+"command": "/usr/local/bin/start-corp-api.sh",
+"timeout": 5000
+},
+"source-code-analyzer": {
+"command": "/usr/local/bin/start-analyzer.sh"
+}
+}
+}
+`
+```
+This pattern is more secure because it uses both definition and an allowlist.
+Any server a user defines will either be overridden by the system definition (if
+it has the same name) or blocked because its name is not in the `mcp.allowed`
+list.
+### Less secure pattern: Omitting the allowlist
+[Section titled “Less secure pattern: Omitting the allowlist”](#less-secure-pattern-omitting-the-allowlist)
+If the administrator defines the `mcpServers` object but fails to also specify
+the `mcp.allowed` allowlist, users may add their own servers.
+**Example system `settings.json`:**
+This configuration defines servers but does not enforce the allowlist. The
+administrator has NOT included the “mcp.allowed” setting.
+```
+`
+{
+"mcpServers": {
+"corp-data-api": {
+"command": "/usr/local/bin/start-corp-api.sh"
+}
+}
+}
+`
+```
+In this scenario, a user can add their own server in their local
+`settings.json`. Because there is no `mcp.allowed` list to filter the merged
+results, the user’s server will be added to the list of available tools and
+allowed to run.
+## Enforcing sandboxing for security
+[Section titled “Enforcing sandboxing for security”](#enforcing-sandboxing-for-security)
+To mitigate the risk of potentially harmful operations, you can enforce the use
+of sandboxing for all tool execution. The sandbox isolates tool execution in a
+containerized environment.
+**Example:** Force all tool execution to happen within a Docker sandbox.
+```
+`
+{
+"tools": {
+"sandbox": "docker"
+}
+}
+`
+```
+You can also specify a custom, hardened Docker image for the sandbox by building
+a custom `sandbox.Dockerfile` as described in the
+[Sandboxing documentation](/docs/cli/sandbox).
+## Controlling network access via proxy
+[Section titled “Controlling network access via proxy”](#controlling-network-access-via-proxy)
+In corporate environments with strict network policies, you can configure Gemini
+CLI to route all outbound traffic through a corporate proxy. This can be set via
+an environment variable, but it can also be enforced for custom tools via the
+`mcpServers` configuration.
+**Example (for an MCP server):**
+```
+`
+{
+"mcpServers": {
+"proxied-server": {
+"command": "node",
+"args": ["mcp\_server.js"],
+"env": {
+"HTTP\_PROXY": "http://proxy.example.com:8080",
+"HTTPS\_PROXY": "http://proxy.example.com:8080"
+}
+}
+}
+}
+`
+```
+## Telemetry and auditing
+[Section titled “Telemetry and auditing”](#telemetry-and-auditing)
+For auditing and monitoring purposes, you can configure Gemini CLI to send
+telemetry data to a central location. This lets you track tool usage and other
+events. For more information, see the [telemetry documentation](/docs/cli/telemetry).
+**Example:** Enable telemetry and send it to a local OTLP collector. If
+`otlpEndpoint` is not specified, it defaults to `http://localhost:4317`.
+```
+`
+{
+"telemetry": {
+"enabled": true,
+"target": "gcp",
+"logPrompts": false
+}
+}
+`
+```
+Ensure that `logPrompts` is set to `false` in an enterprise setting to
+avoid collecting potentially sensitive information from user prompts.
+## Authentication
+[Section titled “Authentication”](#authentication)
+You can enforce a specific authentication method for all users by setting the
+`security.auth.enforcedType` in the system-level `settings.json` file. This
+prevents users from choosing a different authentication method. See the
+[Authentication docs](/docs/get-started/authentication) for more details.
+**Example:** Enforce the use of Google login for all users.
+```
+`
+{
+"security": {
+"auth": {
+"enforcedType": "oauth-personal"
+}
+}
+}
+`
+```
+If a user has a different authentication method configured, they will be
+prompted to switch to the enforced method. In non-interactive mode, the CLI will
+exit with an error if the configured authentication method does not match the
+enforced one.
+### Restricting logins to corporate domains
+[Section titled “Restricting logins to corporate domains”](#restricting-logins-to-corporate-domains)
+For enterprises using Google Workspace, you can enforce that users only
+authenticate with their corporate Google accounts. This is a network-level
+control that is configured on a proxy server, not within Gemini CLI itself. It
+works by intercepting authentication requests to Google and adding a special
+HTTP header.
+This policy prevents users from logging in with personal Gmail accounts or other
+non-corporate Google accounts.
+For detailed instructions, see the Google Workspace Admin Help article on
+[blocking access to consumer accounts](https://support.google.com/a/answer/1668854?hl=en#zippy=,step-choose-a-web-proxy-server,step-configure-the-network-to-block-certain-accounts).
+The general steps are as follows:
+1. **Intercept Requests**: Configure your web proxy to intercept all requests
+to `google.com`.
+2. **Add HTTP Header**: For each intercepted request, add the
+`X-GoogApps-Allowed-Domains` HTTP header.
+3. **Specify Domains**: The value of the header should be a comma-separated
+list of your approved Google Workspace domain names.
+**Example header:**
+```
+`
+X-GoogApps-Allowed-Domains: my-corporate-domain.com, secondary-domain.com
+`
+```
+When this header is present, Google’s authentication service will only allow
+logins from accounts belonging to the specified domains.
+## Putting it all together: example system `settings.json`
+[Section titled “Putting it all together: example system settings.json”](#putting-it-all-together-example-system-settingsjson)
+Here is an example of a system `settings.json` file that combines several of the
+patterns discussed above to create a secure, controlled environment for Gemini
+CLI.
+```
+`
+{
+"tools": {
+"sandbox": "docker",
+"core": [
+"ReadFileTool",
+"GlobTool",
+"ShellTool(ls)",
+"ShellTool(cat)",
+"ShellTool(grep)"
+]
+},
+"mcp": {
+"allowed": ["corp-tools"]
+},
+"mcpServers": {
+"corp-tools": {
+"command": "/opt/gemini-tools/start.sh",
+"timeout": 5000
+}
+},
+"telemetry": {
+"enabled": true,
+"target": "gcp",
+"otlpEndpoint": "https://telemetry-prod.example.com:4317",
+"logPrompts": false
+},
+"advanced": {
+"bugCommand": {
+"urlTemplate": "https://servicedesk.example.com/new-ticket?title={title}&details={info}"
+}
+},
+"privacy": {
+"usageStatisticsEnabled": false
+}
+}
+`
+```
+This configuration:
+* Forces all tool execution into a Docker sandbox.
+* Strictly uses an allowlist for a small set of safe shell commands and file
+tools.
+* Defines and allows a single corporate MCP server for custom tools.
+* Enables telemetry for auditing, without logging prompt content.
+* Redirects the `/bug` command to an internal ticketing system.
+* Disables general usage statistics collection.
+Last updated: Apr 17, 2026
+This website uses [cookies](https://policies.google.com/technologies/cookies) from Google to deliver and enhance the quality of its services and to analyze
+traffic.
+I understand.

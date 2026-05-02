@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "unifi": {
+      "command": "lab",
+      "args": ["mcp", "--services", "unifi"]
+    }
+  }
+}

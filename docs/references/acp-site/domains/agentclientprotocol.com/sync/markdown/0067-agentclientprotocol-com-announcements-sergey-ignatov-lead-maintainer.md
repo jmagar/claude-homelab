@@ -1,0 +1,17 @@
+Sergey Ignatov joins ACP as Lead Maintainer - Agent Client Protocol
+[Protocol
+](/get-started/introduction)[RFDs
+](/rfds/about)[Community
+](/community/communication)[Publications
+](/publications)[Updates
+](/updates)[Brand
+](/brand)
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://agentclientprotocol.com/llms.txt
+](https://agentclientprotocol.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+**Published:** February 18, 2026
+It is with great pleasure that I announce that Sergey Ignatov, from JetBrains, will be joining me as a Lead Maintainer for ACP. Agus Zubiaga will remain a key part of the leadership group as a Core Maintainer.
+This is in recognition of Sergey’s many contributions to the protocol. We would not be where we are today without his efforts. In the past few months, Zed and JetBrains have been able to collaborate closely on the protocol, and it is time to reflect that fact more formally in our governance structure.
+I have enjoyed the chance to work with Sergey and the entire JetBrains team. There is still much work to be done, but with all of the agent and client teams working together, I am confident we can continue to make the ACP vision a reality: allowing you to collaborate with the agent or agents you love wherever you are already working.

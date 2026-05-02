@@ -1,0 +1,56 @@
+{
+  "skill_name": "lab-service-onboarding",
+  "evals": [
+    {
+      "id": 1,
+      "prompt": "Add Mealie (recipe manager) to lab. It has a REST API with bearer token auth, runs on port 9000, and I want at minimum: recipe list, recipe get by ID, and health check. The upstream spec is at https://nightly.mealie.io/api/docs.",
+      "expected_output": "Creates the full service integration: lab-apis module (mealie.rs, client.rs, types.rs, error.rs), dispatch layer (mealie.rs + mealie/ directory with catalog.rs, client.rs, params.rs, dispatch.rs), CLI shim, MCP registration, API handler, feature gates in both Cargo.toml files, From<MealieError> for ToolError in dispatch/error.rs, META const with correct category and env vars, and coverage doc. TDD followed.",
+      "files": [],
+      "expectations": [
+        "Creates crates/lab-apis/src/mealie.rs with META const declaring Category, env vars, and port 9000",
+        "Creates crates/lab-apis/src/mealie/client.rs with MealieClient::new(base_url, auth) and ServiceClient health impl",
+        "Creates crates/lab-apis/src/mealie/error.rs wrapping ApiError with thiserror",
+        "Adds mealie feature to crates/lab-apis/Cargo.toml and passthrough in crates/lab/Cargo.toml",
+        "Creates dispatch/mealie/ with catalog.rs containing ACTIONS for recipe.list, recipe.get, help, and schema",
+        "From<MealieError> for ToolError added to dispatch/error.rs, feature-gated",
+        "dispatch_with_client function returns Result<Value, ToolError>",
+        "API handler uses handle_action helper and reads client from AppState",
+        "No mod.rs files created",
+        "No async-trait used"
+      ]
+    },
+    {
+      "id": 2,
+      "prompt": "I need to add a Jellyfin integration to lab. Jellyfin uses an x-emby-token header for auth, runs on port 8096. I want library listing, item search, and a health check. Mark nothing as destructive for now.",
+      "expected_output": "Complete onboarding following the service onboarding contract. Correct auth type (ApiKey or custom header handling). All five dispatch files created. Both Cargo.toml feature gates. CLI/MCP/API all wired. No logic in adapter layers.",
+      "files": [],
+      "expectations": [
+        "Creates crates/lab-apis/src/jellyfin.rs with META const",
+        "Client auth uses appropriate Auth variant for x-emby-token header",
+        "Creates crates/lab-apis/src/jellyfin/client.rs with library listing and search methods",
+        "Dispatch catalog has library.list, library.search, help, and schema actions",
+        "dispatch_with_client handles all declared actions and returns UnknownAction for unknown ones",
+        "From<JellyfinError> for ToolError in dispatch/error.rs",
+        "CLI shim delegates entirely to dispatch layer with no business logic",
+        "MCP module forwards all calls to the shared dispatch layer, contains no business logic",
+        "No mod.rs files created"
+      ]
+    },
+    {
+      "id": 3,
+      "prompt": "Wire up the dispatch layer for a new Uptime Kuma integration in lab. The lab-apis module already exists at crates/lab-apis/src/uptime_kuma/. I just need the dispatch layer, CLI shim, MCP registration, and API handler. The existing client has methods: monitors_list(), monitor_get(id), monitor_pause(id), monitor_resume(id). The pause/resume operations are destructive.",
+      "expected_output": "Creates only the dispatch layer and surface adapters (not lab-apis). Correctly marks monitor.pause and monitor.resume as destructive: true. All three surfaces wired. From<UptimeKumaError> for ToolError added. No duplication of existing lab-apis code.",
+      "files": [],
+      "expectations": [
+        "Creates dispatch/uptime_kuma/ with catalog.rs containing help, schema, monitor.list, monitor.get, monitor.pause, and monitor.resume",
+        "monitor.pause and monitor.resume have destructive: true in ActionSpec",
+        "dispatch_with_client calls the existing client methods correctly",
+        "From<UptimeKumaError> for ToolError added to dispatch/error.rs, feature-gated",
+        "CLI shim in cli/uptime_kuma.rs delegates to dispatch with no own logic",
+        "API handler reads client from AppState and uses handle_action",
+        "Does not recreate or duplicate the existing lab-apis module",
+        "No mod.rs files created"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+Understanding Docker components · Tailscale Docs
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+# Understanding Docker components
+Last validated: Mar 23, 2026
+Docker is made up of several components that work together to build, package, and run applications in isolated environments called containers. Each component plays a specific role in the process. At its core, a Dockerfile defines how to build an image, an image is used to start containers, and Docker Engine runs those containers.
+**Docker Engine**: The main Docker software that runs on your machine. It is responsible for building images, starting and stopping containers, and managing networking and storage. When you run Docker commands, Docker Engine performs the work behind the scenes.
+**Dockerfile**: A text file that contains instructions for building a Docker image. It describes everything needed to run an application, such as the base image, application code, dependencies, environment variables, and the command used to start the application. Docker reads the Dockerfile step by step to create an image.
+**Docker image**: A packaged template that contains everything an application needs to run. This includes the application code, runtime, libraries, system tools, and configuration. Docker Engine uses an image as the starting point for creating containers. Images can be stored locally on your machine or in online registries such as Docker Hub. For example, the Tailscale image contains the Tailscale client configured to run inside a container.
+**Docker container**: A running instance of a Docker image. If the image is the template, the container is the running application created from that template. You can start multiple containers from the same image, and each container runs in isolation with its own filesystem, network, and processes.
+**Docker Compose file**: A YAML configuration file used to define and run multiple containers together. Instead of running long `docker run` commands for each container, you describe your services, networking, and storage in a single file. [Docker Compose](/docs/features/containers/docker/how-to/connect-docker-container) can then start and manage all containers as a group.
+For more information about Docker components and related topics, refer to [Docker's official documentation](https://docs.docker.com/).
+Scroll to top

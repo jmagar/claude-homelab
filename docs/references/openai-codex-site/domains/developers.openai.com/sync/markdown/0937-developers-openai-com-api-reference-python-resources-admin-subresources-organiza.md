@@ -1,0 +1,119 @@
+List project groups | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/python)
+[Admin](/api/reference/python/resources/admin)
+[Organization](/api/reference/python/resources/admin/subresources/organization)
+[Projects](/api/reference/python/resources/admin/subresources/organization/subresources/projects)
+[Groups](/api/reference/python/resources/admin/subresources/organization/subresources/projects/subresources/groups)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# List project groups
+admin.organization.projects.groups.list(strproject\_id, GroupListParams\*\*kwargs) -\> SyncCursorPage[[ProjectGroup](</api/reference/python/resources/admin#(resource) admin.organization.projects.groups > (model) project_group > (schema)>)]
+GET/organization/projects/{project\_id}/groups
+Lists the groups that have access to a project.
+##### ParametersExpand Collapse
+project\_id: str
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) project_id > (schema)>)
+after: Optional[str]
+Cursor for pagination. Provide the ID of the last group from the previous response to fetch the next page.
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) after > (schema)>)
+limit: Optional[int]
+A limit on the number of project groups to return. Defaults to 20.
+minimum0
+maximum100
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) limit > (schema)>)
+order: Optional[Literal["asc", "desc"]]
+Sort order for the returned groups.
+One of the following:
+"asc"
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) order > (schema) > (member) 0>)
+"desc"
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) order > (schema) > (member) 1>)
+[](<#(resource) admin.organization.projects.groups > (method) list > (params) default > (param) order > (schema)>)
+##### ReturnsExpand Collapse
+class ProjectGroup: …
+Details about a group’s membership in a project.
+created\_at: int
+Unix timestamp (in seconds) when the group was granted project access.
+formatunixtime
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema) > (property) created_at>)
+group\_id: str
+Identifier of the group that has access to the project.
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema) > (property) group_id>)
+group\_name: str
+Display name of the group.
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema) > (property) group_name>)
+object: Literal["project.group"]
+Always `project.group`.
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema) > (property) object>)
+project\_id: str
+Identifier of the project.
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema) > (property) project_id>)
+[](<#(resource) admin.organization.projects.groups > (model) project_group > (schema)>)
+### List project groups
+Python
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`import os
+from openai import OpenAI
+client = OpenAI(
+admin\_api\_key=os.environ.get("OPENAI\_ADMIN\_KEY"), # This is the default and can be omitted
+)
+page = client.admin.organization.projects.groups.list(
+project\_id="project\_id",
+)
+page = page.data[0]
+print(page.group\_id)`
+```
+```
+`{
+"object": "list",
+"data": [
+{
+"object": "project.group",
+"project\_id": "proj\_abc123",
+"group\_id": "group\_01J1F8ABCDXYZ",
+"group\_name": "Support Team",
+"created\_at": 1711471533
+}
+],
+"has\_more": false,
+"next": null
+}
+`
+```
+##### Returns Examples
+```
+`{
+"object": "list",
+"data": [
+{
+"object": "project.group",
+"project\_id": "proj\_abc123",
+"group\_id": "group\_01J1F8ABCDXYZ",
+"group\_name": "Support Team",
+"created\_at": 1711471533
+}
+],
+"has\_more": false,
+"next": null
+}
+`
+```

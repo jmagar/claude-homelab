@@ -1,0 +1,16 @@
+2 posts tagged with "infrastructure" | Jellyfin
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+Over the last several weeks, I've been driving a major push to revamp and improve our CI, in an effort to improve our release workflow, our velocity of releases, and the burden they have on me as the release manager. This post will detail the changes we've made, how they might affect you as a user or contributor, and how we're planning to proceed with our 10.9.0 release cycle.
+## The TL;DR[​](#the-tldr)
+1. We have [a new repository browser UI](https://repo.jellyfin.org) along with a new file layout, on a new master repository machine, built by new CI, that will hopefully make it nicer to look around and get right to what you need. This has now been cut over into production, but is still a bit of a work in progress, so please report any bugs you find to us! Note that quite a number of paths will have changed (anything under `/server` especially), but some will remain the same. If you get a 404 and can't find it through the browser UI, best to check in. **3rd party packagers downloading files manually from us are advised to contact us if needed.**
+2. We are dropping non-LTS Ubuntu packages, dropping our own Fedora/CentOS packages in favour of [RPMFusion builds](https://admin.rpmfusion.org/pkgdb/package/free/jellyfin/), and adding [GHCR as a container repository](https://ghcr.io/jellyfin/jellyfin) for our Docker images.
+3. For 10.9.0, we will not be producing explicit "beta" releases. Instead, we will test using our new Weekly Unstable builds. Once the master branch is sufficiently stable and good, we will release 10.9.0 directly from there (via our standard release branch process).
+4. The 10.9.0 feature freeze (bugfix PRs only after this) will tentatively begin on **Monday, March 18th**. The hope is that all of the above will be ready by then so that obtaining Unstable builds for testing will be easy.
+5. The 10.9.0 release itself is tentatively planned for the **last weekend in April**. To all **3rd parties who build packages of our releases, please read until the end for an important note about this release**.
+Read on for more details.
+- Joshua
+We are pleased to announce that we have created a new forum for the Jellyfin community:
+[https://forum.jellyfin.org](https://forum.jellyfin.org)
+You can see [the welcome message here](https://forum.jellyfin.org/welcome) and [the forum rules here](https://forum.jellyfin.org/rules), or you can [jump right to registering here](https://forum.jellyfin.org/register), using either native forum registration or using an account from Discord, GitHub, Google, Reddit, StackExchange, or Twitter.
+As part of this, we have also decided to close our Reddit community presence permanently. [Please see the message there](https://old.reddit.com/r/jellyfin/comments/14c2bfg/rjellyfin_is_now_closed_please_visit_us_at_our/) for details.
+If you just want to get registered and start posting, this is all you need. But if you're interested in our motivations, choices, and technical implementation, please read on!

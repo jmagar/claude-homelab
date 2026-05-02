@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_handle\_rate\_limits [Redirecting from `/cookbook/examples/how\_to\_handle\_rate\_limits.ipynb/` to `/cookbook/examples/how\_to\_handle\_rate\_limits`](/cookbook/examples/how_to_handle_rate_limits)

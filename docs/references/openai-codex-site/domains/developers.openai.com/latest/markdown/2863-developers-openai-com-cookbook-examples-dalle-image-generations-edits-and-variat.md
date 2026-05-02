@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/dalle/image\_generations\_edits\_and\_variations\_with\_dall-e [Redirecting from `/cookbook/examples/dalle/image\_generations\_edits\_and\_variations\_with\_dall-e.ipynb/` to `/cookbook/examples/dalle/image\_generations\_edits\_and\_variations\_with\_dall-e`](/cookbook/examples/dalle/image_generations_edits_and_variations_with_dall-e)

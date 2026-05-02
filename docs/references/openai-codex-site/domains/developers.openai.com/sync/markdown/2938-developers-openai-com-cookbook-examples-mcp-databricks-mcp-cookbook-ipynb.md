@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/mcp/databricks\_mcp\_cookbook [Redirecting from `/cookbook/examples/mcp/databricks\_mcp\_cookbook.ipynb/` to `/cookbook/examples/mcp/databricks\_mcp\_cookbook`](/cookbook/examples/mcp/databricks_mcp_cookbook)

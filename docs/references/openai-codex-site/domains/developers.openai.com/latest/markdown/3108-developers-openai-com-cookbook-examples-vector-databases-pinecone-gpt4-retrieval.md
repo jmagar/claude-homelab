@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/pinecone/gpt4\_retrieval\_augmentation [Redirecting from `/cookbook/examples/vector\_databases/pinecone/gpt4\_retrieval\_augmentation.ipynb/` to `/cookbook/examples/vector\_databases/pinecone/gpt4\_retrieval\_augmentation`](/cookbook/examples/vector_databases/pinecone/gpt4_retrieval_augmentation)

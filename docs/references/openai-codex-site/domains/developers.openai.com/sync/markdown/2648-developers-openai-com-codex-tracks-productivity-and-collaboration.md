@@ -1,0 +1,1 @@
+Redirecting to: /codex/use-cases/collections/productivity-and-collaboration [Redirecting from `/codex/tracks/productivity-and-collaboration/` to `/codex/use-cases/collections/productivity-and-collaboration`](/codex/use-cases/collections/productivity-and-collaboration)

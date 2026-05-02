@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_call\_functions\_with\_chat\_models [Redirecting from `/cookbook/examples/how\_to\_call\_functions\_with\_chat\_models.ipynb/` to `/cookbook/examples/how\_to\_call\_functions\_with\_chat\_models`](/cookbook/examples/how_to_call_functions_with_chat_models)

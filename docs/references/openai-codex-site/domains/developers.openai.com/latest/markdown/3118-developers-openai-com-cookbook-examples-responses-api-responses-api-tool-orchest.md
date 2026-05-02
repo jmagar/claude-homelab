@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/responses\_api/responses\_api\_tool\_orchestration [Redirecting from `/cookbook/examples/responses\_api/responses\_api\_tool\_orchestration.ipynb/` to `/cookbook/examples/responses\_api/responses\_api\_tool\_orchestration`](/cookbook/examples/responses_api/responses_api_tool_orchestration)

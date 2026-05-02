@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/code\_search\_using\_embeddings [Redirecting from `/cookbook/examples/code\_search\_using\_embeddings.ipynb/` to `/cookbook/examples/code\_search\_using\_embeddings`](/cookbook/examples/code_search_using_embeddings)

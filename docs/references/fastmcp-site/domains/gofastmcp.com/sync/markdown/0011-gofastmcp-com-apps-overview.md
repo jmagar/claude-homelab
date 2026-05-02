@@ -1,0 +1,242 @@
+Apps - FastMCP
+Documentation
+##### Get Started
+* [
+Welcome!
+](/getting-started/welcome)
+* [
+Installation
+](/getting-started/installation)
+* [
+Quickstart
+](/getting-started/quickstart)
+##### Servers
+* [
+Overview
+](/servers/server)
+*
+Core Components
+*
+FeaturesUPDATED
+*
+Providers
+*
+Transforms
+*
+Auth
+*
+Deployment
+##### Apps
+* [
+Overview
+NEW
+](/apps/overview)
+* [
+Quickstart
+NEW
+](/apps/quickstart)
+* [
+Examples
+NEW
+](/apps/examples)
+*
+Building AppsNEW
+*
+ProvidersNEW
+*
+AdvancedNEW
+##### Clients
+* [
+Overview
+](/clients/client)
+* [
+Transports
+](/clients/transports)
+*
+Core Operations
+*
+HandlersUPDATED
+*
+AuthenticationUPDATED
+##### Integrations
+*
+Auth
+*
+Web Frameworks
+*
+AI Assistants
+*
+AI SDKs
+* [
+MCP.json
+](/integrations/mcp-json-configuration)
+##### CLI
+* [
+Overview
+](/cli/overview)
+* [
+Running
+](/cli/running)
+* [
+Install MCPs
+](/cli/install-mcp)
+* [
+Inspecting
+](/cli/inspecting)
+* [
+Client
+](/cli/client)
+* [
+Generate CLI
+](/cli/generate-cli)
+* [
+Auth
+](/cli/auth)
+##### More
+* [
+Settings
+](/more/settings)
+*
+Upgrading
+*
+Development
+*
+What's New
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://gofastmcp.com/llms.txt
+](https://gofastmcp.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+MCP tools normally return text. That works for answers, but not for data the user wants to *explore* — a revenue chart they can hover over, a sortable employee directory, a form that submits structured input. MCP Apps let your tools return interactive UIs rendered right inside the conversation.
+FastMCP builds on the [MCP Apps extension](https://modelcontextprotocol.io/docs/extensions/apps) with [Prefab](https://prefab.prefect.io), a Python component library that compiles to interactive UIs. You write Python; the user sees charts, tables, forms, and dashboards.
+The examples throughout the Apps docs require the `apps` extra:
+```
+`pip install "fastmcp[apps]"
+`
+```
+This installs [Prefab UI](https://prefab.prefect.io), the component library used to build app UIs.
+FastMCP pins a **minimum** version of `prefab-ui` for compatibility but intentionally does **not** pin an upper bound. Prefab is a rapidly evolving library with frequent breaking changes. If you are deploying to production, you **must** pin `prefab-ui` to a specific version in your own dependencies. Without a pin, a fresh deploy could pull a newer Prefab version that changes component APIs, breaking your app.
+##
+[​
+](#which-approach)
+Which Approach?
+Most apps start with **[Prefab Apps](/apps/prefab)** — add `app=True` to a tool and return components. That covers charts, tables, dashboards, and client-side interactivity.
+When your UI needs multiple backend tools with managed visibility and composition safety, use **[FastMCPApp](/apps/interactive-apps)**.
+When you want the LLM to design the UI at runtime, use **[Generative UI](/apps/generative)**.
+When you need your own HTML/JS (maps, 3D, video), use **[Custom HTML](/apps/low-level)**.
+FastMCP also includes ready-made **[app providers](/apps/providers/approval)** that add common capabilities with a single `add\_provider()` call.
+##
+[​
+](#building-apps)
+Building Apps
+###
+[​
+](#prefab-apps)
+Prefab Apps
+The quickest way to give a tool a visual UI. Add `app=True` to any tool and return a Prefab component — when the host calls it, the user sees an interactive UI instead of a JSON blob:
+```
+`from prefab\_ui.app import PrefabApp
+from prefab\_ui.components import Column, Heading
+from prefab\_ui.components.charts import BarChart, ChartSeries
+from fastmcp import FastMCP
+mcp = FastMCP("Dashboard")
+@mcp.tool(app=True)
+def revenue\_chart(year: int) -\> PrefabApp:
+"""Show annual revenue as an interactive bar chart."""
+data = [
+{"quarter": "Q1", "revenue": 42000},
+{"quarter": "Q2", "revenue": 51000},
+{"quarter": "Q3", "revenue": 47000},
+{"quarter": "Q4", "revenue": 63000},
+]
+with Column(gap=4, css\_class="p-6") as view:
+Heading(f"{year} Revenue")
+BarChart(
+data=data,
+series=[ChartSeries(data\_key="revenue", label="Revenue")],
+x\_axis="quarter",
+)
+return PrefabApp(view=view)
+`
+```
+Prefab apps aren’t limited to static displays. Prefab’s state system and client-side actions (toggles, tabs, conditionals) all work. You can even call other tools from the UI using `CallTool`. There’s no hard wall on what a Prefab app can do.
+See [Prefab Apps](/apps/prefab) for the full guide.
+###
+[​
+](#fastmcpapp)
+FastMCPApp
+When your app has a lot of server-side interaction — forms that save data, search that queries a database, multi-step workflows — managing the connection between UI and backend tools gets complicated fast. Which tools should the model see vs. only the UI? What happens to tool references when servers are composed under namespaces? How do you keep `CallTool("save\_contact")` working when the tool name changes?
+`FastMCPApp` is a class that solves these problems. It gives you two decorators that work together:
+* **`@app.ui()`** — entry-point tools the model calls to open the app
+* **`@app.tool()`** — backend tools the UI calls via `CallTool`
+Backend tools get stable identifiers that survive namespacing, visibility is managed automatically (the model sees entry points, the UI sees backends), and `CallTool` accepts tool names that resolve correctly regardless of how servers are composed:
+```
+`from prefab\_ui.actions import SetState, ShowToast
+from prefab\_ui.actions.mcp import CallTool
+from prefab\_ui.app import PrefabApp
+from prefab\_ui.components import (
+Column, Heading, Form, Input, Button, ForEach, Row, Text, Badge, Separator,
+)
+from prefab\_ui.rx import RESULT
+from fastmcp import FastMCP, FastMCPApp
+app = FastMCPApp("Contacts")
+@app.tool()
+def save\_contact(name: str, email: str) -\> list[dict]:
+"""Save a contact and return the updated list."""
+db.append({"name": name, "email": email})
+return list(db)
+@app.ui()
+def contact\_manager() -\> PrefabApp:
+"""Open the contact manager."""
+with Column(gap=6, css\_class="p-6") as view:
+Heading("Contacts")
+with ForEach("contacts") as contact:
+with Row(gap=2):
+Text(contact.name)
+Badge(contact.email)
+Separator()
+with Form(
+on\_submit=CallTool(
+"save\_contact",
+on\_success=[
+SetState("contacts", RESULT),
+ShowToast("Saved!", variant="success"),
+],
+)
+):
+Input(name="name", label="Name", required=True)
+Input(name="email", label="Email", required=True)
+Button("Save")
+return PrefabApp(view=view, state={"contacts": list(db)})
+mcp = FastMCP("Server", providers=[app])
+`
+```
+You *can* build server-interactive UIs without `FastMCPApp` — it’s all the same protocol underneath. But once you have multiple tools, composition concerns, or visibility requirements, `FastMCPApp` handles the complexity so you don’t have to.
+See [FastMCPApp](/apps/interactive-apps) for the full guide.
+###
+[​
+](#generative-ui)
+Generative UI
+Instead of pre-building a UI, the LLM can write one from scratch. The `GenerativeUI` provider registers tools that let the model write Prefab Python code, execute it in a sandbox, and render the result — with streaming so the user watches the UI build up in real time.
+```
+`from fastmcp import FastMCP
+from fastmcp.apps.generative import GenerativeUI
+mcp = FastMCP("Prefab Studio")
+mcp.add\_provider(GenerativeUI())
+`
+```
+See [Generative UI](/apps/generative) for the full guide, or the [provider reference](/apps/providers/generative) for configuration options.
+###
+[​
+](#custom-html)
+Custom HTML
+All the approaches above use [Prefab UI](https://prefab.prefect.io) to build UIs in pure Python. If you need full control — your own HTML, CSS, JavaScript, a specific framework — you can use the [MCP Apps extension directly](/apps/low-level). You write the HTML yourself and communicate with the host via the [`@modelcontextprotocol/ext-apps`](https://github.com/modelcontextprotocol/ext-apps) SDK.
+##
+[​
+](#previewing-apps-locally)
+Previewing Apps Locally
+The `fastmcp dev apps` command launches a browser-based preview for your app tools — no MCP host client needed. See [Development](/apps/development).
+```
+`fastmcp dev apps server.py
+`
+```

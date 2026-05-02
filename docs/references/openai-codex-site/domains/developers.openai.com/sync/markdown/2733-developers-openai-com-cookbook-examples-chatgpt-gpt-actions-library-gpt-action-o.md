@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_outlook [Redirecting from `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_outlook.ipynb/` to `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_action\_outlook`](/cookbook/examples/chatgpt/gpt_actions_library/gpt_action_outlook)

@@ -1,0 +1,195 @@
+Batches | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/go)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Batches
+Create large batches of API requests to run asynchronously.
+##### [Create batch](/api/reference/go/resources/batches/methods/create)
+client.Batches.New(ctx, body) (\*[Batch](</api/reference/go/resources/batches#(resource) batches > (model) batch > (schema)>), error)
+POST/batches
+##### [Retrieve batch](/api/reference/go/resources/batches/methods/retrieve)
+client.Batches.Get(ctx, batchID) (\*[Batch](</api/reference/go/resources/batches#(resource) batches > (model) batch > (schema)>), error)
+GET/batches/{batch\_id}
+##### [Cancel batch](/api/reference/go/resources/batches/methods/cancel)
+client.Batches.Cancel(ctx, batchID) (\*[Batch](</api/reference/go/resources/batches#(resource) batches > (model) batch > (schema)>), error)
+POST/batches/{batch\_id}/cancel
+##### [List batches](/api/reference/go/resources/batches/methods/list)
+client.Batches.List(ctx, query) (\*CursorPage[[Batch](</api/reference/go/resources/batches#(resource) batches > (model) batch > (schema)>)], error)
+GET/batches
+##### ModelsExpand Collapse
+type Batch struct{…}
+ID string
+[](<#(resource) batches > (model) batch > (schema) > (property) id>)
+CompletionWindow string
+The time frame within which the batch should be processed.
+[](<#(resource) batches > (model) batch > (schema) > (property) completion_window>)
+CreatedAt int64
+The Unix timestamp (in seconds) for when the batch was created.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) created_at>)
+Endpoint string
+The OpenAI API endpoint used by the batch.
+[](<#(resource) batches > (model) batch > (schema) > (property) endpoint>)
+InputFileID string
+The ID of the input file for the batch.
+[](<#(resource) batches > (model) batch > (schema) > (property) input_file_id>)
+Object Batch
+The object type, which is always `batch`.
+[](<#(resource) batches > (model) batch > (schema) > (property) object>)
+Status BatchStatus
+The current status of the batch.
+One of the following:
+const BatchStatusValidating BatchStatus = "validating"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 0>)
+const BatchStatusFailed BatchStatus = "failed"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 1>)
+const BatchStatusInProgress BatchStatus = "in\_progress"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 2>)
+const BatchStatusFinalizing BatchStatus = "finalizing"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 3>)
+const BatchStatusCompleted BatchStatus = "completed"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 4>)
+const BatchStatusExpired BatchStatus = "expired"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 5>)
+const BatchStatusCancelling BatchStatus = "cancelling"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 6>)
+const BatchStatusCancelled BatchStatus = "cancelled"
+[](<#(resource) batches > (model) batch > (schema) > (property) status > (member) 7>)
+[](<#(resource) batches > (model) batch > (schema) > (property) status>)
+CancelledAt int64Optional
+The Unix timestamp (in seconds) for when the batch was cancelled.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) cancelled_at>)
+CancellingAt int64Optional
+The Unix timestamp (in seconds) for when the batch started cancelling.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) cancelling_at>)
+CompletedAt int64Optional
+The Unix timestamp (in seconds) for when the batch was completed.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) completed_at>)
+ErrorFileID stringOptional
+The ID of the file containing the outputs of requests with errors.
+[](<#(resource) batches > (model) batch > (schema) > (property) error_file_id>)
+Errors BatchErrorsOptional
+Data [][BatchError](</api/reference/go/resources/batches#(resource) batches > (model) batch_error > (schema)>)Optional
+Code stringOptional
+An error code identifying the error type.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) code>)
+Line int64Optional
+The line number of the input file where the error occurred, if applicable.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) line>)
+Message stringOptional
+A human-readable message providing more details about the error.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) message>)
+Param stringOptional
+The name of the parameter that caused the error, if applicable.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) param>)
+[](<#(resource) batches > (model) batch > (schema) > (property) errors > (property) data>)
+Object stringOptional
+The object type, which is always `list`.
+[](<#(resource) batches > (model) batch > (schema) > (property) errors > (property) object>)
+[](<#(resource) batches > (model) batch > (schema) > (property) errors>)
+ExpiredAt int64Optional
+The Unix timestamp (in seconds) for when the batch expired.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) expired_at>)
+ExpiresAt int64Optional
+The Unix timestamp (in seconds) for when the batch will expire.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) expires_at>)
+FailedAt int64Optional
+The Unix timestamp (in seconds) for when the batch failed.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) failed_at>)
+FinalizingAt int64Optional
+The Unix timestamp (in seconds) for when the batch started finalizing.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) finalizing_at>)
+InProgressAt int64Optional
+The Unix timestamp (in seconds) for when the batch started processing.
+formatunixtime
+[](<#(resource) batches > (model) batch > (schema) > (property) in_progress_at>)
+Metadata [Metadata](</api/reference/go/resources/$shared#(resource) $shared > (model) metadata > (schema)>)Optional
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) batches > (model) batch > (schema) > (property) metadata>)
+Model stringOptional
+Model ID used to process the batch, like `gpt-5-2025-08-07`. OpenAI
+offers a wide range of models with different capabilities, performance
+characteristics, and price points. Refer to the [model
+guide](https://platform.openai.com/docs/models) to browse and compare available models.
+[](<#(resource) batches > (model) batch > (schema) > (property) model>)
+OutputFileID stringOptional
+The ID of the file containing the outputs of successfully executed requests.
+[](<#(resource) batches > (model) batch > (schema) > (property) output_file_id>)
+RequestCounts [BatchRequestCounts](</api/reference/go/resources/batches#(resource) batches > (model) batch_request_counts > (schema)>)Optional
+The request counts for different statuses within the batch.
+[](<#(resource) batches > (model) batch > (schema) > (property) request_counts>)
+Usage [BatchUsage](</api/reference/go/resources/batches#(resource) batches > (model) batch_usage > (schema)>)Optional
+Represents token usage details including input tokens, output tokens, a
+breakdown of output tokens, and the total tokens used. Only populated on
+batches created after September 7, 2025.
+[](<#(resource) batches > (model) batch > (schema) > (property) usage>)
+[](<#(resource) batches > (model) batch > (schema)>)
+type BatchError struct{…}
+Code stringOptional
+An error code identifying the error type.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) code>)
+Line int64Optional
+The line number of the input file where the error occurred, if applicable.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) line>)
+Message stringOptional
+A human-readable message providing more details about the error.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) message>)
+Param stringOptional
+The name of the parameter that caused the error, if applicable.
+[](<#(resource) batches > (model) batch_error > (schema) > (property) param>)
+[](<#(resource) batches > (model) batch_error > (schema)>)
+type BatchRequestCounts struct{…}
+The request counts for different statuses within the batch.
+Completed int64
+Number of requests that have been completed successfully.
+[](<#(resource) batches > (model) batch_request_counts > (schema) > (property) completed>)
+Failed int64
+Number of requests that have failed.
+[](<#(resource) batches > (model) batch_request_counts > (schema) > (property) failed>)
+Total int64
+Total number of requests in the batch.
+[](<#(resource) batches > (model) batch_request_counts > (schema) > (property) total>)
+[](<#(resource) batches > (model) batch_request_counts > (schema)>)
+type BatchUsage struct{…}
+Represents token usage details including input tokens, output tokens, a
+breakdown of output tokens, and the total tokens used. Only populated on
+batches created after September 7, 2025.
+InputTokens int64
+The number of input tokens.
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) input_tokens>)
+InputTokensDetails BatchUsageInputTokensDetails
+A detailed breakdown of the input tokens.
+CachedTokens int64
+The number of tokens that were retrieved from the cache. [More on
+prompt caching](https://platform.openai.com/docs/guides/prompt-caching).
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) input_tokens_details > (property) cached_tokens>)
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) input_tokens_details>)
+OutputTokens int64
+The number of output tokens.
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) output_tokens>)
+OutputTokensDetails BatchUsageOutputTokensDetails
+A detailed breakdown of the output tokens.
+ReasoningTokens int64
+The number of reasoning tokens.
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) output_tokens_details > (property) reasoning_tokens>)
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) output_tokens_details>)
+TotalTokens int64
+The total number of tokens used.
+[](<#(resource) batches > (model) batch_usage > (schema) > (property) total_tokens>)
+[](<#(resource) batches > (model) batch_usage > (schema)>)

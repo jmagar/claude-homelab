@@ -1,0 +1,121 @@
+Contrib Modules - FastMCP
+Documentation
+##### Get Started
+* [
+Welcome!
+](/v2/getting-started/welcome)
+* [
+Installation
+](/v2/getting-started/installation)
+* [
+Quickstart
+](/v2/getting-started/quickstart)
+* [
+Updates
+NEW
+](/v2/updates)
+##### Servers
+* [
+Overview
+](/v2/servers/server)
+*
+Core Components
+*
+Advanced Features
+*
+Authentication
+*
+Deployment
+##### Clients
+*
+Essentials
+*
+Core Operations
+*
+Advanced Features
+*
+Authentication
+##### Integrations
+*
+Authentication
+*
+Authorization
+*
+AI Assistants
+*
+AI SDKs
+*
+API Integration
+##### Patterns
+* [
+Tool Transformation
+](/v2/patterns/tool-transformation)
+* [
+Decorating Methods
+](/v2/patterns/decorating-methods)
+* [
+CLI
+](/v2/patterns/cli)
+* [
+Contrib Modules
+](/v2/patterns/contrib)
+* [
+Testing
+](/v2/patterns/testing)
+##### Development
+* [
+Contributing
+](/v2/development/contributing)
+* [
+Tests
+](/v2/development/tests)
+* [
+Releases
+](/v2/development/releases)
+* [
+Upgrade Guide
+NEW
+](/v2/development/upgrade-guide)
+* [
+Changelog
+](/v2/changelog)
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://gofastmcp.com/llms.txt
+](https://gofastmcp.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+New in version `2.2.1`
+FastMCP includes a `contrib` package that holds community-contributed modules. These modules extend FastMCP’s functionality but aren’t officially maintained by the core team.
+Contrib modules provide additional features, integrations, or patterns that complement the core FastMCP library. They offer a way for the community to share useful extensions while keeping the core library focused and maintainable.
+The available modules can be viewed in the [contrib directory](https://github.com/PrefectHQ/fastmcp/tree/main/src/fastmcp/contrib).
+##
+[​
+](#usage)
+Usage
+To use a contrib module, import it from the `fastmcp.contrib` package:
+```
+`from fastmcp.contrib import my\_module
+`
+```
+##
+[​
+](#important-considerations)
+Important Considerations
+* **Stability**: Modules in `contrib` may have different testing requirements or stability guarantees compared to the core library.
+* **Compatibility**: Changes to core FastMCP might break modules in `contrib` without explicit warnings in the main changelog.
+* **Dependencies**: Contrib modules may have additional dependencies not required by the core library. These dependencies are typically documented in the module’s README or separate requirements files.
+##
+[​
+](#contributing)
+Contributing
+We welcome contributions to the `contrib` package! If you have a module that extends FastMCP in a useful way, consider contributing it:
+1. Create a new directory in `src/fastmcp/contrib/` for your module
+2. Add proper tests for your module in `tests/contrib/`
+3. Include comprehensive documentation in a README.md file, including usage and examples, as well as any additional dependencies or installation instructions
+4. Submit a pull request
+The ideal contrib module:
+* Solves a specific use case or integration need
+* Follows FastMCP coding standards
+* Includes thorough documentation and examples
+* Has comprehensive tests
+* Specifies any additional dependencies

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/gpt-5/gpt-5\_new\_params\_and\_tools [Redirecting from `/cookbook/examples/gpt-5/gpt-5\_new\_params\_and\_tools.ipynb/` to `/cookbook/examples/gpt-5/gpt-5\_new\_params\_and\_tools`](/cookbook/examples/gpt-5/gpt-5_new_params_and_tools)

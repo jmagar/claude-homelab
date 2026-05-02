@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/articles/what\_makes\_documentation\_good [Redirecting from `/cookbook/what\_makes\_documentation\_good/` to `/cookbook/articles/what\_makes\_documentation\_good`](/cookbook/articles/what_makes_documentation_good)

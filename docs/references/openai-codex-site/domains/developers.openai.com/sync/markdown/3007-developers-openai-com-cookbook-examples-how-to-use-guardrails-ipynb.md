@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_use\_guardrails [Redirecting from `/cookbook/examples/how\_to\_use\_guardrails.ipynb/` to `/cookbook/examples/how\_to\_use\_guardrails`](/cookbook/examples/how_to_use_guardrails)

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/third\_party/visualizing\_embeddings\_with\_atlas [Redirecting from `/cookbook/examples/third\_party/visualizing\_embeddings\_with\_atlas.ipynb/` to `/cookbook/examples/third\_party/visualizing\_embeddings\_with\_atlas`](/cookbook/examples/third_party/visualizing_embeddings_with_atlas)

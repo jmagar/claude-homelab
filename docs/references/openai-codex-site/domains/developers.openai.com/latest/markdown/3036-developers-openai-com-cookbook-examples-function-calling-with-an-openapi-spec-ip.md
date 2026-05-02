@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/function\_calling\_with\_an\_openapi\_spec [Redirecting from `/cookbook/examples/function\_calling\_with\_an\_openapi\_spec.ipynb/` to `/cookbook/examples/function\_calling\_with\_an\_openapi\_spec`](/cookbook/examples/function_calling_with_an_openapi_spec)

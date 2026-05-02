@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/o1/using\_chained\_calls\_for\_o1\_structured\_outputs [Redirecting from `/cookbook/examples/o1/using\_chained\_calls\_for\_o1\_structured\_outputs.ipynb/` to `/cookbook/examples/o1/using\_chained\_calls\_for\_o1\_structured\_outputs`](/cookbook/examples/o1/using_chained_calls_for_o1_structured_outputs)

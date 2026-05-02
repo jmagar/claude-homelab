@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/articles/gpt-oss/fine-tune-transfomers [Redirecting from `/cookbook/articles/gpt-oss/fine-tune-transfomers.ipynb/` to `/cookbook/articles/gpt-oss/fine-tune-transfomers`](/cookbook/articles/gpt-oss/fine-tune-transfomers)

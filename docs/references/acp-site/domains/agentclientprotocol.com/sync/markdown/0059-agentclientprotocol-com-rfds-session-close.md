@@ -1,0 +1,102 @@
+Closing active sessions - Agent Client Protocol
+[Protocol
+](/get-started/introduction)[RFDs
+](/rfds/about)[Community
+](/community/communication)[Publications
+](/publications)[Updates
+](/updates)[Brand
+](/brand)
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://agentclientprotocol.com/llms.txt
+](https://agentclientprotocol.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+Author(s): [@SteffenDE](https://github.com/SteffenDE)
+##
+[​
+](#elevator-pitch)
+Elevator pitch
+>
+> What are you proposing to change?
+>
+We propose adding the ability to close active sessions. This allows the agent to free up any memory
+and threads/subprocesses associated with that session.
+##
+[​
+](#status-quo)
+Status quo
+>
+> How do things work today and what problems does this cause? Why would we change things?
+>
+Today, if you start a session, it will remain active until the ACP process is terminated.
+This means that if the agent implements sessions as separate processes, active users with
+many sessions can end up with a lot of processes unnecessarily using up system memory.
+Even if the agent does not spawn separate processes, memory used by large tool results or
+similar could still accumulate over time.
+The only way to free up that memory is to terminate the whole ACP process, which will stop
+all sessions and - if the agent does not support resuming sessions (load / resume / fork) -
+lead to a bad user experience.
+##
+[​
+](#what-we-propose-to-do-about-it)
+What we propose to do about it
+>
+> What are you proposing to improve the situation?
+>
+Add a new `session/close` method. If supported, the agent **must** cancel any ongoing work
+related to the session (treat it as if `session/cancel` was called) and then free up any resources
+associated with the session.
+##
+[​
+](#shiny-future)
+Shiny future
+>
+> How will things will play out once this feature exists?
+>
+Clients can track what sessions are actively used by a user and automatically close old sessions.
+##
+[​
+](#implementation-details-and-plan)
+Implementation details and plan
+>
+> Tell me more about your implementation. What is your detailed implementation plan?
+>
+We propose to add a new `"session/close"` method. Agents must declare this option is
+available by returning `sessionCapabilities: { close: {} }` in their capabilities. The object is
+reserved to declare future capabilities.
+Then the client would be able to close a specific session with:
+```
+`{
+"jsonrpc": "2.0",
+"id": 1,
+"method": "session/close",
+"params": {
+"sessionId": "sess\_789xyz"
+}
+}
+`
+```
+Agents might reply with an error if the session is not active or does not exist.
+##
+[​
+](#frequently-asked-questions)
+Frequently asked questions
+>
+> What questions have arisen over the course of authoring this document or during subsequent discussions?
+>
+None so far.
+###
+[​
+](#what-alternative-approaches-did-you-consider-and-why-did-you-settle-on-this-one)
+What alternative approaches did you consider, and why did you settle on this one?
+It could be an agent specific custom method, since we mainly ran into problems with Claude Code, but
+even for agents that don’t spawn full subprocesses for sessions, cleaning up unneeded sessions still
+seems like a good idea.
+##
+[​
+](#revision-history)
+Revision history
+* 2026-04-23: RFD marked as Completed; `session/close` is stabilized
+* 2026-04-14: Move to preview and update capability docs to `sessionCapabilities.close`
+* 2026-03-09: Rename from session/stop to session/close
+* 2026-02-24: Initial draft

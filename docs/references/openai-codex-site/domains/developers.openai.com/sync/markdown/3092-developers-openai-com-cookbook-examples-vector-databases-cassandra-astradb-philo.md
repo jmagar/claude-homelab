@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/cassandra\_astradb/philosophical\_quotes\_cql [Redirecting from `/cookbook/examples/vector\_databases/cassandra\_astradb/philosophical\_quotes\_cql.ipynb/` to `/cookbook/examples/vector\_databases/cassandra\_astradb/philosophical\_quotes\_cql`](/cookbook/examples/vector_databases/cassandra_astradb/philosophical_quotes_cql)

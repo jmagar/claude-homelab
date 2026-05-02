@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/get\_embeddings\_from\_dataset [Redirecting from `/cookbook/examples/get\_embeddings\_from\_dataset.ipynb/` to `/cookbook/examples/get\_embeddings\_from\_dataset`](/cookbook/examples/get_embeddings_from_dataset)

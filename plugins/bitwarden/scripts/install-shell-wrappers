@@ -1,0 +1,120 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+usage() {
+  cat <<'EOF'
+Usage: install-shell-wrappers [--rc PATH] [--shell zsh|bash] [--dry-run]
+
+Installs shell wrappers for claude, codex, and gemini that run:
+  plugins/bitwarden/scripts/session ensure
+
+before launching the real CLI.
+EOF
+}
+
+plugin_root="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+session_script="$plugin_root/scripts/session"
+shell_name="${SHELL##*/}"
+rc_file=""
+dry_run=0
+
+while [[ $# -gt 0 ]]; do
+  case "$1" in
+    --rc)
+      [[ $# -ge 2 ]] || { printf 'Missing value for --rc\n' >&2; exit 2; }
+      rc_file="$2"
+      shift 2
+      ;;
+    --shell)
+      [[ $# -ge 2 ]] || { printf 'Missing value for --shell\n' >&2; exit 2; }
+      shell_name="$2"
+      shift 2
+      ;;
+    --dry-run)
+      dry_run=1
+      shift
+      ;;
+    -h|--help)
+      usage
+      exit 0
+      ;;
+    *)
+      printf 'Unknown argument: %s\n\n' "$1" >&2
+      usage >&2
+      exit 2
+      ;;
+  esac
+done
+
+case "$shell_name" in
+  zsh)
+    rc_file="${rc_file:-${ZDOTDIR:-$HOME}/.zshrc}"
+    ;;
+  bash)
+    rc_file="${rc_file:-$HOME/.bashrc}"
+    ;;
+  *)
+    printf 'Unsupported shell: %s. Use --shell zsh or --shell bash.\n' "$shell_name" >&2
+    exit 2
+    ;;
+esac
+
+begin_marker="# >>> bitwarden mcp wrappers >>>"
+end_marker="# <<< bitwarden mcp wrappers <<<"
+
+wrapper_block="$(
+  cat <<EOF
+$begin_marker
+# Managed by $plugin_root/scripts/install-shell-wrappers
+bwmcp-unlock() {
+    "$session_script" unlock
+}
+
+bwmcp-lock() {
+    "$session_script" lock
+}
+
+_bwmcp_ensure_session() {
+    "$session_script" ensure
+}
+
+claude() {
+    _bwmcp_ensure_session || return \$?
+    command claude "\$@"
+}
+
+codex() {
+    _bwmcp_ensure_session || return \$?
+    command codex "\$@"
+}
+
+gemini() {
+    _bwmcp_ensure_session || return \$?
+    command gemini "\$@"
+}
+$end_marker
+EOF
+)"
+
+if [[ "$dry_run" -eq 1 ]]; then
+  printf '%s\n' "$wrapper_block"
+  exit 0
+fi
+
+mkdir -p "$(dirname "$rc_file")"
+touch "$rc_file"
+
+tmp_file="$(mktemp)"
+awk -v begin="$begin_marker" -v end="$end_marker" '
+  $0 == begin { skip = 1; next }
+  $0 == end { skip = 0; next }
+  skip != 1 { print }
+' "$rc_file" > "$tmp_file"
+
+{
+  cat "$tmp_file"
+  printf '\n%s\n' "$wrapper_block"
+} > "$rc_file"
+
+rm -f "$tmp_file"
+printf 'Installed Bitwarden MCP shell wrappers in %s\n' "$rc_file"

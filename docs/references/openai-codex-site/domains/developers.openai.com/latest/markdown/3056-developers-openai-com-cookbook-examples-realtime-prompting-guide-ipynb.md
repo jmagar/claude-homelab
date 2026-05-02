@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/realtime\_prompting\_guide [Redirecting from `/cookbook/examples/realtime\_prompting\_guide.ipynb/` to `/cookbook/examples/realtime\_prompting\_guide`](/cookbook/examples/realtime_prompting_guide)

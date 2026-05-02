@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/pinecone/semantic\_search [Redirecting from `/cookbook/examples/vector\_databases/pinecone/semantic\_search.ipynb/` to `/cookbook/examples/vector\_databases/pinecone/semantic\_search`](/cookbook/examples/vector_databases/pinecone/semantic_search)

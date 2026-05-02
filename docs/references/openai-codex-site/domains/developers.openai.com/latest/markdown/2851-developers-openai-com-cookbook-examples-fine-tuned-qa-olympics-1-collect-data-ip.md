@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/fine-tuned\_qa/olympics-1-collect-data [Redirecting from `/cookbook/examples/fine-tuned\_qa/olympics-1-collect-data.ipynb/` to `/cookbook/examples/fine-tuned\_qa/olympics-1-collect-data`](/cookbook/examples/fine-tuned_qa/olympics-1-collect-data)

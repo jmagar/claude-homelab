@@ -1,0 +1,9 @@
+{
+  "mcpServers": {
+    "mobile": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "claude-in-mobile@3.7.0"]
+    }
+  }
+}

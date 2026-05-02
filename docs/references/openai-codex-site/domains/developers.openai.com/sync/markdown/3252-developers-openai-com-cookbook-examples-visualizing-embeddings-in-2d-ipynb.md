@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/visualizing\_embeddings\_in\_2d [Redirecting from `/cookbook/examples/visualizing\_embeddings\_in\_2d.ipynb/` to `/cookbook/examples/visualizing\_embeddings\_in\_2d`](/cookbook/examples/visualizing_embeddings_in_2d)

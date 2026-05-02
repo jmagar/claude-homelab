@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_build\_an\_agent\_with\_the\_node\_sdk [Redirecting from `/cookbook/examples/how\_to\_build\_an\_agent\_with\_the\_node\_sdk.mdx/` to `/cookbook/examples/how\_to\_build\_an\_agent\_with\_the\_node\_sdk`](/cookbook/examples/how_to_build_an_agent_with_the_node_sdk)

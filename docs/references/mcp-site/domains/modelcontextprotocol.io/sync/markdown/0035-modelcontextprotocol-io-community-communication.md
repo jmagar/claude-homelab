@@ -1,0 +1,98 @@
+Contributor Communication - Model Context Protocol
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://modelcontextprotocol.io/llms.txt
+](https://modelcontextprotocol.io/llms.txt)
+> Use this file to discover all available pages before exploring further.
+This document explains how to communicate and collaborate within the Model Context Protocol (MCP) project.
+##
+[​
+](#communication-channels)
+Communication Channels
+|Channel|Purpose|When to Use|
+|[Discord](https://discord.gg/6CSzBmMkjX)|Real-time discussion|Quick questions, coordination, WG/IG discussions|
+|[Live calls](https://meet.modelcontextprotocol.io/)|Sync up|WG/IG presentations, progress reports|
+|[GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions)|Structured discussion|Proposals, roadmap planning, longer-form debate|
+|[GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues)|Actionable tasks|Bug reports, documentation fixes|
+|[Vulnerability reports](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/SECURITY.md)|Security issues|Vulnerabilities - **never post publicly**|
+All communication is governed by our [Code of Conduct](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/CODE_OF_CONDUCT.md). We expect respectful, professional, and inclusive interactions across all channels.
+##
+[​
+](#discord)
+Discord
+The [MCP Contributor Discord](https://discord.gg/6CSzBmMkjX) is for real-time contributor discussion and collaboration. The server is designed for **MCP contributors** and is not intended for general MCP support.
+###
+[​
+](#public-channels-default)
+Public Channels (Default)
+**Purpose:** Open community engagement, collaborative development, and transparent project coordination.
+**Primary use cases:**
+* SDK and tooling development (e.g., `#typescript-sdk-dev`, `#inspector-dev`)
+* [Working Group and Interest Group](/community/working-interest-groups) discussions (e.g., `#auth-wg`, `#security-ig`)
+* Community onboarding and contribution guidance
+* Community feedback and collaborative brainstorming
+* Public office hours and maintainer availability
+**Avoid:**
+* MCP user support - Read official documentation and use GitHub Discussions for questions
+* Service or product marketing - Keep discussions vendor-neutral; mentions of brands are discouraged except as examples relevant to the specification
+###
+[​
+](#private-channels-exceptions)
+Private Channels (Exceptions)
+**Purpose:** Confidential coordination and sensitive matters. Access is restricted to designated maintainers.
+**Criteria for private use:**
+* Security incidents (CVEs, protocol vulnerabilities)
+* People matters (maintainer discussions, code of conduct issues)
+* Coordination requiring immediate or focused response with a limited audience
+* Some channels are read-only for maintainer decision-making
+**Transparency requirements:**
+* All technical and governance decisions affecting the community must be documented in GitHub Discussions and/or Issues, labeled with `notes`
+* Private channels are temporary “incident rooms,” not for routine development
+* Some matters related to individual contributors may remain private when appropriate
+Any significant discussion on Discord that leads to a potential decision or proposal must be moved to GitHub Discussion or Issue for a persistent, searchable record.
+##
+[​
+](#github-discussions)
+GitHub Discussions
+Use for structured, long-form discussion and debate on project direction.
+**When to use:**
+* Project roadmap planning and milestone discussions
+* Announcements and release communications
+* Community polls and consensus-building
+* Feature requests with context and rationale
+* If a repository doesn’t have Discussions enabled, use GitHub Issues instead
+##
+[​
+](#github-issues)
+GitHub Issues
+Use for bug reports and actionable development tasks. Feature requests should go to [GitHub Discussions](https://github.com/modelcontextprotocol/modelcontextprotocol/discussions).
+**When to use:**
+* Bug reports with reproducible steps
+* Documentation improvements with specific scope
+* CI/CD problems and infrastructure issues
+* Release tasks and milestone tracking
+**Note:** SEP proposals are submitted as pull requests to the [`seps/` directory](https://github.com/modelcontextprotocol/modelcontextprotocol/tree/main/seps), not as GitHub Issues. See the [SEP Guidelines](/community/sep-guidelines).
+##
+[​
+](#security-issues)
+Security Issues
+**Do not post security issues publicly.**
+1. Use the private security reporting process in [SECURITY.md](https://github.com/modelcontextprotocol/modelcontextprotocol/blob/main/SECURITY.md)
+2. Contact Lead or [Core Maintainers](/community/governance#current-core-maintainers) directly
+3. Follow responsible disclosure guidelines
+##
+[​
+](#decision-records)
+Decision Records
+All MCP decisions are documented in public channels:
+|Type|Location|
+|Technical decisions|[GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) and SEPs|
+|Specification changes|[Changelog](https://modelcontextprotocol.io/specification/draft/changelog)|
+|Process changes|[Community documentation](https://modelcontextprotocol.io/community/governance)|
+|Governance decisions|[GitHub Issues](https://github.com/modelcontextprotocol/modelcontextprotocol/issues) and SEPs|
+When documenting decisions, we retain as much context as possible:
+* Decision makers
+* Background context and motivation
+* Options considered
+* Rationale for chosen approach
+* Implementation steps

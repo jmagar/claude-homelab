@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/tag\_caption\_images\_with\_gpt4v [Redirecting from `/cookbook/examples/tag\_caption\_images\_with\_gpt4v.ipynb/` to `/cookbook/examples/tag\_caption\_images\_with\_gpt4v`](/cookbook/examples/tag_caption_images_with_gpt4v)

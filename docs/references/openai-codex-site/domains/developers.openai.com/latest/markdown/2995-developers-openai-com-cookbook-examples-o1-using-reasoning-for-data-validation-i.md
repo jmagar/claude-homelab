@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/o1/using\_reasoning\_for\_data\_validation [Redirecting from `/cookbook/examples/o1/using\_reasoning\_for\_data\_validation.ipynb/` to `/cookbook/examples/o1/using\_reasoning\_for\_data\_validation`](/cookbook/examples/o1/using_reasoning_for_data_validation)

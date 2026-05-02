@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/third\_party/how\_to\_automate\_s3\_storage\_with\_functions [Redirecting from `/cookbook/examples/third\_party/how\_to\_automate\_s3\_storage\_with\_functions.ipynb/` to `/cookbook/examples/third\_party/how\_to\_automate\_s3\_storage\_with\_functions`](/cookbook/examples/third_party/how_to_automate_s3_storage_with_functions)

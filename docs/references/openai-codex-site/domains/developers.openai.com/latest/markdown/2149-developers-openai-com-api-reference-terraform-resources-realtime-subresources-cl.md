@@ -1,0 +1,365 @@
+Client Secrets | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/terraform)
+[Realtime](/api/reference/terraform/resources/realtime)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Client Secrets
+#### resource openai\_realtime\_client\_secret
+##### optional Expand Collapse
+expires\_after?: Attributes
+Configuration for the client secret expiration. Expiration refers to the time after which
+a client secret will no longer be valid for creating sessions. The session itself may
+continue after that time once started. A secret can be used to create multiple sessions
+until it expires.
+anchor?: String
+The anchor point for the client secret expiration, meaning that `seconds` will be added to the `created\_at` time of the client secret to produce an expiration timestamp. Only `created\_at` is currently supported.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) expires_after > (attribute) anchor>)
+seconds?: Int64
+The number of seconds from the anchor point to the expiration. Select a value between `10` and `7200` (2 hours). This default to 600 seconds (10 minutes) if not specified.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) expires_after > (attribute) seconds>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) expires_after>)
+session?: Attributes
+Session configuration to use for the client secret. Choose either a realtime
+session or a transcription session.
+type: String
+The type of session to create. Always `realtime` for the Realtime API.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) type>)
+audio?: Attributes
+Configuration for input and output audio.
+input?: Attributes
+format?: Attributes
+The format of the input audio.
+rate?: Int64
+The sample rate of the audio. Always `24000`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) format > (attribute) rate>)
+type?: String
+The audio format. Always `audio/pcm`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) format > (attribute) type>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) format>)
+noise\_reduction?: Attributes
+Configuration for input audio noise reduction. This can be set to `null` to turn off.
+Noise reduction filters audio added to the input audio buffer before it is sent to VAD and the model.
+Filtering the audio can improve VAD and turn detection accuracy (reducing false positives) and model performance by improving perception of the input audio.
+type?: String
+Type of noise reduction. `near\_field` is for close-talking microphones such as headphones, `far\_field` is for far-field microphones such as laptop or conference room microphones.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) noise_reduction > (attribute) type>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) noise_reduction>)
+transcription?: Attributes
+Configuration for input audio transcription, defaults to off and can be set to `null` to turn off once on. Input audio transcription is not native to the model, since the model consumes audio directly. Transcription runs asynchronously through [the /audio/transcriptions endpoint](https://platform.openai.com/docs/api-reference/audio/createTranscription) and should be treated as guidance of input audio content rather than precisely what the model heard. The client can optionally set the language and prompt for transcription, these offer additional guidance to the transcription service.
+language?: String
+The language of the input audio. Supplying the input language in
+[ISO-639-1](https://en.wikipedia.org/wiki/List_of_ISO_639-1_codes) (e.g. `en`) format
+will improve accuracy and latency.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) transcription > (attribute) language>)
+model?: String
+The model to use for transcription. Current options are `whisper-1`, `gpt-4o-mini-transcribe`, `gpt-4o-mini-transcribe-2025-12-15`, `gpt-4o-transcribe`, and `gpt-4o-transcribe-diarize`. Use `gpt-4o-transcribe-diarize` when you need diarization with speaker labels.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) transcription > (attribute) model>)
+prompt?: String
+An optional text to guide the model’s style or continue a previous audio
+segment.
+For `whisper-1`, the [prompt is a list of keywords](https://platform.openai.com/docs/guides/speech-to-text#prompting).
+For `gpt-4o-transcribe` models (excluding `gpt-4o-transcribe-diarize`), the prompt is a free text string, for example “expect words related to technology”.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) transcription > (attribute) prompt>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) transcription>)
+turn\_detection?: Attributes
+Configuration for turn detection, ether Server VAD or Semantic VAD. This can be set to `null` to turn off, in which case the client must manually trigger model response.
+Server VAD means that the model will detect the start and end of speech based on audio volume and respond at the end of user speech.
+Semantic VAD is more advanced and uses a turn detection model (in conjunction with VAD) to semantically estimate whether the user has finished speaking, then dynamically sets a timeout based on this probability. For example, if user audio trails off with “uhhm”, the model will score a low probability of turn end and wait longer for the user to continue speaking. This can be useful for more natural conversations, but may have a higher latency.
+type?: String
+Type of turn detection, `server\_vad` to turn on simple Server VAD.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) type>)
+create\_response?: Bool
+Whether or not to automatically generate a response when a VAD stop event occurs. If `interrupt\_response` is set to `false` this may fail to create a response if the model is already responding.
+If both `create\_response` and `interrupt\_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) create_response>)
+idle\_timeout\_ms?: Int64
+Optional timeout after which a model response will be triggered automatically. This is
+useful for situations in which a long pause from the user is unexpected, such as a phone
+call. The model will effectively prompt the user to continue the conversation based
+on the current context.
+The timeout value will be applied after the last model response’s audio has finished playing,
+i.e. it’s set to the `response.done` time plus audio playback duration.
+An `input\_audio\_buffer.timeout\_triggered` event (plus events
+associated with the Response) will be emitted when the timeout is reached.
+Idle timeout is currently only supported for `server\_vad` mode.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) idle_timeout_ms>)
+interrupt\_response?: Bool
+Whether or not to automatically interrupt (cancel) any ongoing response with output to the default
+conversation (i.e. `conversation` of `auto`) when a VAD start event occurs. If `true` then the response will be cancelled, otherwise it will continue until complete.
+If both `create\_response` and `interrupt\_response` are set to `false`, the model will never respond automatically but VAD events will still be emitted.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) interrupt_response>)
+prefix\_padding\_ms?: Int64
+Used only for `server\_vad` mode. Amount of audio to include before the VAD detected speech (in
+milliseconds). Defaults to 300ms.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) prefix_padding_ms>)
+silence\_duration\_ms?: Int64
+Used only for `server\_vad` mode. Duration of silence to detect speech stop (in milliseconds). Defaults
+to 500ms. With shorter values the model will respond more quickly,
+but may jump in on short pauses from the user.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) silence_duration_ms>)
+threshold?: Float64
+Used only for `server\_vad` mode. Activation threshold for VAD (0.0 to 1.0), this defaults to 0.5. A
+higher threshold will require louder audio to activate the model, and
+thus might perform better in noisy environments.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) threshold>)
+eagerness?: String
+Used only for `semantic\_vad` mode. The eagerness of the model to respond. `low` will wait longer for the user to continue speaking, `high` will respond more quickly. `auto` is the default and is equivalent to `medium`. `low`, `medium`, and `high` have max timeouts of 8s, 4s, and 2s respectively.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection > (attribute) eagerness>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input > (attribute) turn_detection>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) input>)
+output?: Attributes
+format?: Attributes
+The format of the output audio.
+rate?: Int64
+The sample rate of the audio. Always `24000`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output > (attribute) format > (attribute) rate>)
+type?: String
+The audio format. Always `audio/pcm`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output > (attribute) format > (attribute) type>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output > (attribute) format>)
+speed?: Float64
+The speed of the model’s spoken response as a multiple of the original speed.
+1.0 is the default speed. 0.25 is the minimum speed. 1.5 is the maximum speed. This value can only be changed in between model turns, not while a response is in progress.
+This parameter is a post-processing adjustment to the audio after it is generated, it’s
+also possible to prompt the model to speak faster or slower.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output > (attribute) speed>)
+voice?: String
+The voice the model uses to respond. Supported built-in voices are
+`alloy`, `ash`, `ballad`, `coral`, `echo`, `sage`, `shimmer`, `verse`,
+`marin`, and `cedar`. You may also provide a custom voice object with
+an `id`, for example `{ "id": "voice\_1234" }`. Voice cannot be changed
+during the session once the model has responded with audio at least once.
+We recommend `marin` and `cedar` for best quality.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output > (attribute) voice>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio > (attribute) output>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) audio>)
+include?: List[String]
+Additional fields to include in server outputs.
+`item.input\_audio\_transcription.logprobs`: Include logprobs for input audio transcription.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) include>)
+instructions?: String
+The default system instructions (i.e. system message) prepended to model calls. This field allows the client to guide the model on desired responses. The model can be instructed on response content and format, (e.g. “be extremely succinct”, “act friendly”, “here are examples of good responses”) and on audio behavior (e.g. “talk quickly”, “inject emotion into your voice”, “laugh frequently”). The instructions are not guaranteed to be followed by the model, but they provide guidance to the model on the desired behavior.
+Note that the server sets default instructions which will be used if this field is not set and are visible in the `session.created` event at the start of the session.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) instructions>)
+max\_output\_tokens?: Dynamic Int64 | String
+Maximum number of output tokens for a single assistant response,
+inclusive of tool calls. Provide an integer between 1 and 4096 to
+limit output tokens, or `inf` for the maximum available tokens for a
+given model. Defaults to `inf`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) max_output_tokens>)
+model?: String
+The Realtime model used for this session.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) model>)
+output\_modalities?: List[String]
+The set of modalities the model can respond with. It defaults to `["audio"]`, indicating
+that the model will respond with audio plus a transcript. `["text"]` can be used to make
+the model respond with text only. It is not possible to request both `text` and `audio` at the same time.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) output_modalities>)
+prompt?: Attributes
+Reference to a prompt template and its variables.
+[Learn more](https://platform.openai.com/docs/guides/text?api-mode=responses#reusable-prompts).
+id: String
+The unique identifier of the prompt template to use.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) prompt > (attribute) id>)
+variables?: Map[String]
+Optional map of values to substitute in for variables in your
+prompt. The substitution values can either be strings, or other
+Response input types like images or files.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) prompt > (attribute) variables>)
+version?: String
+Optional version of the prompt template.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) prompt > (attribute) version>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) prompt>)
+tool\_choice?: String
+How the model chooses tools. Provide one of the string modes or force a specific
+function/MCP tool.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tool_choice>)
+tools?: List[Attributes]
+Tools available to the model.
+description?: String
+The description of the function, including guidance on when and how
+to call it, and guidance about what to tell the user when calling
+(if anything).
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) description>)
+name?: String
+The name of the function.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) name>)
+parameters?: JSON
+Parameters of the function in JSON Schema.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) parameters>)
+type?: String
+The type of the tool, i.e. `function`.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) type>)
+server\_label?: String
+A label for this MCP server, used to identify it in tool calls.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) server_label>)
+allowed\_tools?: List[String]
+List of allowed tool names or a filter object.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) allowed_tools>)
+authorization?: String
+An OAuth access token that can be used with a remote MCP server, either
+with a custom MCP server URL or a service connector. Your application
+must handle the OAuth authorization flow and provide the token here.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) authorization>)
+connector\_id?: String
+Identifier for service connectors, like those available in ChatGPT. One of
+`server\_url` or `connector\_id` must be provided. Learn more about service
+connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+Currently supported `connector\_id` values are:
+* Dropbox: `connector\_dropbox`
+* Gmail: `connector\_gmail`
+* Google Calendar: `connector\_googlecalendar`
+* Google Drive: `connector\_googledrive`
+* Microsoft Teams: `connector\_microsoftteams`
+* Outlook Calendar: `connector\_outlookcalendar`
+* Outlook Email: `connector\_outlookemail`
+* SharePoint: `connector\_sharepoint`
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) connector_id>)
+defer\_loading?: Bool
+Whether this MCP tool is deferred and discovered via tool search.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) defer_loading>)
+headers?: Map[String]
+Optional HTTP headers to send to the MCP server. Use for authentication
+or other purposes.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) headers>)
+require\_approval?: Attributes
+Specify which of the MCP server’s tools require approval.
+always?: Attributes
+A filter object to specify which tools are allowed.
+read\_only?: Bool
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) always > (attribute) read_only>)
+tool\_names?: List[String]
+List of allowed tool names.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) always > (attribute) tool_names>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) always>)
+never?: Attributes
+A filter object to specify which tools are allowed.
+read\_only?: Bool
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) never > (attribute) read_only>)
+tool\_names?: List[String]
+List of allowed tool names.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) never > (attribute) tool_names>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval > (attribute) never>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) require_approval>)
+server\_description?: String
+Optional description of the MCP server, used to provide more context.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) server_description>)
+server\_url?: String
+The URL for the MCP server. One of `server\_url` or `connector\_id` must be
+provided.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools > (attribute) server_url>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tools>)
+tracing?: String
+Realtime API can write session traces to the [Traces Dashboard](https://platform.openai.com/logs?api=traces). Set to null to disable tracing. Once
+tracing is enabled for a session, the configuration cannot be modified.
+`auto` will create a trace for the session with default values for the
+workflow name, group id, and metadata.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) tracing>)
+truncation?: String
+When the number of tokens in a conversation exceeds the model’s input token limit, the conversation be truncated, meaning messages (starting from the oldest) will not be included in the model’s context. A 32k context model with 4,096 max output tokens can only include 28,224 tokens in the context before truncation occurs.
+Clients can configure truncation behavior to truncate with a lower max token limit, which is an effective way to control token usage and cost.
+Truncation will reduce the number of cached tokens on the next turn (busting the cache), since messages are dropped from the beginning of the context. However, clients can also configure truncation to retain messages up to a fraction of the maximum context size, which will reduce the need for future truncations and thus improve the cache rate.
+Truncation can be disabled entirely, which means the server will never truncate but would instead return an error if the conversation exceeds the model’s input token limit.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session > (attribute) truncation>)
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) session>)
+##### computed Expand Collapse
+expires\_at: Int64
+Expiration timestamp for the client secret, in seconds since epoch.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) expires_at>)
+value: String
+The generated client secret value.
+[](<#(resource) realtime.client_secrets > (terraform resource) > (attribute) value>)
+### openai\_realtime\_client\_secret
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`resource "openai\_realtime\_client\_secret" "example\_realtime\_client\_secret" {
+expires\_after = {
+anchor = "created\_at"
+seconds = 10
+}
+session = {
+type = "realtime"
+audio = {
+input = {
+format = {
+rate = 24000
+type = "audio/pcm"
+}
+noise\_reduction = {
+type = "near\_field"
+}
+transcription = {
+language = "language"
+model = "string"
+prompt = "prompt"
+}
+turn\_detection = {
+type = "server\_vad"
+create\_response = true
+idle\_timeout\_ms = 5000
+interrupt\_response = true
+prefix\_padding\_ms = 0
+silence\_duration\_ms = 0
+threshold = 0
+}
+}
+output = {
+format = {
+rate = 24000
+type = "audio/pcm"
+}
+speed = 0.25
+voice = "string"
+}
+}
+include = ["item.input\_audio\_transcription.logprobs"]
+instructions = "instructions"
+max\_output\_tokens = 0
+model = "string"
+output\_modalities = ["text"]
+prompt = {
+id = "id"
+variables = {
+foo = "string"
+}
+version = "version"
+}
+tool\_choice = "none"
+tools = [{
+description = "description"
+name = "name"
+parameters = {
+}
+type = "function"
+}]
+tracing = "auto"
+truncation = "auto"
+}
+}
+`
+```

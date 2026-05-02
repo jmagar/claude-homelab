@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/gpt4o/introduction\_to\_gpt4o [Redirecting from `/cookbook/examples/gpt4o/introduction\_to\_gpt4o.ipynb/` to `/cookbook/examples/gpt4o/introduction\_to\_gpt4o`](/cookbook/examples/gpt4o/introduction_to_gpt4o)

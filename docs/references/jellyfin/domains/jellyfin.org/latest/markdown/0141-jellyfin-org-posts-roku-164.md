@@ -1,0 +1,65 @@
+Roku Version 1.6.4 | Jellyfin
+[Skip to main content](#__docusaurus_skipToContent_fallback)
+We are excited to announce the release of Jellyfin 1.6.4 for Roku! With so many new featues and bug fixes, you'll wonder how we crammed it all into one release. Keep reading to learn more.
+- 1hitsong
+Requires minimum server version of 10.8.1
+### 🐛 Bug Fixes[​](#-bug-fixes)
+* Fix distorted TV episode posters. Add client-side progress bar and played indicator
+* Fix option menu focus if opened while library still loading
+* Only show next episode popup if web client setting is turned on
+* Fix default view setting for movie genres
+* Graceful episode playback failure
+* Fix multiple client crashes identified by crashlogs
+### ⚙️ New Settings[​](#️-new-settings)
+* User defined maximum video bitrate
+* Disable unwatched episode count
+* Next episode button time
+### 🆕 New Features[​](#-new-features)
+* TV series & season shuffle
+* Phase 1 CJK subtitle support **(External files only)**
+* Phase 1 playlist support **(Does not currently support CJK subtitles)**
+* The options button now closes the user settings menu
+* New persondetails view
+* Genres, parental ratings, and years as movie filters
+### ⭐ Additional Updates[​](#-additional-updates)
+* Improve settings menu, implement title hover and hide in griditem and musicartistgriditem
+* Improve quality of album art on now playing view
+* Make home view load faster
+* Updated "OnNow" home row to default to channel images if program images are not availible
+* Update CI ubuntu version and node version
+* Install & configure unit test suite
+* Add user policy to check if canDelete
+* Loading spinner, Progress Dialog and movie details button animate
+* Make title scrolling consistent in extras slider
+* Add settings guidelines to devguide.md
+* Add workflow to validate XML translation files
+* Add json and markdown to lint workflow + add automation workflow
+* Create global audio player
+* Fix typo: trancoding -\> transcoding
+* Fix en\_US translation file
+* Make CI throw error for duplicate translation entries
+* Add a production build workflow
+* Show "Actor" when an actor has no role
+## 👥 Contributors[​](#-contributors)
+Jellyfin apps are developed by our great contributors and we couldn't do it without them. Everyone is a volunteer that
+doesn't get paid by any organizations, so consider donating if you appreciate their work. A big shout-out to all
+contributors that made this release possible:
+* [@RussianCow](https://github.com/RussianCow)
+* [@1hitsong](https://github.com/1hitsong)
+* [@cewert](https://github.com/cewert)
+* [@jimdogx](https://github.com/jimdogx)
+* [@jkim2492](https://github.com/jkim2492)
+* [@sevenrats](https://github.com/sevenrats)
+* [@candry7731](https://github.com/candry7731)
+* [@ApexArray](https://github.com/ApexArray)
+## 💾 Downloads & Changelog[​](#-downloads--changelog)
+The complete list of changes for this release, including all merged pull requests, can be found on
+[GitHub](https://github.com/jellyfin/jellyfin-roku/releases/tag/v1.6.4).
+Your installed Jellyfin channel should automatically update once available or you can install Jellyfin
+from the [Roku store](https://channelstore.roku.com/details/592369/jellyfin).
+* [🐛 Bug Fixes](#-bug-fixes)
+* [⚙️ New Settings](#️-new-settings)
+* [🆕 New Features](#-new-features)
+* [⭐ Additional Updates](#-additional-updates)
+* [👥 Contributors](#-contributors)
+* [💾 Downloads & Changelog](#-downloads--changelog)

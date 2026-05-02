@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/context\_summarization\_with\_realtime\_api [Redirecting from `/cookbook/examples/context\_summarization\_with\_realtime\_api.ipynb/` to `/cookbook/examples/context\_summarization\_with\_realtime\_api`](/cookbook/examples/context_summarization_with_realtime_api)

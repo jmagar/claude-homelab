@@ -1,0 +1,21 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "media-stack",
+  "version": "1.4.1",
+  "description": "Media automation skills for Plex, Tautulli, Overseerr, Radarr, Sonarr, and Prowlarr.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "license": "MIT",
+  "keywords": [
+    "plex",
+    "tautulli",
+    "overseerr",
+    "radarr",
+    "sonarr",
+    "prowlarr"
+  ]
+}

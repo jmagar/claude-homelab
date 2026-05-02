@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/use-cases/responses-evaluation [Redirecting from `/cookbook/examples/evaluation/use-cases/responses-evaluation.ipynb/` to `/cookbook/examples/evaluation/use-cases/responses-evaluation`](/cookbook/examples/evaluation/use-cases/responses-evaluation)

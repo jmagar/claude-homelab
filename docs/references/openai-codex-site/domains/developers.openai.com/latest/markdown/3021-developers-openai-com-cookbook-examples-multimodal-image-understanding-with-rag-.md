@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/multimodal/image\_understanding\_with\_rag [Redirecting from `/cookbook/examples/multimodal/image\_understanding\_with\_rag.ipynb/` to `/cookbook/examples/multimodal/image\_understanding\_with\_rag`](/cookbook/examples/multimodal/image_understanding_with_rag)

@@ -1,0 +1,17 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "syslog-mcp",
+  "version": "1.4.1",
+  "description": "Syslog management via MCP",
+  "author": {
+    "name": "jmagar"
+  },
+  "repository": "https://github.com/jmagar/syslog-mcp",
+  "license": "MIT",
+  "keywords": [
+    "syslog",
+    "mcp",
+    "logging",
+    "homelab"
+  ]
+}

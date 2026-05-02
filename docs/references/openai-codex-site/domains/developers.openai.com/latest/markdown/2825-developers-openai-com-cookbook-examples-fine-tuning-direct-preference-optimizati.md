@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/fine\_tuning\_direct\_preference\_optimization\_guide [Redirecting from `/cookbook/examples/fine\_tuning\_direct\_preference\_optimization\_guide.ipynb/` to `/cookbook/examples/fine\_tuning\_direct\_preference\_optimization\_guide`](/cookbook/examples/fine_tuning_direct_preference_optimization_guide)

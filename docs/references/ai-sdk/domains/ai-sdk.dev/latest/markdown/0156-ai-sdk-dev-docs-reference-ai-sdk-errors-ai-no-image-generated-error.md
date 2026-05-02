@@ -1,0 +1,146 @@
+AI SDK Errors: AI\_NoImageGeneratedError
+[](https://vercel.com/oss)
+Menu
+v6 (Latest)
+AI SDK 6.x
+[AI SDK by Vercel](/docs/introduction)
+[Foundations](/docs/foundations)
+[Overview](/docs/foundations/overview)
+[Providers and Models](/docs/foundations/providers-and-models)
+[Prompts](/docs/foundations/prompts)
+[Tools](/docs/foundations/tools)
+[Streaming](/docs/foundations/streaming)
+[Provider Options](/docs/foundations/provider-options)
+[Getting Started](/docs/getting-started)
+[Choosing a Provider](/docs/getting-started/choosing-a-provider)
+[Navigating the Library](/docs/getting-started/navigating-the-library)
+[Next.js App Router](/docs/getting-started/nextjs-app-router)
+[Next.js Pages Router](/docs/getting-started/nextjs-pages-router)
+[Svelte](/docs/getting-started/svelte)
+[Vue.js (Nuxt)](/docs/getting-started/nuxt)
+[Node.js](/docs/getting-started/nodejs)
+[Expo](/docs/getting-started/expo)
+[TanStack Start](/docs/getting-started/tanstack-start)
+[Coding Agents](/docs/getting-started/coding-agents)
+[Agents](/docs/agents)
+[Overview](/docs/agents/overview)
+[Building Agents](/docs/agents/building-agents)
+[Workflow Patterns](/docs/agents/workflows)
+[Loop Control](/docs/agents/loop-control)
+[Configuring Call Options](/docs/agents/configuring-call-options)
+[Memory](/docs/agents/memory)
+[Subagents](/docs/agents/subagents)
+[AI SDK Core](/docs/ai-sdk-core)
+[Overview](/docs/ai-sdk-core/overview)
+[Generating Text](/docs/ai-sdk-core/generating-text)
+[Generating Structured Data](/docs/ai-sdk-core/generating-structured-data)
+[Tool Calling](/docs/ai-sdk-core/tools-and-tool-calling)
+[Model Context Protocol (MCP)](/docs/ai-sdk-core/mcp-tools)
+[Prompt Engineering](/docs/ai-sdk-core/prompt-engineering)
+[Settings](/docs/ai-sdk-core/settings)
+[Embeddings](/docs/ai-sdk-core/embeddings)
+[Reranking](/docs/ai-sdk-core/reranking)
+[Image Generation](/docs/ai-sdk-core/image-generation)
+[Transcription](/docs/ai-sdk-core/transcription)
+[Speech](/docs/ai-sdk-core/speech)
+[Video Generation](/docs/ai-sdk-core/video-generation)
+[Language Model Middleware](/docs/ai-sdk-core/middleware)
+[Provider & Model Management](/docs/ai-sdk-core/provider-management)
+[Error Handling](/docs/ai-sdk-core/error-handling)
+[Testing](/docs/ai-sdk-core/testing)
+[Telemetry](/docs/ai-sdk-core/telemetry)
+[DevTools](/docs/ai-sdk-core/devtools)
+[Event Callbacks](/docs/ai-sdk-core/event-listeners)
+[AI SDK UI](/docs/ai-sdk-ui)
+[Overview](/docs/ai-sdk-ui/overview)
+[Chatbot](/docs/ai-sdk-ui/chatbot)
+[Chatbot Message Persistence](/docs/ai-sdk-ui/chatbot-message-persistence)
+[Chatbot Resume Streams](/docs/ai-sdk-ui/chatbot-resume-streams)
+[Chatbot Tool Usage](/docs/ai-sdk-ui/chatbot-tool-usage)
+[Generative User Interfaces](/docs/ai-sdk-ui/generative-user-interfaces)
+[Completion](/docs/ai-sdk-ui/completion)
+[Object Generation](/docs/ai-sdk-ui/object-generation)
+[Streaming Custom Data](/docs/ai-sdk-ui/streaming-data)
+[Error Handling](/docs/ai-sdk-ui/error-handling)
+[Transport](/docs/ai-sdk-ui/transport)
+[Reading UIMessage Streams](/docs/ai-sdk-ui/reading-ui-message-streams)
+[Message Metadata](/docs/ai-sdk-ui/message-metadata)
+[Stream Protocols](/docs/ai-sdk-ui/stream-protocol)
+[AI SDK RSC](/docs/ai-sdk-rsc)
+[Advanced](/docs/advanced)
+[Reference](/docs/reference)
+[AI SDK Core](/docs/reference/ai-sdk-core)
+[AI SDK UI](/docs/reference/ai-sdk-ui)
+[AI SDK RSC](/docs/reference/ai-sdk-rsc)
+[AI SDK Errors](/docs/reference/ai-sdk-errors)
+[AI\_APICallError](/docs/reference/ai-sdk-errors/ai-api-call-error)
+[AI\_DownloadError](/docs/reference/ai-sdk-errors/ai-download-error)
+[AI\_EmptyResponseBodyError](/docs/reference/ai-sdk-errors/ai-empty-response-body-error)
+[AI\_InvalidArgumentError](/docs/reference/ai-sdk-errors/ai-invalid-argument-error)
+[AI\_InvalidDataContentError](/docs/reference/ai-sdk-errors/ai-invalid-data-content-error)
+[AI\_InvalidMessageRoleError](/docs/reference/ai-sdk-errors/ai-invalid-message-role-error)
+[AI\_InvalidPromptError](/docs/reference/ai-sdk-errors/ai-invalid-prompt-error)
+[AI\_InvalidResponseDataError](/docs/reference/ai-sdk-errors/ai-invalid-response-data-error)
+[AI\_InvalidToolApprovalError](/docs/reference/ai-sdk-errors/ai-invalid-tool-approval-error)
+[AI\_InvalidToolInputError](/docs/reference/ai-sdk-errors/ai-invalid-tool-input-error)
+[AI\_JSONParseError](/docs/reference/ai-sdk-errors/ai-json-parse-error)
+[AI\_LoadAPIKeyError](/docs/reference/ai-sdk-errors/ai-load-api-key-error)
+[AI\_LoadSettingError](/docs/reference/ai-sdk-errors/ai-load-setting-error)
+[AI\_MessageConversionError](/docs/reference/ai-sdk-errors/ai-message-conversion-error)
+[AI\_NoContentGeneratedError](/docs/reference/ai-sdk-errors/ai-no-content-generated-error)
+[AI\_NoImageGeneratedError](/docs/reference/ai-sdk-errors/ai-no-image-generated-error)
+[AI\_NoObjectGeneratedError](/docs/reference/ai-sdk-errors/ai-no-object-generated-error)
+[AI\_NoOutputGeneratedError](/docs/reference/ai-sdk-errors/ai-no-output-generated-error)
+[AI\_NoSpeechGeneratedError](/docs/reference/ai-sdk-errors/ai-no-speech-generated-error)
+[AI\_NoSuchModelError](/docs/reference/ai-sdk-errors/ai-no-such-model-error)
+[AI\_NoSuchProviderError](/docs/reference/ai-sdk-errors/ai-no-such-provider-error)
+[AI\_NoSuchToolError](/docs/reference/ai-sdk-errors/ai-no-such-tool-error)
+[AI\_NoTranscriptGeneratedError](/docs/reference/ai-sdk-errors/ai-no-transcript-generated-error)
+[AI\_NoVideoGeneratedError](/docs/reference/ai-sdk-errors/ai-no-video-generated-error)
+[AI\_RetryError](/docs/reference/ai-sdk-errors/ai-retry-error)
+[AI\_TooManyEmbeddingValuesForCallError](/docs/reference/ai-sdk-errors/ai-too-many-embedding-values-for-call-error)
+[AI\_ToolCallNotFoundForApprovalError](/docs/reference/ai-sdk-errors/ai-tool-call-not-found-for-approval-error)
+[ToolCallRepairError](/docs/reference/ai-sdk-errors/ai-tool-call-repair-error)
+[AI\_TypeValidationError](/docs/reference/ai-sdk-errors/ai-type-validation-error)
+[AI\_UIMessageStreamError](/docs/reference/ai-sdk-errors/ai-ui-message-stream-error)
+[AI\_UnsupportedFunctionalityError](/docs/reference/ai-sdk-errors/ai-unsupported-functionality-error)
+[Migration Guides](/docs/migration-guides)
+[Troubleshooting](/docs/troubleshooting)
+Copy markdown
+# [AI\_NoImageGeneratedError](#ai_noimagegeneratederror)
+This error occurs when the AI provider fails to generate an image.
+It can arise due to the following reasons:
+* The model failed to generate a response.
+* The model generated an invalid response.
+## [Properties](#properties)
+* `message`: The error message (optional, defaults to `'No image generated.'`).
+* `responses`: Metadata about the image model responses, including timestamp, model, and headers (optional).
+* `cause`: The cause of the error. You can use this for more detailed error handling (optional).
+## [Checking for this Error](#checking-for-this-error)
+You can check if an error is an instance of `AI\_NoImageGeneratedError` using:
+```
+`
+import { generateImage, NoImageGeneratedError } from 'ai';
+try {
+await generateImage({ model, prompt });
+} catch (error) {
+if (NoImageGeneratedError.isInstance(error)) {
+console.log('NoImageGeneratedError');
+console.log('Cause:', error.cause);
+console.log('Responses:', error.responses);
+}
+}
+`
+```
+On this page
+[AI\_NoImageGeneratedError](#ai_noimagegeneratederror)
+[Properties](#properties)
+[Checking for this Error](#checking-for-this-error)
+Deploy and Scale AI Apps with Vercel
+Deliver AI experiences globally with one push.
+Trusted by industry leaders:
+*
+*
+*
+*
+[Sign Up](https://vercel.com/signup?utm_source=ai-sdk_site&amp;utm_medium=docs_card&amp;utm_content=sign-up)

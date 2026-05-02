@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "syslog-mcp": {
+      "type": "http",
+      "url": "${userConfig.syslog_mcp_url}",
+      "headers": {
+        "Authorization": "Bearer ${userConfig.syslog_mcp_token}"
+      }
+    }
+  }
+}

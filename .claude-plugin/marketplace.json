@@ -1,400 +1,701 @@
 {
+  "$schema": "https://json.schemastore.org/claude-code-marketplace.json",
   "name": "claude-homelab",
   "owner": {
     "name": "jmagar",
     "email": "jmagar@users.noreply.github.com"
   },
-  "metadata": {
-    "description": "Comprehensive Claude Code skills and agents for homelab service management - media automation, infrastructure monitoring, document management, and more",
-    "version": "1.1.0"
-  },
+  "description": "Comprehensive Claude Code skills, agents, and plugins for self-hosted homelab service management.",
   "plugins": [
     {
       "name": "homelab-core",
       "source": "./",
-      "description": "Core homelab plugin bundling shared agents, commands, setup/health workflows, and the in-repo skill library until a skill graduates into its own standalone plugin repo.",
-      "version": "1.1.2",
-      "category": "core",
-      "tags": [
-        "agents",
-        "commands",
-        "skills",
-        "orchestration",
-        "setup",
-        "health"
-      ],
-      "homepage": "https://github.com/jmagar/claude-homelab"
+      "description": "Core homelab agents, commands, and setup/health skills for self-hosted service management. Includes interactive credential setup wizard and unified service health dashboard."
     },
     {
-      "name": "overseerr-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/overseerr-mcp"
-      },
-      "description": "Overseerr media requests via MCP tools with HTTP fallback. Search movies and TV shows, submit requests, and monitor failed requests.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": [
-        "overseerr",
-        "media",
-        "requests",
-        "plex",
-        "mcp"
-      ],
-      "homepage": "https://github.com/jmagar/overseerr-mcp"
+      "name": "acp",
+      "source": "./plugins/acp",
+      "description": "Agent Client Protocol skills for Rust, Python, and TypeScript implementations."
     },
     {
-      "name": "unraid-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/unraid-mcp"
-      },
-      "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools with HTTP fallback. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry. Requires unraid-mcp MCP server running.",
-      "version": "1.2.0",
-      "category": "infrastructure",
-      "tags": [
-        "unraid",
-        "homelab",
-        "graphql",
-        "docker",
-        "nas",
-        "monitoring"
-      ],
-      "homepage": "https://github.com/jmagar/unraid-mcp"
+      "name": "ai-sdk",
+      "source": "./plugins/ai-sdk",
+      "description": "Skills for working with the AI SDK and AI Elements."
     },
     {
-      "name": "unifi-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/unifi-mcp"
-      },
-      "description": "UniFi network management via MCP tools. Monitor devices, clients, network health, firewall rules, and perform management operations.",
-      "version": "1.0.0",
-      "category": "infrastructure",
-      "tags": [
-        "unifi",
-        "networking",
-        "monitoring",
-        "homelab",
-        "mcp"
-      ],
-      "homepage": "https://github.com/jmagar/unifi-mcp"
-    },
-    {
-      "name": "gotify-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/gotify-mcp"
-      },
-      "description": "Gotify push notifications and management via MCP tools with HTTP fallback. Sends alerts for long-running tasks, plan completions, and blocked states. Requires gotify-mcp MCP server running.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": [
-        "gotify",
-        "notifications",
-        "push",
-        "homelab",
-        "mcp"
-      ],
-      "homepage": "https://github.com/jmagar/gotify-mcp"
-    },
-    {
-      "name": "swag-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/swag-mcp"
-      },
-      "description": "SWAG reverse proxy configuration management via MCP. Create, edit, view, and manage nginx proxy configurations with auth integration.",
-      "version": "1.0.0",
-      "category": "infrastructure",
-      "tags": [
-        "swag",
-        "nginx",
-        "reverse-proxy",
-        "homelab",
-        "mcp"
-      ],
-      "homepage": "https://github.com/jmagar/swag-mcp"
-    },
-    {
-      "name": "synapse-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/synapse-mcp"
-      },
-      "description": "MCP server providing Flux (Docker management) and Scout (SSH operations) tools for homelab infrastructure.",
-      "version": "2.2.1",
-      "category": "infrastructure",
-      "tags": [
-        "synapse",
-        "flux",
-        "scout",
-        "homelab",
-        "docker",
-        "ssh",
-        "infrastructure",
-        "zfs",
-        "remote-management"
-      ],
-      "homepage": "https://github.com/jmagar/synapse-mcp"
+      "name": "apprise",
+      "source": "./plugins/apprise",
+      "description": "Skill for operating Apprise via the lab MCP server / CLI."
     },
     {
       "name": "arcane-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/arcane-mcp"
-      },
-      "description": "Manage Docker containers, images, volumes, networks, and stacks via the Arcane API.",
-      "version": "1.1.3",
-      "category": "infrastructure",
-      "tags": [
-        "arcane",
-        "docker",
-        "homelab",
-        "mcp",
-        "containers"
-      ],
-      "homepage": "https://github.com/jmagar/arcane-mcp"
+      "source": "./plugins/arcane",
+      "description": "Manage Docker containers, images, volumes, networks, and stacks via the Arcane API."
     },
     {
-      "name": "syslog-mcp",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/syslog-mcp"
-      },
-      "description": "Homelab syslog receiver plus MCP server for searching, tailing, and correlating logs across hosts.",
-      "version": "1.0.0",
-      "category": "infrastructure",
-      "tags": [
-        "syslog",
-        "logs",
-        "observability",
-        "homelab",
-        "mcp",
-        "sqlite"
-      ],
-      "homepage": "https://github.com/jmagar/syslog-mcp"
-    },
-    {
-      "name": "plugin-lab",
-      "source": {
-        "source": "github",
-        "repo": "jmagar/plugin-lab"
-      },
-      "description": "Agents, commands, skills, and scripts for scaffolding, reviewing, aligning, and deploying homelab MCP server plugins. Includes canonical Python, TypeScript, and Rust server templates.",
-      "version": "1.0.0",
-      "category": "dev-tools",
-      "tags": [
-        "scaffolding",
-        "templates",
-        "mcp",
-        "plugin-dev",
-        "plugin-lab",
-        "python",
-        "typescript",
-        "rust",
-        "agents",
-        "ci-cd"
-      ],
-      "homepage": "https://github.com/jmagar/plugin-lab"
-    },
-    {
-      "name": "bytestash",
-      "source": "./skills/bytestash",
-      "description": "ByteStash code snippet management. Store, search, and organize code snippets.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": ["bytestash", "snippets", "code", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "gh-address-comments",
-      "source": "./skills/gh-address-comments",
-      "description": "Address GitHub PR review comments. Fetch, implement, and verify resolution of PR feedback.",
-      "version": "1.0.0",
-      "category": "dev-tools",
-      "tags": ["github", "pull-requests", "code-review", "automation"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "linkding",
-      "source": "./skills/linkding",
-      "description": "Linkding bookmark management. Save, search, tag, and organize bookmarks.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": ["linkding", "bookmarks", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "memos",
-      "source": "./skills/memos",
-      "description": "Memos note-taking service. Create, search, tag, and manage quick notes and memos.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": ["memos", "notes", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "notebooklm",
-      "source": "./skills/notebooklm",
-      "description": "Google NotebookLM integration. Create notebooks, add sources, generate podcasts, videos, and research artifacts.",
-      "version": "1.0.0",
-      "category": "research",
-      "tags": ["notebooklm", "research", "ai", "google"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "paperless-ngx",
-      "source": "./skills/paperless-ngx",
-      "description": "Paperless-ngx document management. Upload, search, tag, and organize documents.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": ["paperless", "documents", "ocr", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "plex",
-      "source": "./skills/plex",
-      "description": "Plex Media Server management. Browse libraries, search media, manage playlists, and monitor activity.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": ["plex", "media", "streaming", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "prowlarr",
-      "source": "./skills/prowlarr",
-      "description": "Prowlarr indexer management. Add, configure, test, and search indexers.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": ["prowlarr", "indexers", "search", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "qbittorrent",
-      "source": "./skills/qbittorrent",
-      "description": "qBittorrent download management. Add, monitor, pause, and manage torrent downloads.",
-      "version": "1.0.0",
-      "category": "downloads",
-      "tags": ["qbittorrent", "torrents", "downloads", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "radarr",
-      "source": "./skills/radarr",
-      "description": "Radarr movie management. Search, add, monitor, and manage movie collections.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": ["radarr", "movies", "media", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "radicale",
-      "source": "./skills/radicale",
-      "description": "Radicale CalDAV/CardDAV server management. Manage calendars, contacts, and address books.",
-      "version": "1.0.0",
-      "category": "utilities",
-      "tags": ["radicale", "caldav", "carddav", "calendar", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "sabnzbd",
-      "source": "./skills/sabnzbd",
-      "description": "SABnzbd Usenet download management. Add, monitor, and manage NZB downloads.",
-      "version": "1.0.0",
-      "category": "downloads",
-      "tags": ["sabnzbd", "usenet", "downloads", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "sonarr",
-      "source": "./skills/sonarr",
-      "description": "Sonarr TV series management. Search, add, monitor, and manage TV show collections.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": ["sonarr", "tv", "series", "media", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "tailscale",
-      "source": "./skills/tailscale",
-      "description": "Tailscale VPN mesh network management. Monitor devices, manage routes, and check network status.",
-      "version": "1.0.0",
-      "category": "infrastructure",
-      "tags": ["tailscale", "vpn", "networking", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "tautulli",
-      "source": "./skills/tautulli",
-      "description": "Tautulli Plex monitoring. View activity, history, statistics, and user analytics.",
-      "version": "1.0.0",
-      "category": "media",
-      "tags": ["tautulli", "plex", "monitoring", "analytics", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "zfs",
-      "source": "./skills/zfs",
-      "description": "ZFS storage management. Monitor pools, datasets, snapshots, scrubs, and replication.",
-      "version": "1.0.0",
-      "category": "infrastructure",
-      "tags": ["zfs", "storage", "snapshots", "homelab"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "qmd",
-      "source": "./plugins/qmd",
-      "description": "Local-first semantic markdown search via qmd. Combines BM25 keyword search, vector similarity search, and LLM re-ranking—all running on-device with no cloud calls or API keys required.",
-      "version": "0.1.0",
-      "category": "utilities",
-      "tags": ["qmd", "semantic-search", "markdown", "bm25", "vector-search", "local-first", "rag", "knowledge-base"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "sweetlink",
-      "source": "./plugins/sweetlink",
-      "description": "macOS Chrome+DevTools browser automation daemon — controlled Chrome sessions, OAuth consent automation, smoke tests, and JS execution via the sweetlink CLI.",
-      "version": "0.1.0",
-      "category": "dev-tools",
-      "tags": ["sweetlink", "browser-automation", "chrome", "devtools", "oauth", "playwright"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "summarize",
-      "source": "./plugins/summarize",
-      "description": "Multi-source LLM summarizer — URLs, PDFs, files, YouTube, podcasts, RSS — via Peter Steinberger's summarize CLI. BYO API key.",
-      "version": "0.1.0",
-      "category": "utilities",
-      "tags": ["summarize", "llm", "summarization", "youtube", "podcast", "pdf"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
-    },
-    {
-      "name": "discrawl",
-      "source": "./plugins/discrawl",
-      "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search.",
-      "version": "0.1.0",
-      "category": "utilities",
-      "tags": ["discrawl", "discord", "archiver", "sqlite", "fts", "semantic-search", "local-first"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
+      "name": "axon",
+      "source": "./plugins/axon",
+      "description": "Skills and MCP configuration for the Axon crawl, ingest, embed, query, and RAG engine."
     },
     {
       "name": "birdclaw",
       "source": "./plugins/birdclaw",
-      "description": "Local-first X/Twitter archive CLI by Peter Steinberger. Syncs likes, bookmarks, DMs, and mentions to a local SQLite database. Transport-agnostic: xurl (X API v2, paid tier) or bird (external cookie-backed CLI). No MCP server — pure CLI.",
-      "version": "0.1.0",
-      "category": "utilities",
-      "tags": ["birdclaw", "twitter", "x", "archive", "local-first", "sqlite", "bookmarks", "cli"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
+      "description": "Local-first X/Twitter archive CLI by Peter Steinberger. Syncs likes, bookmarks, DMs, and mentions to a local SQLite database. Transport-agnostic: xurl (X API v2, paid tier) or bird (external cookie-backed CLI). No MCP server — pure CLI."
+    },
+    {
+      "name": "bitwarden",
+      "source": "./plugins/bitwarden",
+      "description": "Bitwarden and secrets-management workflows for homelab operations."
+    },
+    {
+      "name": "bytestash",
+      "source": "./plugins/bytestash",
+      "description": "Skills for operating a ByteStash snippet manager."
+    },
+    {
+      "name": "claude",
+      "source": "./plugins/claude",
+      "description": "Claude Code plugin, skill, agent, hook, MCP, and workflow reference skills."
+    },
+    {
+      "name": "claude-in-mobile",
+      "source": "./plugins/claude-in-mobile",
+      "description": "Claude Mobile MCP workflows for Android, iOS Simulator, macOS desktop apps, Aurora OS, browser, and app-store automation."
+    },
+    {
+      "name": "codex",
+      "source": "./plugins/codex",
+      "description": "Codex plugin, skill, agent, and workflow reference skills."
+    },
+    {
+      "name": "discrawl",
+      "source": "./plugins/discrawl",
+      "description": "Discord archiver plugin wrapping Peter Steinberger's discrawl CLI. Bot-token-based (TOS-compliant), Go binary. Archives guild messages and DMs to local SQLite with full-text and semantic search."
+    },
+    {
+      "name": "download-stack",
+      "source": "./plugins/download-stack",
+      "description": "Download client skills for SABnzbd and qBittorrent."
+    },
+    {
+      "name": "gemini",
+      "source": "./plugins/gemini",
+      "description": "Gemini CLI, extension, and AI workflow reference skills."
+    },
+    {
+      "name": "github",
+      "source": "./plugins/gh-auto",
+      "description": "GitHub workflow skills for CI debugging and pull request review thread resolution."
     },
     {
       "name": "gogcli",
       "source": "./plugins/gogcli",
-      "description": "Google Workspace CLI for Gmail, Calendar, Drive, and more (NOT GOG.com). Wraps Peter Steinberger's gogcli — a script-friendly CLI for Gmail, Calendar, Drive, Docs, Sheets, Slides, Chat, Contacts, Tasks, People, Admin, Groups, Keep, Classroom, Forms, and Apps Script. Pure CLI, no MCP server required.",
-      "version": "0.1.0",
-      "category": "automation",
-      "tags": ["google-workspace", "gmail", "google-calendar", "google-drive", "google-sheets", "workspace-admin", "cli", "automation"],
-      "homepage": "https://github.com/jmagar/claude-homelab"
+      "description": "Google Workspace CLI for Gmail, Calendar, Drive, and more (NOT GOG.com). Wraps Peter Steinberger's gogcli — a script-friendly CLI for Gmail, Calendar, Drive, Docs, Sheets, Slides, Chat, Contacts, Tasks, People, Admin, Groups, Keep, Classroom, Forms, and Apps Script. Pure CLI, no MCP server required."
+    },
+    {
+      "name": "gotify-mcp",
+      "source": "./plugins/gotify",
+      "description": "Gotify push notifications and management via MCP tools with HTTP fallback. Sends alerts for long-running tasks, plan completions, and blocked states."
+    },
+    {
+      "name": "homelab-health",
+      "source": "./plugins/homelab-health",
+      "description": "Health-check workflows for homelab services."
+    },
+    {
+      "name": "jellyfin",
+      "source": "./plugins/jellyfin",
+      "description": "Jellyfin media server workflows for homelab operations."
+    },
+    {
+      "name": "lab",
+      "source": "./plugins/lab",
+      "description": "Skills and MCP configuration for the Lab homelab control plane."
+    },
+    {
+      "name": "linkding",
+      "source": "./plugins/linkding",
+      "description": "Skills for operating a Linkding bookmark manager."
+    },
+    {
+      "name": "mcp",
+      "source": "./plugins/mcp",
+      "description": "MCP development skills for RMCP, Go/FastMCP, and TypeScript SDK implementations."
+    },
+    {
+      "name": "media-stack",
+      "source": "./plugins/media-stack",
+      "description": "Media automation skills for Plex, Tautulli, Overseerr, Radarr, Sonarr, and Prowlarr."
+    },
+    {
+      "name": "memos",
+      "source": "./plugins/memos",
+      "description": "Skills for operating a Memos note hub."
+    },
+    {
+      "name": "notebooklm",
+      "source": "./plugins/notebooklm",
+      "description": "NotebookLM research, source, generation, and download workflows."
+    },
+    {
+      "name": "openacp",
+      "source": "./plugins/openacp",
+      "description": "OpenACP chat bridge workflows for running ACP-compatible agents from Telegram, Discord, and Slack."
+    },
+    {
+      "name": "openai",
+      "source": "./plugins/openai",
+      "description": "Skill for operating OpenAI via the lab MCP server / CLI."
+    },
+    {
+      "name": "paperless-ngx",
+      "source": "./plugins/paperless-ngx",
+      "description": "Document management skills for Paperless-ngx."
+    },
+    {
+      "name": "qmd",
+      "source": "./plugins/qmd",
+      "description": "Local-first semantic markdown search via qmd. Combines BM25 keyword search, vector similarity search, and LLM re-ranking—all running on-device with no cloud calls or API keys required."
+    },
+    {
+      "name": "radicale",
+      "source": "./plugins/radicale",
+      "description": "CalDAV and CardDAV workflow skills for Radicale."
+    },
+    {
+      "name": "rag",
+      "source": "./plugins/rag",
+      "description": "RAG and Qdrant skills for vector search and retrieval quality."
+    },
+    {
+      "name": "rust",
+      "source": "./plugins/rust",
+      "description": "Rust development skills including best practices and Cargo performance workflows."
+    },
+    {
+      "name": "summarize",
+      "source": "./plugins/summarize",
+      "description": "Multi-source LLM summarizer — URLs, PDFs, files, YouTube, podcasts, RSS — via Peter Steinberger's summarize CLI. BYO API key."
+    },
+    {
+      "name": "swag-mcp",
+      "source": "./plugins/swag",
+      "description": "SWAG reverse proxy configuration management via MCP. Create, edit, view, and manage nginx proxy configurations with auth integration."
+    },
+    {
+      "name": "sweetlink",
+      "source": "./plugins/sweetlink",
+      "description": "macOS Chrome+DevTools browser automation daemon — controlled Chrome sessions, OAuth consent automation, smoke tests, and JS execution via the sweetlink CLI."
+    },
+    {
+      "name": "syslog-mcp",
+      "source": "./plugins/syslog",
+      "description": "Syslog management via MCP"
+    },
+    {
+      "name": "tailscale",
+      "source": "./plugins/tailscale",
+      "description": "Tailscale mesh VPN operation and API workflow skills."
+    },
+    {
+      "name": "tracearr",
+      "source": "./plugins/tracearr",
+      "description": "Tracearr media-server monitoring workflows for Plex, Jellyfin, and Emby."
+    },
+    {
+      "name": "unifi-mcp",
+      "source": "./plugins/unifi",
+      "description": "UniFi network management via MCP tools. Monitor devices, clients, network health, firewall rules, and perform management operations."
+    },
+    {
+      "name": "unraid-mcp",
+      "source": "./plugins/unraid",
+      "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry."
+    },
+    {
+      "name": "vibin",
+      "source": "./plugins/vibin",
+      "description": "Session workflow skills for quick push and session documentation."
+    },
+    {
+      "name": "agent-sdk-dev",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/agent-sdk-dev"
+      },
+      "description": "Development kit for working with the Claude Agent SDK"
+    },
+    {
+      "name": "agent-teams",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/agent-teams"
+      },
+      "description": "Orchestrate multi-agent teams for parallel code review, hypothesis-driven debugging, and coordinated feature development using Claude Code's Agent Teams"
+    },
+    {
+      "name": "beads",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/gastownhall/beads.git",
+        "path": "claude-plugin"
+      },
+      "description": "AI-supervised issue tracker for coding workflows"
+    },
+    {
+      "name": "beagle-ai",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/existential-birds/beagle.git",
+        "path": "plugins/beagle-ai"
+      },
+      "description": "Pydantic AI, LangGraph, DeepAgents, and Vercel AI SDK skills"
+    },
+    {
+      "name": "beagle-analysis",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/existential-birds/beagle.git",
+        "path": "plugins/beagle-analysis"
+      },
+      "description": "Architecture analysis, brainstorming, 12-Factor compliance, ADR generation, and LLM-as-judge"
+    },
+    {
+      "name": "beagle-python",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/existential-birds/beagle.git",
+        "path": "plugins/beagle-python"
+      },
+      "description": "Python, FastAPI, SQLAlchemy, PostgreSQL, and pytest code review"
+    },
+    {
+      "name": "beagle-react",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/existential-birds/beagle.git",
+        "path": "plugins/beagle-react"
+      },
+      "description": "React, React Flow, React Router, shadcn/ui, Tailwind, Vitest, and Zustand code review"
+    },
+    {
+      "name": "beagle-rust",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/existential-birds/beagle.git",
+        "path": "plugins/beagle-rust"
+      },
+      "description": "Rust, tokio, axum, serde, sqlx, and async concurrency code review"
+    },
+    {
+      "name": "chrome-devtools-mcp",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/ChromeDevTools/chrome-devtools-mcp.git",
+        "sha": "c2d8009ff75f76bce1ec4cf79c2467b50d81725e"
+      },
+      "description": "Control and inspect a live Chrome browser from your coding agent. Record performance traces, analyze network requests, check console messages with source-mapped stack traces, and automate browser actions with Puppeteer."
+    },
+    {
+      "name": "claude-code-setup",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/claude-code-setup"
+      },
+      "description": "Analyze codebases and recommend tailored Claude Code automations such as hooks, skills, MCP servers, and subagents."
+    },
+    {
+      "name": "claude-md-management",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/claude-md-management"
+      },
+      "description": "Tools to maintain and improve CLAUDE.md files - audit quality, capture session learnings, and keep project memory current."
+    },
+    {
+      "name": "claude-session-driver",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/claude-session-driver.git"
+      },
+      "description": "Launch, control, and monitor other Claude Code sessions as workers via tmux"
+    },
+    {
+      "name": "code-documentation",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/code-documentation"
+      },
+      "description": "Documentation generation, code explanation, and technical writing with automated doc generation and tutorial creation"
+    },
+    {
+      "name": "code-refactoring",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/code-refactoring"
+      },
+      "description": "Code cleanup, refactoring automation, and technical debt management with context restoration"
+    },
+    {
+      "name": "code-review",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/code-review"
+      },
+      "description": "Automated code review for pull requests using multiple specialized agents with confidence-based scoring to filter false positives"
+    },
+    {
+      "name": "code-simplifier",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/code-simplifier"
+      },
+      "description": "Agent that simplifies and refines code for clarity, consistency, and maintainability while preserving functionality. Focuses on recently modified code."
+    },
+    {
+      "name": "codebase-cleanup",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/codebase-cleanup"
+      },
+      "description": "Technical debt reduction, dependency updates, and code refactoring automation"
+    },
+    {
+      "name": "coderabbit",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/coderabbitai/claude-plugin.git"
+      },
+      "description": "Your code review partner. CodeRabbit provides external validation using a specialized AI architecture and 40+ integrated static analyzers—offering a different perspective that catches bugs, security vulnerabilities, logic errors, and edge cases. Context-aware analysis via AST parsing and codegraph relationships. Automatically incorporates CLAUDE.md and project coding guidelines into reviews. Useful after writing or modifying code, before commits, when implementing complex or security-sensitive logic, or when a second opinion would increase confidence in the changes. Returns specific findings with suggested fixes that can be applied immediately. Free to use."
+    },
+    {
+      "name": "comprehensive-review",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/comprehensive-review"
+      },
+      "description": "Multi-perspective code analysis covering architecture, security, and best practices"
+    },
+    {
+      "name": "conductor",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/conductor"
+      },
+      "description": "Context-Driven Development plugin that transforms Claude Code into a project management tool with structured workflow: Context → Spec & Plan → Implement"
+    },
+    {
+      "name": "discord",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/discord"
+      },
+      "description": "Discord messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /discord:access."
+    },
+    {
+      "name": "double-shot-latte",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/double-shot-latte.git"
+      },
+      "description": "Stop 'Would you like me to continue?' interruptions. Automatically evaluates whether Claude should continue working using Claude-judged decision making."
+    },
+    {
+      "name": "fakechat",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/fakechat"
+      },
+      "description": "Localhost web chat for testing the channel notification flow. No tokens, no access control, no third-party service."
+    },
+    {
+      "name": "feature-dev",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/feature-dev"
+      },
+      "description": "Comprehensive feature development workflow with specialized agents for codebase exploration, architecture design, and quality review"
+    },
+    {
+      "name": "frontend-design",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/frontend-design"
+      },
+      "description": "Create distinctive, production-grade frontend interfaces with high design quality. Generates creative, polished code that avoids generic AI aesthetics."
+    },
+    {
+      "name": "frontend-mobile-development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/frontend-mobile-development"
+      },
+      "description": "Frontend UI development and mobile application implementation across platforms"
+    },
+    {
+      "name": "gopls-lsp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/gopls-lsp"
+      },
+      "description": "Go language server for code intelligence and refactoring"
+    },
+    {
+      "name": "javascript-typescript",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/javascript-typescript"
+      },
+      "description": "JavaScript and TypeScript development with ES6+, Node.js, React, and modern web frameworks"
+    },
+    {
+      "name": "kotlin-lsp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/kotlin-lsp"
+      },
+      "description": "Kotlin language server for code intelligence"
+    },
+    {
+      "name": "lavra",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/roberto-mello/lavra.git",
+        "path": "plugins/lavra"
+      },
+      "description": "30 specialized agents, 28 commands, 15 skills, persistent memory with auto-recall"
+    },
+    {
+      "name": "llm-application-dev",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/llm-application-dev"
+      },
+      "description": "LLM application development with LangGraph, RAG systems, vector search, and AI agent architectures for Claude 4.6 and GPT-5.4"
+    },
+    {
+      "name": "mcp-server-dev",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/mcp-server-dev"
+      },
+      "description": "Skills for designing and building MCP servers that work seamlessly with Claude. Guides you through deployment models (remote HTTP, MCPB, local), tool design patterns, auth, and interactive MCP apps."
+    },
+    {
+      "name": "playground",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/playground"
+      },
+      "description": "Creates interactive HTML playgrounds — self-contained single-file explorers with visual controls, live preview, and prompt output with copy button. Includes templates for design playgrounds, data explorers, concept maps, and document critique."
+    },
+    {
+      "name": "plugin-dev",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/plugin-dev"
+      },
+      "description": "Comprehensive toolkit for developing Claude Code plugins. Includes 7 expert skills covering hooks, MCP integration, commands, agents, and best practices. AI-assisted plugin creation and validation."
+    },
+    {
+      "name": "pr-review-toolkit",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/pr-review-toolkit"
+      },
+      "description": "Comprehensive PR review agents specializing in comments, tests, error handling, type design, code quality, and code simplification"
+    },
+    {
+      "name": "pyright-lsp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/pyright-lsp"
+      },
+      "description": "Python language server (Pyright) for type checking and code intelligence"
+    },
+    {
+      "name": "python-development",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/python-development"
+      },
+      "description": "Modern Python development with Python 3.12+, Django, FastAPI, async patterns, and production best practices"
+    },
+    {
+      "name": "ralph-loop",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/ralph-loop"
+      },
+      "description": "Interactive self-referential AI loops for iterative development, implementing the Ralph Wiggum technique. Claude works on the same task repeatedly, seeing its previous work, until completion."
+    },
+    {
+      "name": "repomix-commands",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/yamadashy/repomix.git",
+        "path": ".claude/plugins/repomix-commands"
+      },
+      "description": ""
+    },
+    {
+      "name": "repomix-explorer",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/yamadashy/repomix.git",
+        "path": ".claude/plugins/repomix-explorer"
+      },
+      "description": ""
+    },
+    {
+      "name": "repomix-mcp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/yamadashy/repomix.git",
+        "path": ".claude/plugins/repomix-mcp"
+      },
+      "description": ""
+    },
+    {
+      "name": "rust-analyzer-lsp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/rust-analyzer-lsp"
+      },
+      "description": "Rust language server for code intelligence and analysis"
+    },
+    {
+      "name": "serena",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/serena"
+      },
+      "description": "Semantic code analysis MCP server providing intelligent code understanding, refactoring suggestions, and codebase navigation through language server protocol integration."
+    },
+    {
+      "name": "session-report",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/session-report"
+      },
+      "description": "Generate an explorable HTML report of Claude Code session usage — tokens, cache efficiency, subagents, skills, and the most expensive prompts — from local ~/.claude/projects transcripts."
+    },
+    {
+      "name": "shell-scripting",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/shell-scripting"
+      },
+      "description": "Production-grade Bash scripting with defensive programming, POSIX compliance, and comprehensive testing"
+    },
+    {
+      "name": "skill-creator",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/skill-creator"
+      },
+      "description": "Create new skills, improve existing skills, and measure skill performance. Use when users want to create a skill from scratch, update or optimize an existing skill, run evals to test a skill, or benchmark skill performance with variance analysis."
+    },
+    {
+      "name": "superpowers-developing-for-claude-code",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/superpowers-developing-for-claude-code.git"
+      },
+      "description": "Skills and resources for developing Claude Code plugins, skills, MCP servers, and extensions. Includes comprehensive official documentation and self-update mechanism."
+    },
+    {
+      "name": "superpowers",
+      "source": {
+        "source": "url",
+        "url": "https://github.com/obra/superpowers.git"
+      },
+      "description": "Core skills library: TDD, debugging, collaboration patterns, and proven techniques"
+    },
+    {
+      "name": "systems-programming",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/systems-programming"
+      },
+      "description": "Systems programming with Rust, Go, C, and C++ for performance-critical and low-level development"
+    },
+    {
+      "name": "tdd-workflows",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/tdd-workflows"
+      },
+      "description": "Test-driven development methodology with red-green-refactor cycles and code review"
+    },
+    {
+      "name": "telegram",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "external_plugins/telegram"
+      },
+      "description": "Telegram messaging bridge with built-in access control. Manage pairing, allowlists, and policy via /telegram:access."
+    },
+    {
+      "name": "typescript-lsp",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/anthropics/claude-plugins-official.git",
+        "path": "plugins/typescript-lsp"
+      },
+      "description": "TypeScript/JavaScript language server for enhanced code intelligence"
+    },
+    {
+      "name": "ui-design",
+      "source": {
+        "source": "git-subdir",
+        "url": "https://github.com/wshobson/agents.git",
+        "path": "plugins/ui-design"
+      },
+      "description": "Comprehensive UI/UX design plugin for mobile (iOS, Android, React Native) and web applications with design systems, accessibility, and modern patterns"
+    },
+    {
+      "name": "zsh-tool",
+      "source": {
+        "source": "github",
+        "repo": "ArkTechNWA/zsh-tool"
+      },
+      "description": "Zsh shell for Claude Code - full terminal control, live output, PTY mode for interactive commands"
     }
   ]
 }

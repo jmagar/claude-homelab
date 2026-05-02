@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/articles/how\_to\_work\_with\_large\_language\_models [Redirecting from `/cookbook/how\_to\_work\_with\_large\_language\_models/` to `/cookbook/articles/how\_to\_work\_with\_large\_language\_models`](/cookbook/articles/how_to_work_with_large_language_models)

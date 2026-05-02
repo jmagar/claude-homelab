@@ -1,0 +1,231 @@
+Install MCP Servers - FastMCP
+Documentation
+##### Get Started
+* [
+Welcome!
+](/getting-started/welcome)
+* [
+Installation
+](/getting-started/installation)
+* [
+Quickstart
+](/getting-started/quickstart)
+##### Servers
+* [
+Overview
+](/servers/server)
+*
+Core Components
+*
+FeaturesUPDATED
+*
+Providers
+*
+Transforms
+*
+Auth
+*
+Deployment
+##### Apps
+* [
+Overview
+NEW
+](/apps/overview)
+* [
+Quickstart
+NEW
+](/apps/quickstart)
+* [
+Examples
+NEW
+](/apps/examples)
+*
+Building AppsNEW
+*
+ProvidersNEW
+*
+AdvancedNEW
+##### Clients
+* [
+Overview
+](/clients/client)
+* [
+Transports
+](/clients/transports)
+*
+Core Operations
+*
+HandlersUPDATED
+*
+AuthenticationUPDATED
+##### Integrations
+*
+Auth
+*
+Web Frameworks
+*
+AI Assistants
+*
+AI SDKs
+* [
+MCP.json
+](/integrations/mcp-json-configuration)
+##### CLI
+* [
+Overview
+](/cli/overview)
+* [
+Running
+](/cli/running)
+* [
+Install MCPs
+](/cli/install-mcp)
+* [
+Inspecting
+](/cli/inspecting)
+* [
+Client
+](/cli/client)
+* [
+Generate CLI
+](/cli/generate-cli)
+* [
+Auth
+](/cli/auth)
+##### More
+* [
+Settings
+](/more/settings)
+*
+Upgrading
+*
+Development
+*
+What's New
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://gofastmcp.com/llms.txt
+](https://gofastmcp.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+New in version `2.10.3`
+`fastmcp install` registers a server with an MCP client application so the client can launch it automatically. Each MCP client runs servers in its own isolated environment, which means dependencies need to be explicitly declared — you can’t rely on whatever happens to be installed locally.
+```
+`fastmcp install claude-desktop server.py
+fastmcp install claude-code server.py --with pandas --with matplotlib
+fastmcp install cursor server.py -e .
+`
+```
+`uv` must be installed and available in your system PATH. Both Claude Desktop and Cursor run servers in isolated environments managed by `uv`. On macOS, install it globally with Homebrew for Claude Desktop compatibility: `brew install uv`.
+##
+[​
+](#supported-clients)
+Supported Clients
+|Client|Install method|
+|`claude-code`|Claude Code’s built-in MCP management|
+|`claude-desktop`|Direct config file modification|
+|`cursor`|Deeplink that opens Cursor for confirmation|
+|`gemini-cli`|Gemini CLI’s built-in MCP management|
+|`goose`|Deeplink that opens Goose for confirmation (uses `uvx`)|
+|`mcp-json`|Generates standard MCP JSON config for manual use|
+|`stdio`|Outputs the shell command to run via stdio|
+##
+[​
+](#declaring-dependencies)
+Declaring Dependencies
+Because MCP clients run servers in isolation, you need to tell the install command what your server needs. There are two approaches:
+**Command-line flags** let you specify dependencies directly:
+```
+`fastmcp install claude-desktop server.py --with pandas --with "sqlalchemy\>=2.0"
+fastmcp install cursor server.py -e . --with-requirements requirements.txt
+`
+```
+**`fastmcp.json`** configuration files declare dependencies alongside the server definition. When you install from a config file, dependencies are picked up automatically:
+```
+`fastmcp install claude-desktop fastmcp.json
+fastmcp install claude-desktop # auto-detects fastmcp.json in current directory
+`
+```
+See [Server Configuration](/deployment/server-configuration) for the full config format.
+##
+[​
+](#options)
+Options
+|Option|Flag|Description|
+|Server Name|`--server-name`, `-n`|Custom name for the server|
+|Editable Package|`--with-editable`, `-e`|Install a directory in editable mode|
+|Extra Packages|`--with`|Additional packages (repeatable)|
+|Environment Variables|`--env`|`KEY=VALUE` pairs (repeatable)|
+|Environment File|`--env-file`, `-f`|Load env vars from a `.env` file|
+|Python|`--python`|Python version (e.g., `3.11`)|
+|Project|`--project`|Run within a uv project directory|
+|Requirements|`--with-requirements`|Install from a requirements file|
+|Config Path|`--config-path`|Custom path to Claude Desktop config directory (`claude-desktop` only)|
+##
+[​
+](#examples)
+Examples
+```
+`# Basic install with auto-detected server instance
+fastmcp install claude-desktop server.py
+# Install from fastmcp.json with auto-detection
+fastmcp install claude-desktop
+# Explicit entrypoint with dependencies
+fastmcp install claude-desktop server.py:my\_server \\
+--server-name "My Analysis Server" \\
+--with pandas
+# With environment variables
+fastmcp install claude-code server.py \\
+--env API\_KEY=secret \\
+--env DEBUG=true
+# With env file
+fastmcp install cursor server.py --env-file .env
+# Specific Python version and requirements file
+fastmcp install claude-desktop server.py \\
+--python 3.11 \\
+--with-requirements requirements.txt
+# With custom config path (claude-desktop only)
+fastmcp install claude-desktop server.py \\
+--config-path "C:\\Users\\username\\AppData\\Local\\Packages\\Claude\_xyz\\LocalCache\\Roaming\\Claude"
+`
+```
+##
+[​
+](#generating-mcp-json)
+Generating MCP JSON
+The `mcp-json` target generates standard MCP configuration JSON instead of installing into a specific client. This is useful for clients that FastMCP doesn’t directly support, for CI/CD environments, or for sharing server configs:
+```
+`fastmcp install mcp-json server.py
+`
+```
+The output follows the standard format used by Claude Desktop, Cursor, and other MCP clients:
+```
+`{
+"server-name": {
+"command": "uv",
+"args": ["run", "--with", "fastmcp", "fastmcp", "run", "/path/to/server.py"],
+"env": {
+"API\_KEY": "value"
+}
+}
+}
+`
+```
+Use `--copy` to send it to your clipboard instead of stdout.
+##
+[​
+](#generating-stdio-commands)
+Generating Stdio Commands
+The `stdio` target outputs the shell command an MCP host would use to start your server over stdio:
+```
+`fastmcp install stdio server.py
+# Output: uv run --with fastmcp fastmcp run /absolute/path/to/server.py
+`
+```
+When installing from a `fastmcp.json`, dependencies from the config are included automatically:
+```
+`fastmcp install stdio fastmcp.json
+# Output: uv run --with fastmcp --with pillow --with 'qrcode[pil]\>=8.0' fastmcp run /path/to/server.py
+`
+```
+Use `--copy` to copy to clipboard.
+`fastmcp install` is designed for local server files with stdio transport. For remote servers running over HTTP, use your client’s native configuration — FastMCP’s value here is simplifying the complex local setup with `uv`, dependencies, and environment variables.

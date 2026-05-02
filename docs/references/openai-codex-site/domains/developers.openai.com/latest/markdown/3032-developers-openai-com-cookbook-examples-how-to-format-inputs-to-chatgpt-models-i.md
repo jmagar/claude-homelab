@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_format\_inputs\_to\_chatgpt\_models [Redirecting from `/cookbook/examples/how\_to\_format\_inputs\_to\_chatgpt\_models.ipynb/` to `/cookbook/examples/how\_to\_format\_inputs\_to\_chatgpt\_models`](/cookbook/examples/how_to_format_inputs_to_chatgpt_models)

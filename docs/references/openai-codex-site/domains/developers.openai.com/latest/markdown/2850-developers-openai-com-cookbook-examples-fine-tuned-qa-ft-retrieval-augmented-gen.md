@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/fine-tuned\_qa/ft\_retrieval\_augmented\_generation\_qdrant [Redirecting from `/cookbook/examples/fine-tuned\_qa/ft\_retrieval\_augmented\_generation\_qdrant.ipynb/` to `/cookbook/examples/fine-tuned\_qa/ft\_retrieval\_augmented\_generation\_qdrant`](/cookbook/examples/fine-tuned_qa/ft_retrieval_augmented_generation_qdrant)

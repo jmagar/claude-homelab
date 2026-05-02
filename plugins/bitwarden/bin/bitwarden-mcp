@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+die() {
+  printf 'bitwarden-mcp: %s\n' "$*" >&2
+  exit 1
+}
+
+command -v bw >/dev/null 2>&1 || die "Bitwarden CLI 'bw' is not installed or not on PATH"
+command -v npx >/dev/null 2>&1 || die "'npx' is not installed or not on PATH"
+command -v node >/dev/null 2>&1 || die "'node' is not installed or not on PATH"
+
+readonly MCP_SERVER_PACKAGE="@bitwarden/mcp-server@2026.2.0"
+session_file="${BW_SESSION_FILE:-${XDG_RUNTIME_DIR:-/run/user/$(id -u)}/bitwarden-mcp/session}"
+
+if [[ -z "${BW_SESSION:-}" ]]; then
+  if [[ -r "$session_file" ]]; then
+    BW_SESSION="$(<"$session_file")"
+    export BW_SESSION
+    if ! bw unlock --check >/dev/null 2>&1; then
+      die "Saved BW_SESSION in $session_file is stale. Run 'plugins/bitwarden/scripts/session unlock' before reconnecting."
+    fi
+  fi
+fi
+
+if [[ -z "${BW_SESSION:-}" ]]; then
+  status_json="$(bw status --raw 2>/dev/null || true)"
+
+  case "$status_json" in
+    *'"status":"unauthenticated"'*)
+      die "Bitwarden CLI is not logged in. Run 'bw login' first."
+      ;;
+  esac
+
+  if [[ -t 0 ]]; then
+    export BW_SESSION
+    BW_SESSION="$(bw unlock --raw)"
+  else
+    die "BW_SESSION is not set and no interactive terminal is available. Run 'mkdir -p \"$(dirname "$session_file")\" && chmod 700 \"$(dirname "$session_file")\" && bw unlock --raw > \"$session_file\" && chmod 600 \"$session_file\"' before reconnecting."
+  fi
+fi
+
+if ! bw unlock --check >/dev/null 2>&1; then
+  die "BW_SESSION is set but invalid or stale. Run 'plugins/bitwarden/scripts/session unlock' before reconnecting."
+fi
+
+package_root="${NPM_CONFIG_CACHE:-$HOME/.npm}/_npx"
+
+find_server_index() {
+  local index package_json
+
+  while IFS= read -r index; do
+    package_json="$(dirname "$(dirname "$index")")/package.json"
+    if [[ -r "$package_json" ]] && grep -q '"version": "2026.2.0"' "$package_json"; then
+      printf '%s\n' "$index"
+    fi
+  done < <(find "$package_root" -path '*/node_modules/@bitwarden/mcp-server/dist/index.js' -type f -print 2>/dev/null)
+}
+
+server_index="$(find_server_index | sort | tail -n 1)"
+
+if [[ -z "$server_index" ]]; then
+  npx -y "$MCP_SERVER_PACKAGE" >/dev/null 2>&1 || true
+  server_index="$(find_server_index | sort | tail -n 1)"
+fi
+
+[[ -n "$server_index" ]] || die "Could not locate ${MCP_SERVER_PACKAGE}/dist/index.js after npx install"
+
+exec node "$server_index" "$@"

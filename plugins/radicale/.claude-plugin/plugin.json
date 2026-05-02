@@ -1,0 +1,20 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "radicale",
+  "version": "1.4.1",
+  "description": "CalDAV and CardDAV workflow skills for Radicale.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "license": "MIT",
+  "keywords": [
+    "radicale",
+    "caldav",
+    "carddav",
+    "calendar",
+    "contacts"
+  ]
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "openacp",
+  "version": "1.4.1",
+  "description": "OpenACP chat bridge workflows for running ACP-compatible agents from Telegram, Discord, and Slack.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/claude-homelab",
+  "homepage": "https://github.com/jmagar/claude-homelab",
+  "license": "MIT",
+  "keywords": [
+    "openacp",
+    "acp",
+    "agents",
+    "telegram",
+    "discord",
+    "slack",
+    "homelab"
+  ]
+}

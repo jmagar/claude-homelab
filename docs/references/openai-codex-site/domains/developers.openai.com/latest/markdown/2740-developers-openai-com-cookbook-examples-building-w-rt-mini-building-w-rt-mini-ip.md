@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/building\_w\_rt\_mini/building\_w\_rt\_mini [Redirecting from `/cookbook/examples/building\_w\_rt\_mini/building\_w\_rt\_mini.ipynb/` to `/cookbook/examples/building\_w\_rt\_mini/building\_w\_rt\_mini`](/cookbook/examples/building_w_rt_mini/building_w_rt_mini)

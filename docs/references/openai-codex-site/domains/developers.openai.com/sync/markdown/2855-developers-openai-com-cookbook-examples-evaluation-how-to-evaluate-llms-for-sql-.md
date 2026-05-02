@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/evaluation/how\_to\_evaluate\_llms\_for\_sql\_generation [Redirecting from `/cookbook/examples/evaluation/how\_to\_evaluate\_llms\_for\_sql\_generation.ipynb/` to `/cookbook/examples/evaluation/how\_to\_evaluate\_llms\_for\_sql\_generation`](/cookbook/examples/evaluation/how_to_evaluate_llms_for_sql_generation)

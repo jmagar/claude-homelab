@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/agents\_sdk/app\_assistant\_voice\_agents [Redirecting from `/cookbook/examples/agents\_sdk/app\_assistant\_voice\_agents.ipynb/` to `/cookbook/examples/agents\_sdk/app\_assistant\_voice\_agents`](/cookbook/examples/agents_sdk/app_assistant_voice_agents)

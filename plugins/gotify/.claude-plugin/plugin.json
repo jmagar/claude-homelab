@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "gotify-mcp",
+  "version": "1.4.1",
+  "description": "Gotify push notifications and management via MCP tools with HTTP fallback. Sends alerts for long-running tasks, plan completions, and blocked states.",
+  "author": {
+    "name": "Jacob Magar"
+  },
+  "repository": "https://github.com/jmagar/gotify-mcp",
+  "license": "MIT",
+  "keywords": [
+    "gotify",
+    "notifications",
+    "push",
+    "homelab",
+    "mcp"
+  ]
+}

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/question\_answering\_using\_embeddings [Redirecting from `/cookbook/examples/question\_answering\_using\_embeddings.ipynb/` to `/cookbook/examples/question\_answering\_using\_embeddings`](/cookbook/examples/question_answering_using_embeddings)

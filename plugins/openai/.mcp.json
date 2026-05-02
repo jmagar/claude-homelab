@@ -1,0 +1,12 @@
+{
+  "mcpServers": {
+    "openai": {
+      "command": "lab",
+      "args": [
+        "mcp",
+        "--services",
+        "openai"
+      ]
+    }
+  }
+}

@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/multimodal/using\_gpt4\_vision\_with\_function\_calling [Redirecting from `/cookbook/examples/multimodal/using\_gpt4\_vision\_with\_function\_calling.ipynb/` to `/cookbook/examples/multimodal/using\_gpt4\_vision\_with\_function\_calling`](/cookbook/examples/multimodal/using_gpt4_vision_with_function_calling)

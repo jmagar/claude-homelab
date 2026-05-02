@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/azure/chat\_with\_your\_own\_data [Redirecting from `/cookbook/examples/azure/chat\_with\_your\_own\_data.ipynb/` to `/cookbook/examples/azure/chat\_with\_your\_own\_data`](/cookbook/examples/azure/chat_with_your_own_data)

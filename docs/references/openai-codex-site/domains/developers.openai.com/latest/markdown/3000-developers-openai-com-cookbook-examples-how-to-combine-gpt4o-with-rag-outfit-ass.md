@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_combine\_gpt4o\_with\_rag\_outfit\_assistant [Redirecting from `/cookbook/examples/how\_to\_combine\_gpt4o\_with\_rag\_outfit\_assistant.ipynb/` to `/cookbook/examples/how\_to\_combine\_gpt4o\_with\_rag\_outfit\_assistant`](/cookbook/examples/how_to_combine_gpt4o_with_rag_outfit_assistant)

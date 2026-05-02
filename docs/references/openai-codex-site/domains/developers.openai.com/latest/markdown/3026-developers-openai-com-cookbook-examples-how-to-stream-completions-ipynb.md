@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/how\_to\_stream\_completions [Redirecting from `/cookbook/examples/how\_to\_stream\_completions.ipynb/` to `/cookbook/examples/how\_to\_stream\_completions`](/cookbook/examples/how_to_stream_completions)

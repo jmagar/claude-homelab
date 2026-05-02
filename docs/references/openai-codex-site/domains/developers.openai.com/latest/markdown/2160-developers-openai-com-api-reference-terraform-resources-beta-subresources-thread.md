@@ -1,0 +1,1105 @@
+Runs | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/terraform)
+[Beta](/api/reference/terraform/resources/beta)
+[Threads](/api/reference/terraform/resources/beta/subresources/threads)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Runs
+Build Assistants that can call models and use tools.
+#### resource openai\_beta\_thread\_run
+##### required Expand Collapse
+thread\_id: String
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) thread_id>)
+assistant\_id: String
+The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) to use to execute this run.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) assistant_id>)
+##### optional Expand Collapse
+additional\_instructions?: String
+Appends additional instructions at the end of the instructions for the run. This is useful for modifying the behavior on a per-run basis without overriding other instructions.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_instructions>)
+instructions?: String
+Overrides the [instructions](https://platform.openai.com/docs/api-reference/assistants/createAssistant) of the assistant. This is useful for modifying the behavior on a per-run basis.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) instructions>)
+max\_completion\_tokens?: Int64
+The maximum number of completion tokens that may be used over the course of the run. The run will make a best effort to use only the number of completion tokens specified, across multiple turns of the run. If the run exceeds the number of completion tokens specified, the run will end with status `incomplete`. See `incomplete\_details` for more info.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) max_completion_tokens>)
+max\_prompt\_tokens?: Int64
+The maximum number of prompt tokens that may be used over the course of the run. The run will make a best effort to use only the number of prompt tokens specified, across multiple turns of the run. If the run exceeds the number of prompt tokens specified, the run will end with status `incomplete`. See `incomplete\_details` for more info.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) max_prompt_tokens>)
+model?: String
+The ID of the [Model](https://platform.openai.com/docs/api-reference/models) to be used to execute this run. If a value is provided here, it will override the model associated with the assistant. If not, the model associated with the assistant will be used.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) model>)
+response\_format?: String
+Specifies the format that the model must output. Compatible with [GPT-4o](https://platform.openai.com/docs/models#gpt-4o), [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+**Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly “stuck” request. Also note that the message content may be partially cut off if `finish\_reason="length"`, which indicates the generation exceeded `max\_tokens` or the conversation exceeded the max context length.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) response_format>)
+stream?: Bool
+If `true`, returns a stream of events that happen during the Run as server-sent events, terminating when the Run enters a terminal state with a `data: [DONE]` message.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) stream>)
+tool\_choice?: String
+Controls which (if any) tool is called by the model.
+`none` means the model will not call any tools and instead generates a message.
+`auto` is the default value and means the model can pick between generating a message or calling one or more tools.
+`required` means the model must call one or more tools before responding to the user.
+Specifying a particular tool like `{"type": "file\_search"}` or `{"type": "function", "function": {"name": "my\_function"}}` forces the model to call that tool.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tool_choice>)
+additional\_messages?: List[Attributes]
+Adds additional messages to the thread before creating the run.
+content: String
+The text contents of the message.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) content>)
+role: String
+The role of the entity that is creating the message. Allowed values include:
+* `user`: Indicates the message is sent by an actual user and should be used in most cases to represent user-generated messages.
+* `assistant`: Indicates the message is generated by the assistant. Use this value to insert messages from the assistant into the conversation.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) role>)
+attachments?: List[Attributes]
+A list of files attached to the message, and the tools they should be added to.
+file\_id?: String
+The ID of the file to attach to the message.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) attachments > (attribute) file_id>)
+tools?: List[Attributes]
+The tools to add this file to.
+type: String
+The type of tool being defined: `code\_interpreter`
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) attachments > (attribute) tools > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) attachments > (attribute) tools>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) attachments>)
+metadata?: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages > (attribute) metadata>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) additional_messages>)
+truncation\_strategy?: Attributes
+Controls for how a thread will be truncated prior to the run. Use this to control the initial context window of the run.
+type: String
+The truncation strategy to use for the thread. The default is `auto`. If set to `last\_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max\_prompt\_tokens`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) truncation_strategy > (attribute) type>)
+last\_messages?: Int64
+The number of most recent messages from the thread when constructing the context for the run.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) truncation_strategy > (attribute) last_messages>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) truncation_strategy>)
+parallel\_tool\_calls?: Bool
+Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) parallel_tool_calls>)
+reasoning\_effort?: String
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) reasoning_effort>)
+temperature?: Float64
+What sampling temperature to use, between 0 and 2. Higher values like 0.8 will make the output more random, while lower values like 0.2 will make it more focused and deterministic.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) temperature>)
+top\_p?: Float64
+An alternative to sampling with temperature, called nucleus sampling, where the model considers the results of the tokens with top\_p probability mass. So 0.1 means only the tokens comprising the top 10% probability mass are considered.
+We generally recommend altering this or temperature but not both.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) top_p>)
+tools?: List[Attributes]
+Override the tools the assistant can use for this run. This is useful for modifying the behavior on a per-run basis.
+type: String
+The type of tool being defined: `code\_interpreter`
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) type>)
+file\_search?: Attributes
+Overrides for the file search tool.
+max\_num\_results?: Int64
+The maximum number of results the file search tool should output. The default is 20 for `gpt-4\*` models and 5 for `gpt-3.5-turbo`. This number should be between 1 and 50 inclusive.
+Note that the file search tool may output fewer than `max\_num\_results` results. See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) file_search > (attribute) max_num_results>)
+ranking\_options?: Attributes
+The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score\_threshold of 0.
+See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+score\_threshold: Float64
+The score threshold for the file search. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) score_threshold>)
+ranker?: String
+The ranker to use for the file search. If not specified will use the `auto` ranker.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) ranker>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) file_search > (attribute) ranking_options>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) file_search>)
+function?: Attributes
+name: String
+The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) function > (attribute) name>)
+description?: String
+A description of what the function does, used by the model to choose when and how to call the function.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) function > (attribute) description>)
+parameters?: Map[JSON]
+The parameters the functions accepts, described as a JSON Schema object. See the [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
+Omitting `parameters` defines a function with an empty parameter list.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) function > (attribute) parameters>)
+strict?: Bool
+Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](https://platform.openai.com/docs/guides/function-calling).
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) function > (attribute) strict>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools > (attribute) function>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) tools>)
+metadata?: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) metadata>)
+##### computed Expand Collapse
+id: String
+The identifier, which can be referenced in API endpoints.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) id>)
+cancelled\_at: Int64
+The Unix timestamp (in seconds) for when the run was cancelled.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) cancelled_at>)
+completed\_at: Int64
+The Unix timestamp (in seconds) for when the run was completed.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) completed_at>)
+created\_at: Int64
+The Unix timestamp (in seconds) for when the run was created.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) created_at>)
+expires\_at: Int64
+The Unix timestamp (in seconds) for when the run will expire.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) expires_at>)
+failed\_at: Int64
+The Unix timestamp (in seconds) for when the run failed.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) failed_at>)
+object: String
+The object type, which is always `thread.run`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) object>)
+started\_at: Int64
+The Unix timestamp (in seconds) for when the run was started.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) started_at>)
+status: String
+The status of the run, which can be either `queued`, `in\_progress`, `requires\_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) status>)
+incomplete\_details: Attributes
+Details on why the run is incomplete. Will be `null` if the run is not incomplete.
+reason: String
+The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) incomplete_details > (attribute) reason>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) incomplete_details>)
+last\_error: Attributes
+The last error associated with this run. Will be `null` if there are no errors.
+code: String
+One of `server\_error`, `rate\_limit\_exceeded`, or `invalid\_prompt`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) last_error > (attribute) code>)
+message: String
+A human-readable description of the error.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) last_error > (attribute) message>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) last_error>)
+required\_action: Attributes
+Details on the action required to continue the run. Will be `null` if no action is required.
+submit\_tool\_outputs: Attributes
+Details on the tool outputs needed for this run to continue.
+tool\_calls: List[Attributes]
+A list of the relevant tool calls.
+id: String
+The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) id>)
+function: Attributes
+The function definition.
+arguments: String
+The arguments that the model expects you to pass to the function.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) arguments>)
+name: String
+The name of the function.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) name>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function>)
+type: String
+The type of tool call the output is required for. For now, this is always `function`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) submit_tool_outputs>)
+type: String
+For now, this is always `submit\_tool\_outputs`.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) required_action>)
+usage: Attributes
+Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in\_progress`, `queued`, etc.).
+completion\_tokens: Int64
+Number of completion tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) usage > (attribute) completion_tokens>)
+prompt\_tokens: Int64
+Number of prompt tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) usage > (attribute) prompt_tokens>)
+total\_tokens: Int64
+Total number of tokens used (prompt + completion).
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) usage > (attribute) total_tokens>)
+[](<#(resource) beta.threads.runs > (terraform resource) > (attribute) usage>)
+### openai\_beta\_thread\_run
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`resource "openai\_beta\_thread\_run" "example\_beta\_thread\_run" {
+thread\_id = "thread\_id"
+assistant\_id = "assistant\_id"
+additional\_instructions = "additional\_instructions"
+additional\_messages = [{
+content = "string"
+role = "user"
+attachments = [{
+file\_id = "file\_id"
+tools = [{
+type = "code\_interpreter"
+}]
+}]
+metadata = {
+foo = "string"
+}
+}]
+instructions = "instructions"
+max\_completion\_tokens = 256
+max\_prompt\_tokens = 256
+metadata = {
+foo = "string"
+}
+model = "string"
+parallel\_tool\_calls = true
+reasoning\_effort = "none"
+response\_format = "auto"
+stream = false
+temperature = 1
+tool\_choice = "none"
+tools = [{
+type = "code\_interpreter"
+}]
+top\_p = 1
+truncation\_strategy = {
+type = "auto"
+last\_messages = 1
+}
+}
+`
+```
+#### data openai\_beta\_thread\_run
+##### required Expand Collapse
+thread\_id: String
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) thread_id>)
+##### optional Expand Collapse
+run\_id?: String
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) run_id>)
+find\_one\_by?: Attributes
+before?: String
+A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj\_foo, your subsequent call can include before=obj\_foo in order to fetch the previous page of the list.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) find_one_by > (attribute) before>)
+order?: String
+Sort order by the `created\_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) find_one_by > (attribute) order>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) find_one_by>)
+##### computed Expand Collapse
+id: String
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) id>)
+assistant\_id: String
+The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) assistant_id>)
+cancelled\_at: Int64
+The Unix timestamp (in seconds) for when the run was cancelled.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) cancelled_at>)
+completed\_at: Int64
+The Unix timestamp (in seconds) for when the run was completed.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) completed_at>)
+created\_at: Int64
+The Unix timestamp (in seconds) for when the run was created.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) created_at>)
+expires\_at: Int64
+The Unix timestamp (in seconds) for when the run will expire.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) expires_at>)
+failed\_at: Int64
+The Unix timestamp (in seconds) for when the run failed.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) failed_at>)
+instructions: String
+The instructions that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) instructions>)
+max\_completion\_tokens: Int64
+The maximum number of completion tokens specified to have been used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) max_completion_tokens>)
+max\_prompt\_tokens: Int64
+The maximum number of prompt tokens specified to have been used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) max_prompt_tokens>)
+model: String
+The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) model>)
+object: String
+The object type, which is always `thread.run`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) object>)
+parallel\_tool\_calls: Bool
+Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) parallel_tool_calls>)
+response\_format: String
+Specifies the format that the model must output. Compatible with [GPT-4o](https://platform.openai.com/docs/models#gpt-4o), [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+**Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly “stuck” request. Also note that the message content may be partially cut off if `finish\_reason="length"`, which indicates the generation exceeded `max\_tokens` or the conversation exceeded the max context length.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) response_format>)
+started\_at: Int64
+The Unix timestamp (in seconds) for when the run was started.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) started_at>)
+status: String
+The status of the run, which can be either `queued`, `in\_progress`, `requires\_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) status>)
+temperature: Float64
+The sampling temperature used for this run. If not set, defaults to 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) temperature>)
+tool\_choice: String
+Controls which (if any) tool is called by the model.
+`none` means the model will not call any tools and instead generates a message.
+`auto` is the default value and means the model can pick between generating a message or calling one or more tools.
+`required` means the model must call one or more tools before responding to the user.
+Specifying a particular tool like `{"type": "file\_search"}` or `{"type": "function", "function": {"name": "my\_function"}}` forces the model to call that tool.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tool_choice>)
+top\_p: Float64
+The nucleus sampling value used for this run. If not set, defaults to 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) top_p>)
+metadata: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) metadata>)
+incomplete\_details: Attributes
+Details on why the run is incomplete. Will be `null` if the run is not incomplete.
+reason: String
+The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) incomplete_details > (attribute) reason>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) incomplete_details>)
+last\_error: Attributes
+The last error associated with this run. Will be `null` if there are no errors.
+code: String
+One of `server\_error`, `rate\_limit\_exceeded`, or `invalid\_prompt`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) last_error > (attribute) code>)
+message: String
+A human-readable description of the error.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) last_error > (attribute) message>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) last_error>)
+required\_action: Attributes
+Details on the action required to continue the run. Will be `null` if no action is required.
+submit\_tool\_outputs: Attributes
+Details on the tool outputs needed for this run to continue.
+tool\_calls: List[Attributes]
+A list of the relevant tool calls.
+id: String
+The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) id>)
+function: Attributes
+The function definition.
+arguments: String
+The arguments that the model expects you to pass to the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) arguments>)
+name: String
+The name of the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) name>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function>)
+type: String
+The type of tool call the output is required for. For now, this is always `function`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) submit_tool_outputs>)
+type: String
+For now, this is always `submit\_tool\_outputs`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) required_action>)
+tools: List[Attributes]
+The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+type: String
+The type of tool being defined: `code\_interpreter`
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) type>)
+file\_search: Attributes
+Overrides for the file search tool.
+max\_num\_results: Int64
+The maximum number of results the file search tool should output. The default is 20 for `gpt-4\*` models and 5 for `gpt-3.5-turbo`. This number should be between 1 and 50 inclusive.
+Note that the file search tool may output fewer than `max\_num\_results` results. See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) file_search > (attribute) max_num_results>)
+ranking\_options: Attributes
+The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score\_threshold of 0.
+See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+score\_threshold: Float64
+The score threshold for the file search. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) score_threshold>)
+ranker: String
+The ranker to use for the file search. If not specified will use the `auto` ranker.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) ranker>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) file_search > (attribute) ranking_options>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) file_search>)
+function: Attributes
+name: String
+The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) function > (attribute) name>)
+description: String
+A description of what the function does, used by the model to choose when and how to call the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) function > (attribute) description>)
+parameters: Map[JSON]
+The parameters the functions accepts, described as a JSON Schema object. See the [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
+Omitting `parameters` defines a function with an empty parameter list.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) function > (attribute) parameters>)
+strict: Bool
+Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](https://platform.openai.com/docs/guides/function-calling).
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) function > (attribute) strict>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools > (attribute) function>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) tools>)
+truncation\_strategy: Attributes
+Controls for how a thread will be truncated prior to the run. Use this to control the initial context window of the run.
+type: String
+The truncation strategy to use for the thread. The default is `auto`. If set to `last\_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max\_prompt\_tokens`.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) truncation_strategy > (attribute) type>)
+last\_messages: Int64
+The number of most recent messages from the thread when constructing the context for the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) truncation_strategy > (attribute) last_messages>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) truncation_strategy>)
+usage: Attributes
+Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in\_progress`, `queued`, etc.).
+completion\_tokens: Int64
+Number of completion tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) usage > (attribute) completion_tokens>)
+prompt\_tokens: Int64
+Number of prompt tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) usage > (attribute) prompt_tokens>)
+total\_tokens: Int64
+Total number of tokens used (prompt + completion).
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) usage > (attribute) total_tokens>)
+[](<#(resource) beta.threads.runs > (terraform datasource-single) > (attribute) usage>)
+### openai\_beta\_thread\_run
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`data "openai\_beta\_thread\_run" "example\_beta\_thread\_run" {
+thread\_id = "thread\_id"
+run\_id = "run\_id"
+}
+`
+```
+#### data openai\_beta\_thread\_runs
+##### required Expand Collapse
+thread\_id: String
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) thread_id>)
+##### optional Expand Collapse
+before?: String
+A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj\_foo, your subsequent call can include before=obj\_foo in order to fetch the previous page of the list.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) before>)
+order?: String
+Sort order by the `created\_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) order>)
+max\_items?: Int64
+Max items to fetch, default: 1000
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) max_items>)
+##### computed Expand Collapse
+items: List[Attributes]
+The items returned by the data source
+id: String
+The identifier, which can be referenced in API endpoints.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) id>)
+assistant\_id: String
+The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for execution of this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) assistant_id>)
+cancelled\_at: Int64
+The Unix timestamp (in seconds) for when the run was cancelled.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) cancelled_at>)
+completed\_at: Int64
+The Unix timestamp (in seconds) for when the run was completed.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) completed_at>)
+created\_at: Int64
+The Unix timestamp (in seconds) for when the run was created.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) created_at>)
+expires\_at: Int64
+The Unix timestamp (in seconds) for when the run will expire.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) expires_at>)
+failed\_at: Int64
+The Unix timestamp (in seconds) for when the run failed.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) failed_at>)
+incomplete\_details: Attributes
+Details on why the run is incomplete. Will be `null` if the run is not incomplete.
+reason: String
+The reason why the run is incomplete. This will point to which specific token limit was reached over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) incomplete_details > (attribute) reason>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) incomplete_details>)
+instructions: String
+The instructions that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) instructions>)
+last\_error: Attributes
+The last error associated with this run. Will be `null` if there are no errors.
+code: String
+One of `server\_error`, `rate\_limit\_exceeded`, or `invalid\_prompt`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) last_error > (attribute) code>)
+message: String
+A human-readable description of the error.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) last_error > (attribute) message>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) last_error>)
+max\_completion\_tokens: Int64
+The maximum number of completion tokens specified to have been used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) max_completion_tokens>)
+max\_prompt\_tokens: Int64
+The maximum number of prompt tokens specified to have been used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) max_prompt_tokens>)
+metadata: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) metadata>)
+model: String
+The model that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) model>)
+object: String
+The object type, which is always `thread.run`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) object>)
+parallel\_tool\_calls: Bool
+Whether to enable [parallel function calling](https://platform.openai.com/docs/guides/function-calling#configuring-parallel-function-calling) during tool use.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) parallel_tool_calls>)
+required\_action: Attributes
+Details on the action required to continue the run. Will be `null` if no action is required.
+submit\_tool\_outputs: Attributes
+Details on the tool outputs needed for this run to continue.
+tool\_calls: List[Attributes]
+A list of the relevant tool calls.
+id: String
+The ID of the tool call. This ID must be referenced when you submit the tool outputs in using the [Submit tool outputs to run](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) endpoint.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) id>)
+function: Attributes
+The function definition.
+arguments: String
+The arguments that the model expects you to pass to the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) arguments>)
+name: String
+The name of the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function > (attribute) name>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) function>)
+type: String
+The type of tool call the output is required for. For now, this is always `function`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs > (attribute) tool_calls>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) submit_tool_outputs>)
+type: String
+For now, this is always `submit\_tool\_outputs`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action > (attribute) type>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) required_action>)
+response\_format: String
+Specifies the format that the model must output. Compatible with [GPT-4o](https://platform.openai.com/docs/models#gpt-4o), [GPT-4 Turbo](https://platform.openai.com/docs/models#gpt-4-turbo-and-gpt-4), and all GPT-3.5 Turbo models since `gpt-3.5-turbo-1106`.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables Structured Outputs which ensures the model will match your supplied JSON schema. Learn more in the [Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables JSON mode, which ensures the message the model generates is valid JSON.
+**Important:** when using JSON mode, you **must** also instruct the model to produce JSON yourself via a system or user message. Without this, the model may generate an unending stream of whitespace until the generation reaches the token limit, resulting in a long-running and seemingly “stuck” request. Also note that the message content may be partially cut off if `finish\_reason="length"`, which indicates the generation exceeded `max\_tokens` or the conversation exceeded the max context length.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) response_format>)
+started\_at: Int64
+The Unix timestamp (in seconds) for when the run was started.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) started_at>)
+status: String
+The status of the run, which can be either `queued`, `in\_progress`, `requires\_action`, `cancelling`, `cancelled`, `failed`, `completed`, `incomplete`, or `expired`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) status>)
+thread\_id: String
+The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was executed on as a part of this run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) thread_id>)
+tool\_choice: String
+Controls which (if any) tool is called by the model.
+`none` means the model will not call any tools and instead generates a message.
+`auto` is the default value and means the model can pick between generating a message or calling one or more tools.
+`required` means the model must call one or more tools before responding to the user.
+Specifying a particular tool like `{"type": "file\_search"}` or `{"type": "function", "function": {"name": "my\_function"}}` forces the model to call that tool.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tool_choice>)
+tools: List[Attributes]
+The list of tools that the [assistant](https://platform.openai.com/docs/api-reference/assistants) used for this run.
+type: String
+The type of tool being defined: `code\_interpreter`
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) type>)
+file\_search: Attributes
+Overrides for the file search tool.
+max\_num\_results: Int64
+The maximum number of results the file search tool should output. The default is 20 for `gpt-4\*` models and 5 for `gpt-3.5-turbo`. This number should be between 1 and 50 inclusive.
+Note that the file search tool may output fewer than `max\_num\_results` results. See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) file_search > (attribute) max_num_results>)
+ranking\_options: Attributes
+The ranking options for the file search. If not specified, the file search tool will use the `auto` ranker and a score\_threshold of 0.
+See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+score\_threshold: Float64
+The score threshold for the file search. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) score_threshold>)
+ranker: String
+The ranker to use for the file search. If not specified will use the `auto` ranker.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) file_search > (attribute) ranking_options > (attribute) ranker>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) file_search > (attribute) ranking_options>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) file_search>)
+function: Attributes
+name: String
+The name of the function to be called. Must be a-z, A-Z, 0-9, or contain underscores and dashes, with a maximum length of 64.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) function > (attribute) name>)
+description: String
+A description of what the function does, used by the model to choose when and how to call the function.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) function > (attribute) description>)
+parameters: Map[JSON]
+The parameters the functions accepts, described as a JSON Schema object. See the [guide](https://platform.openai.com/docs/guides/function-calling) for examples, and the [JSON Schema reference](https://json-schema.org/understanding-json-schema/) for documentation about the format.
+Omitting `parameters` defines a function with an empty parameter list.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) function > (attribute) parameters>)
+strict: Bool
+Whether to enable strict schema adherence when generating the function call. If set to true, the model will follow the exact schema defined in the `parameters` field. Only a subset of JSON Schema is supported when `strict` is `true`. Learn more about Structured Outputs in the [function calling guide](https://platform.openai.com/docs/guides/function-calling).
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) function > (attribute) strict>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools > (attribute) function>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) tools>)
+truncation\_strategy: Attributes
+Controls for how a thread will be truncated prior to the run. Use this to control the initial context window of the run.
+type: String
+The truncation strategy to use for the thread. The default is `auto`. If set to `last\_messages`, the thread will be truncated to the n most recent messages in the thread. When set to `auto`, messages in the middle of the thread will be dropped to fit the context length of the model, `max\_prompt\_tokens`.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) truncation_strategy > (attribute) type>)
+last\_messages: Int64
+The number of most recent messages from the thread when constructing the context for the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) truncation_strategy > (attribute) last_messages>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) truncation_strategy>)
+usage: Attributes
+Usage statistics related to the run. This value will be `null` if the run is not in a terminal state (i.e. `in\_progress`, `queued`, etc.).
+completion\_tokens: Int64
+Number of completion tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) completion_tokens>)
+prompt\_tokens: Int64
+Number of prompt tokens used over the course of the run.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) prompt_tokens>)
+total\_tokens: Int64
+Total number of tokens used (prompt + completion).
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) total_tokens>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) usage>)
+temperature: Float64
+The sampling temperature used for this run. If not set, defaults to 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) temperature>)
+top\_p: Float64
+The nucleus sampling value used for this run. If not set, defaults to 1.
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items > (attribute) top_p>)
+[](<#(resource) beta.threads.runs > (terraform datasource-plural) > (attribute) items>)
+### openai\_beta\_thread\_runs
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`data "openai\_beta\_thread\_runs" "example\_beta\_thread\_runs" {
+thread\_id = "thread\_id"
+before = "before"
+}
+`
+```
+#### RunsSteps
+Build Assistants that can call models and use tools.
+#### data openai\_beta\_thread\_run\_step
+##### required Expand Collapse
+run\_id: String
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) run_id>)
+step\_id: String
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_id>)
+thread\_id: String
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) thread_id>)
+##### optional Expand Collapse
+include?: List[String]
+A list of additional fields to include in the response. Currently the only supported value is `step\_details.tool\_calls[\*].file\_search.results[\*].content` to fetch the file search result content.
+See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) include>)
+##### computed Expand Collapse
+assistant\_id: String
+The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) associated with the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) assistant_id>)
+cancelled\_at: Int64
+The Unix timestamp (in seconds) for when the run step was cancelled.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) cancelled_at>)
+completed\_at: Int64
+The Unix timestamp (in seconds) for when the run step completed.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) completed_at>)
+created\_at: Int64
+The Unix timestamp (in seconds) for when the run step was created.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) created_at>)
+expired\_at: Int64
+The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) expired_at>)
+failed\_at: Int64
+The Unix timestamp (in seconds) for when the run step failed.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) failed_at>)
+id: String
+The identifier of the run step, which can be referenced in API endpoints.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) id>)
+object: String
+The object type, which is always `thread.run.step`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) object>)
+status: String
+The status of the run step, which can be either `in\_progress`, `cancelled`, `failed`, `completed`, or `expired`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) status>)
+type: String
+The type of run step, which can be either `message\_creation` or `tool\_calls`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) type>)
+metadata: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) metadata>)
+last\_error: Attributes
+The last error associated with this run step. Will be `null` if there are no errors.
+code: String
+One of `server\_error` or `rate\_limit\_exceeded`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) last_error > (attribute) code>)
+message: String
+A human-readable description of the error.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) last_error > (attribute) message>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) last_error>)
+step\_details: Attributes
+The details of the run step.
+message\_creation: Attributes
+message\_id: String
+The ID of the message that was created by this run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) message_creation > (attribute) message_id>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) message_creation>)
+type: String
+Always `message\_creation`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) type>)
+tool\_calls: List[Attributes]
+An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code\_interpreter`, `file\_search`, or `function`.
+id: String
+The ID of the tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) id>)
+code\_interpreter: Attributes
+The Code Interpreter tool call definition.
+input: String
+The input to the Code Interpreter tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) input>)
+outputs: List[Attributes]
+The outputs from the Code Interpreter tool call. Code Interpreter can output one or more items, including text (`logs`) or images (`image`). Each of these are represented by a different object type.
+logs: String
+The text output from the Code Interpreter tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) logs>)
+type: String
+Always `logs`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) type>)
+image: Attributes
+file\_id: String
+The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) image > (attribute) file_id>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) image>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter>)
+type: String
+The type of tool call. This is always going to be `code\_interpreter` for this type of tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) type>)
+file\_search: Attributes
+For now, this is always going to be an empty object.
+ranking\_options: Attributes
+The ranking options for the file search.
+ranker: String
+The ranker to use for the file search. If not specified will use the `auto` ranker.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options > (attribute) ranker>)
+score\_threshold: Float64
+The score threshold for the file search. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options > (attribute) score_threshold>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options>)
+results: List[Attributes]
+The results of the file search.
+file\_id: String
+The ID of the file that result was found in.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) file_id>)
+file\_name: String
+The name of the file that result was found in.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) file_name>)
+score: Float64
+The score of the result. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) score>)
+content: List[Attributes]
+The content of the result that was found. The content is only included if requested via the include query parameter.
+text: String
+The text content of the file.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content > (attribute) text>)
+type: String
+The type of the content.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content > (attribute) type>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) file_search>)
+function: Attributes
+The definition of the function that was called.
+arguments: String
+The arguments passed to the function.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) arguments>)
+name: String
+The name of the function.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) name>)
+output: String
+The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) output>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls > (attribute) function>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details > (attribute) tool_calls>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) step_details>)
+usage: Attributes
+Usage statistics related to the run step. This value will be `null` while the run step’s status is `in\_progress`.
+completion\_tokens: Int64
+Number of completion tokens used over the course of the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) usage > (attribute) completion_tokens>)
+prompt\_tokens: Int64
+Number of prompt tokens used over the course of the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) usage > (attribute) prompt_tokens>)
+total\_tokens: Int64
+Total number of tokens used (prompt + completion).
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) usage > (attribute) total_tokens>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-single) > (attribute) usage>)
+### openai\_beta\_thread\_run\_step
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`data "openai\_beta\_thread\_run\_step" "example\_beta\_thread\_run\_step" {
+thread\_id = "thread\_id"
+run\_id = "run\_id"
+step\_id = "step\_id"
+include = ["step\_details.tool\_calls[\*].file\_search.results[\*].content"]
+}
+`
+```
+#### data openai\_beta\_thread\_run\_steps
+##### required Expand Collapse
+run\_id: String
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) run_id>)
+thread\_id: String
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) thread_id>)
+##### optional Expand Collapse
+before?: String
+A cursor for use in pagination. `before` is an object ID that defines your place in the list. For instance, if you make a list request and receive 100 objects, starting with obj\_foo, your subsequent call can include before=obj\_foo in order to fetch the previous page of the list.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) before>)
+include?: List[String]
+A list of additional fields to include in the response. Currently the only supported value is `step\_details.tool\_calls[\*].file\_search.results[\*].content` to fetch the file search result content.
+See the [file search tool documentation](https://platform.openai.com/docs/assistants/tools/file-search#customizing-file-search-settings) for more information.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) include>)
+order?: String
+Sort order by the `created\_at` timestamp of the objects. `asc` for ascending order and `desc` for descending order.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) order>)
+max\_items?: Int64
+Max items to fetch, default: 1000
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) max_items>)
+##### computed Expand Collapse
+items: List[Attributes]
+The items returned by the data source
+id: String
+The identifier of the run step, which can be referenced in API endpoints.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) id>)
+assistant\_id: String
+The ID of the [assistant](https://platform.openai.com/docs/api-reference/assistants) associated with the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) assistant_id>)
+cancelled\_at: Int64
+The Unix timestamp (in seconds) for when the run step was cancelled.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) cancelled_at>)
+completed\_at: Int64
+The Unix timestamp (in seconds) for when the run step completed.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) completed_at>)
+created\_at: Int64
+The Unix timestamp (in seconds) for when the run step was created.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) created_at>)
+expired\_at: Int64
+The Unix timestamp (in seconds) for when the run step expired. A step is considered expired if the parent run is expired.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) expired_at>)
+failed\_at: Int64
+The Unix timestamp (in seconds) for when the run step failed.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) failed_at>)
+last\_error: Attributes
+The last error associated with this run step. Will be `null` if there are no errors.
+code: String
+One of `server\_error` or `rate\_limit\_exceeded`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) last_error > (attribute) code>)
+message: String
+A human-readable description of the error.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) last_error > (attribute) message>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) last_error>)
+metadata: Map[String]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) metadata>)
+object: String
+The object type, which is always `thread.run.step`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) object>)
+run\_id: String
+The ID of the [run](https://platform.openai.com/docs/api-reference/runs) that this run step is a part of.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) run_id>)
+status: String
+The status of the run step, which can be either `in\_progress`, `cancelled`, `failed`, `completed`, or `expired`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) status>)
+step\_details: Attributes
+The details of the run step.
+message\_creation: Attributes
+message\_id: String
+The ID of the message that was created by this run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) message_creation > (attribute) message_id>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) message_creation>)
+type: String
+Always `message\_creation`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) type>)
+tool\_calls: List[Attributes]
+An array of tool calls the run step was involved in. These can be associated with one of three types of tools: `code\_interpreter`, `file\_search`, or `function`.
+id: String
+The ID of the tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) id>)
+code\_interpreter: Attributes
+The Code Interpreter tool call definition.
+input: String
+The input to the Code Interpreter tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) input>)
+outputs: List[Attributes]
+The outputs from the Code Interpreter tool call. Code Interpreter can output one or more items, including text (`logs`) or images (`image`). Each of these are represented by a different object type.
+logs: String
+The text output from the Code Interpreter tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) logs>)
+type: String
+Always `logs`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) type>)
+image: Attributes
+file\_id: String
+The [file](https://platform.openai.com/docs/api-reference/files) ID of the image.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) image > (attribute) file_id>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs > (attribute) image>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter > (attribute) outputs>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) code_interpreter>)
+type: String
+The type of tool call. This is always going to be `code\_interpreter` for this type of tool call.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) type>)
+file\_search: Attributes
+For now, this is always going to be an empty object.
+ranking\_options: Attributes
+The ranking options for the file search.
+ranker: String
+The ranker to use for the file search. If not specified will use the `auto` ranker.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options > (attribute) ranker>)
+score\_threshold: Float64
+The score threshold for the file search. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options > (attribute) score_threshold>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) ranking_options>)
+results: List[Attributes]
+The results of the file search.
+file\_id: String
+The ID of the file that result was found in.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) file_id>)
+file\_name: String
+The name of the file that result was found in.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) file_name>)
+score: Float64
+The score of the result. All values must be a floating point number between 0 and 1.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) score>)
+content: List[Attributes]
+The content of the result that was found. The content is only included if requested via the include query parameter.
+text: String
+The text content of the file.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content > (attribute) text>)
+type: String
+The type of the content.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content > (attribute) type>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results > (attribute) content>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search > (attribute) results>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) file_search>)
+function: Attributes
+The definition of the function that was called.
+arguments: String
+The arguments passed to the function.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) arguments>)
+name: String
+The name of the function.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) name>)
+output: String
+The output of the function. This will be `null` if the outputs have not been [submitted](https://platform.openai.com/docs/api-reference/runs/submitToolOutputs) yet.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) function > (attribute) output>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls > (attribute) function>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details > (attribute) tool_calls>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) step_details>)
+thread\_id: String
+The ID of the [thread](https://platform.openai.com/docs/api-reference/threads) that was run.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) thread_id>)
+type: String
+The type of run step, which can be either `message\_creation` or `tool\_calls`.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) type>)
+usage: Attributes
+Usage statistics related to the run step. This value will be `null` while the run step’s status is `in\_progress`.
+completion\_tokens: Int64
+Number of completion tokens used over the course of the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) completion_tokens>)
+prompt\_tokens: Int64
+Number of prompt tokens used over the course of the run step.
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) prompt_tokens>)
+total\_tokens: Int64
+Total number of tokens used (prompt + completion).
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) usage > (attribute) total_tokens>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items > (attribute) usage>)
+[](<#(resource) beta.threads.runs.steps > (terraform datasource-plural) > (attribute) items>)
+### openai\_beta\_thread\_run\_steps
+Terraform
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`data "openai\_beta\_thread\_run\_steps" "example\_beta\_thread\_run\_steps" {
+thread\_id = "thread\_id"
+run\_id = "run\_id"
+before = "before"
+include = ["step\_details.tool\_calls[\*].file\_search.results[\*].content"]
+}
+`
+```

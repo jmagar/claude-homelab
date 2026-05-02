@@ -1,0 +1,16 @@
+Poor performance between tailnet devices · Tailscale Docs
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+# Poor performance between tailnet devices
+Last validated: Jan 5, 2026
+The most common cause of performance issues between two devices on a Tailscale network (known as a tailnet) is that Tailscale couldn't establish direct connections between the two devices. When that happens, Tailscale connects them through a [DERP](/docs/reference/derp-servers) relay server. DERP relay servers are how Tailscale circumvents [NAT traversal problems](/blog/how-nat-traversal-works) to allow devices to connect when they otherwise wouldn't have been able to do so. However, using a DERP relay server results in additional latency because the packets sent between the devices go through the DERP server before reaching their destination. DERP servers also limit throughput to ensure fairness between everyone using the DERP server.
+Use the following steps to help you troubleshoot why tailnet devices experience network performance issues when connecting to each other.
+1. **Gather basic information about the connection between the two devices**.
+You can use the [`tailscale ping`](/docs/reference/tailscale-cli#ping) command to gather network information about the connection between two tailnet devices. The output shows useful information like whether a connection is possible, the latency in milliseconds, and the DERP servers used.
+The output also indicates other information about the connection between the two devices. All tailnet connects start using a relayed connection and transition to a direct connection (if one is possible). However, it might take a long time to establish a direct connection, or the devices might establish a direct connection and then revert to a relayed one.
+2. **Determine the connection types each device is using**.
+You can determine the [connection types](/docs/reference/connection-types) between two tailnet devices using the [`tailscale status`](/docs/reference/tailscale-cli#status) command. Running the command lists all the connections and connection types between the current device and the other devices in the tailnet.
+If the current device only uses relay connections, it likely can't establish direct connections. If the current device uses direct and relay connections, it indicates that the NAT traversal problem likely originates from the other device.
+3. **Get a report of each device's network conditions**.
+You can determine the network conditions of a device using the [`tailscale netcheck`](/docs/reference/tailscale-cli#netcheck) command. The command's output includes useful information like whether the device supports UDP or port mapping and the latency information for the nearest DERP servers. Refer to [troubleshooting with `netcheck`](/docs/reference/device-connectivity#troubleshooting-with-netcheck) for more information and help interpreting the output.
+If both devices use a direct connection and you didn't uncover any problems with the `tailscale ping`, `tailscale status`, or `tailscale netcheck` commands, the issue might be the [connection to the internet](/docs/reference/troubleshooting/poor-performance-internet).
+Scroll to top

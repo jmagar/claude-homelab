@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/search\_reranking\_with\_cross-encoders [Redirecting from `/cookbook/examples/search\_reranking\_with\_cross-encoders.ipynb/` to `/cookbook/examples/search\_reranking\_with\_cross-encoders`](/cookbook/examples/search_reranking_with_cross-encoders)

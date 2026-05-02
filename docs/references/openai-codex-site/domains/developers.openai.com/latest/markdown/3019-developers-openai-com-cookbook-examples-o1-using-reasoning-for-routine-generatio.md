@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/o1/using\_reasoning\_for\_routine\_generation [Redirecting from `/cookbook/examples/o1/using\_reasoning\_for\_routine\_generation.ipynb/` to `/cookbook/examples/o1/using\_reasoning\_for\_routine\_generation`](/cookbook/examples/o1/using_reasoning_for_routine_generation)

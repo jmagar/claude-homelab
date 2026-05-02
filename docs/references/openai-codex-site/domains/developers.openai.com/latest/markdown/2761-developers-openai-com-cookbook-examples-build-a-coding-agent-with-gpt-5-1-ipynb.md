@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/build\_a\_coding\_agent\_with\_gpt-5.1 [Redirecting from `/cookbook/examples/build\_a\_coding\_agent\_with\_gpt-5.1.ipynb/` to `/cookbook/examples/build\_a\_coding\_agent\_with\_gpt-5.1`](/cookbook/examples/build_a_coding_agent_with_gpt-5.1)

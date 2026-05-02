@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/partners/eval\_driven\_system\_design/receipt\_inspection [Redirecting from `/cookbook/examples/partners/eval\_driven\_system\_design/receipt\_inspection.ipynb/` to `/cookbook/examples/partners/eval\_driven\_system\_design/receipt\_inspection`](/cookbook/examples/partners/eval_driven_system_design/receipt_inspection)

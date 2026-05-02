@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/file\_search\_responses [Redirecting from `/cookbook/examples/file\_search\_responses.ipynb/` to `/cookbook/examples/file\_search\_responses`](/cookbook/examples/file_search_responses)

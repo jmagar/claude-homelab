@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/generate\_images\_with\_gpt\_image [Redirecting from `/cookbook/examples/generate\_images\_with\_gpt\_image.ipynb/` to `/cookbook/examples/generate\_images\_with\_gpt\_image`](/cookbook/examples/generate_images_with_gpt_image)

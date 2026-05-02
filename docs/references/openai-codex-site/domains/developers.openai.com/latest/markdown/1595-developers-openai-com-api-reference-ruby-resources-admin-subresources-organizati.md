@@ -1,0 +1,353 @@
+Costs | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/ruby)
+[Admin](/api/reference/ruby/resources/admin)
+[Organization](/api/reference/ruby/resources/admin/subresources/organization)
+[Usage](/api/reference/ruby/resources/admin/subresources/organization/subresources/usage)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Costs
+admin.organization.usage.costs(\*\*kwargs) -\> [UsageCostsResponse](</api/reference/ruby/resources/admin#(resource) admin.organization.usage > (model) usage_costs_response > (schema)>) { data, has\_more, next\_page, object }
+GET/organization/costs
+Get costs details for the organization.
+##### ParametersExpand Collapse
+start\_time: Integer
+Start time (Unix seconds) of the query time range, inclusive.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) start_time > (schema)>)
+api\_key\_ids: Array[String]
+Return only costs for these API keys.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) api_key_ids > (schema)>)
+bucket\_width: :"1d"
+Width of each time bucket in response. Currently only `1d` is supported, default to `1d`.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) bucket_width > (schema)>)
+end\_time: Integer
+End time (Unix seconds) of the query time range, exclusive.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) end_time > (schema)>)
+group\_by: Array[:project\_id | :line\_item | :api\_key\_id]
+Group the costs by the specified fields. Support fields include `project\_id`, `line\_item`, `api\_key\_id` and any combination of them.
+One of the following:
+:project\_id
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) group_by > (schema) > (items) > (member) 0>)
+:line\_item
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) group_by > (schema) > (items) > (member) 1>)
+:api\_key\_id
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) group_by > (schema) > (items) > (member) 2>)
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) group_by > (schema)>)
+limit: Integer
+A limit on the number of buckets to be returned. Limit can range between 1 and 180, and the default is 7.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) limit > (schema)>)
+page: String
+A cursor for use in pagination. Corresponding to the `next\_page` field from the previous response.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) page > (schema)>)
+project\_ids: Array[String]
+Return only costs for these projects.
+[](<#(resource) admin.organization.usage > (method) costs > (params) default > (param) project_ids > (schema)>)
+##### ReturnsExpand Collapse
+class UsageCostsResponse { data, has\_more, next\_page, object }
+data: Array[Data{ end\_time, object, result, start\_time}]
+end\_time: Integer
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) end_time>)
+object: :bucket
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) object>)
+result: Array[OrganizationUsageCompletionsResult{ input\_tokens, num\_model\_requests, object, 10 more} | OrganizationUsageEmbeddingsResult{ input\_tokens, num\_model\_requests, object, 4 more} | OrganizationUsageModerationsResult{ input\_tokens, num\_model\_requests, object, 4 more} | 6 more]
+One of the following:
+class OrganizationUsageCompletionsResult { input\_tokens, num\_model\_requests, object, 10 more }
+The aggregated completions usage details of the specific time bucket.
+input\_tokens: Integer
+The aggregated number of text input tokens used, including cached tokens. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_tokens>)
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) num_model_requests>)
+object: :"organization.usage.completions.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) object>)
+output\_tokens: Integer
+The aggregated number of text output tokens used. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) output_tokens>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) api_key_id>)
+batch: bool
+When `group\_by=batch`, this field tells whether the grouped usage result is batch or not.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) batch>)
+input\_audio\_tokens: Integer
+The aggregated number of audio input tokens used, including cached tokens.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_audio_tokens>)
+input\_cached\_tokens: Integer
+The aggregated number of text input tokens that has been cached from previous requests. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_cached_tokens>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) model>)
+output\_audio\_tokens: Integer
+The aggregated number of audio output tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) output_audio_tokens>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) project_id>)
+service\_tier: String
+When `group\_by=service\_tier`, this field provides the service tier of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) service_tier>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0>)
+class OrganizationUsageEmbeddingsResult { input\_tokens, num\_model\_requests, object, 4 more }
+The aggregated embeddings usage details of the specific time bucket.
+input\_tokens: Integer
+The aggregated number of input tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) input_tokens>)
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) num_model_requests>)
+object: :"organization.usage.embeddings.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) object>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) api_key_id>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) model>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) project_id>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1>)
+class OrganizationUsageModerationsResult { input\_tokens, num\_model\_requests, object, 4 more }
+The aggregated moderations usage details of the specific time bucket.
+input\_tokens: Integer
+The aggregated number of input tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) input_tokens>)
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) num_model_requests>)
+object: :"organization.usage.moderations.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) object>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) api_key_id>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) model>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) project_id>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2>)
+class OrganizationUsageImagesResult { images, num\_model\_requests, object, 6 more }
+The aggregated images usage details of the specific time bucket.
+images: Integer
+The number of images processed.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) images>)
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) num_model_requests>)
+object: :"organization.usage.images.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) object>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) api_key_id>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) model>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) project_id>)
+size: String
+When `group\_by=size`, this field provides the image size of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) size>)
+source: String
+When `group\_by=source`, this field provides the source of the grouped usage result, possible values are `image.generation`, `image.edit`, `image.variation`.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) source>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3>)
+class OrganizationUsageAudioSpeechesResult { characters, num\_model\_requests, object, 4 more }
+The aggregated audio speeches usage details of the specific time bucket.
+characters: Integer
+The number of characters processed.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) characters>)
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) num_model_requests>)
+object: :"organization.usage.audio\_speeches.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) object>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) api_key_id>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) model>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) project_id>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4>)
+class OrganizationUsageAudioTranscriptionsResult { num\_model\_requests, object, seconds, 4 more }
+The aggregated audio transcriptions usage details of the specific time bucket.
+num\_model\_requests: Integer
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) num_model_requests>)
+object: :"organization.usage.audio\_transcriptions.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) object>)
+seconds: Integer
+The number of seconds processed.
+formatint64
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) seconds>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) api_key_id>)
+model: String
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) model>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) project_id>)
+user\_id: String
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5>)
+class OrganizationUsageVectorStoresResult { object, usage\_bytes, project\_id }
+The aggregated vector stores usage details of the specific time bucket.
+object: :"organization.usage.vector\_stores.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) object>)
+usage\_bytes: Integer
+The vector stores usage in bytes.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) usage_bytes>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6>)
+class OrganizationUsageCodeInterpreterSessionsResult { object, num\_sessions, project\_id }
+The aggregated code interpreter sessions usage details of the specific time bucket.
+object: :"organization.usage.code\_interpreter\_sessions.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) object>)
+num\_sessions: Integer
+The number of code interpreter sessions.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) num_sessions>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7>)
+class OrganizationCostsResult { object, amount, api\_key\_id, 2 more }
+The aggregated costs details of the specific time bucket.
+object: :"organization.costs.result"
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) object>)
+amount: Amount{ currency, value}
+The monetary value in its associated currency.
+currency: String
+Lowercase ISO-4217 currency e.g. “usd”
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount > (property) currency>)
+value: Float
+The numeric value of the cost.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount > (property) value>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount>)
+api\_key\_id: String
+When `group\_by=api\_key\_id`, this field provides the API Key ID of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) api_key_id>)
+line\_item: String
+When `group\_by=line\_item`, this field provides the line item of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) line_item>)
+project\_id: String
+When `group\_by=project\_id`, this field provides the project ID of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) result>)
+start\_time: Integer
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data > (items) > (property) start_time>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) data>)
+has\_more: bool
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) has_more>)
+next\_page: String
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) next_page>)
+object: :page
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema) > (property) object>)
+[](<#(resource) admin.organization.usage > (model) usage_costs_response > (schema)>)
+### Costs
+Ruby
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`require "openai"
+openai = OpenAI::Client.new(admin\_api\_key: "My Admin API Key")
+response = openai.admin.organization.usage.costs(start\_time: 0)
+puts(response)`
+```
+```
+`{
+"object": "page",
+"data": [
+{
+"object": "bucket",
+"start\_time": 1730419200,
+"end\_time": 1730505600,
+"results": [
+{
+"object": "organization.costs.result",
+"amount": {
+"value": 0.06,
+"currency": "usd"
+},
+"line\_item": null,
+"project\_id": null,
+"api\_key\_id": null
+}
+]
+}
+],
+"has\_more": false,
+"next\_page": null
+}
+`
+```
+##### Returns Examples
+```
+`{
+"object": "page",
+"data": [
+{
+"object": "bucket",
+"start\_time": 1730419200,
+"end\_time": 1730505600,
+"results": [
+{
+"object": "organization.costs.result",
+"amount": {
+"value": 0.06,
+"currency": "usd"
+},
+"line\_item": null,
+"project\_id": null,
+"api\_key\_id": null
+}
+]
+}
+],
+"has\_more": false,
+"next\_page": null
+}
+`
+```

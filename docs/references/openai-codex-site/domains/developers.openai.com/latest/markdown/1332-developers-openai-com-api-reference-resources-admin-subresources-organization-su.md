@@ -1,0 +1,340 @@
+Vector stores | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference)
+[Admin](/api/reference/resources/admin)
+[Organization](/api/reference/resources/admin/subresources/organization)
+[Usage](/api/reference/resources/admin/subresources/organization/subresources/usage)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Vector stores
+GET/organization/usage/vector\_stores
+Get vector stores usage details for the organization.
+##### Query ParametersExpand Collapse
+start\_time: number
+Start time (Unix seconds) of the query time range, inclusive.
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) start_time > (schema)>)
+bucket\_width: optional "1m" or "1h" or "1d"
+Width of each time bucket in response. Currently `1m`, `1h` and `1d` are supported, default to `1d`.
+One of the following:
+"1m"
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) bucket_width > (schema) > (member) 0>)
+"1h"
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) bucket_width > (schema) > (member) 1>)
+"1d"
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) bucket_width > (schema) > (member) 2>)
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) bucket_width > (schema)>)
+end\_time: optional number
+End time (Unix seconds) of the query time range, exclusive.
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) end_time > (schema)>)
+group\_by: optional array of "project\_id"
+Group the usage data by the specified fields. Support fields include `project\_id`.
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) group_by > (schema)>)
+limit: optional number
+Specifies the number of buckets to return.
+* `bucket\_width=1d`: default: 7, max: 31
+* `bucket\_width=1h`: default: 24, max: 168
+* `bucket\_width=1m`: default: 60, max: 1440
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) limit > (schema)>)
+page: optional string
+A cursor for use in pagination. Corresponding to the `next\_page` field from the previous response.
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) page > (schema)>)
+project\_ids: optional array of string
+Return only usage for these projects.
+[](<#(resource) admin.organization.usage > (method) vector_stores > (params) default > (param) project_ids > (schema)>)
+##### ReturnsExpand Collapse
+data: array of object { end\_time, object, result, start\_time }
+end\_time: number
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) end_time>)
+object: "bucket"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) object>)
+result: array of object { input\_tokens, num\_model\_requests, object, 10 more } or object { input\_tokens, num\_model\_requests, object, 4 more } or object { input\_tokens, num\_model\_requests, object, 4 more } or 6 more
+One of the following:
+UsageCompletionsResult object { input\_tokens, num\_model\_requests, object, 10 more }
+The aggregated completions usage details of the specific time bucket.
+input\_tokens: number
+The aggregated number of text input tokens used, including cached tokens. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_tokens>)
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) num_model_requests>)
+object: "organization.usage.completions.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) object>)
+output\_tokens: number
+The aggregated number of text output tokens used. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) output_tokens>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) api_key_id>)
+batch: optional boolean
+When `group\_by=batch`, this field tells whether the grouped usage result is batch or not.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) batch>)
+input\_audio\_tokens: optional number
+The aggregated number of audio input tokens used, including cached tokens.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_audio_tokens>)
+input\_cached\_tokens: optional number
+The aggregated number of text input tokens that has been cached from previous requests. For customers subscribe to scale tier, this includes scale tier tokens.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) input_cached_tokens>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) model>)
+output\_audio\_tokens: optional number
+The aggregated number of audio output tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) output_audio_tokens>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) project_id>)
+service\_tier: optional string
+When `group\_by=service\_tier`, this field provides the service tier of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) service_tier>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 0>)
+UsageEmbeddingsResult object { input\_tokens, num\_model\_requests, object, 4 more }
+The aggregated embeddings usage details of the specific time bucket.
+input\_tokens: number
+The aggregated number of input tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) input_tokens>)
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) num_model_requests>)
+object: "organization.usage.embeddings.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) object>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) api_key_id>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) model>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) project_id>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 1>)
+UsageModerationsResult object { input\_tokens, num\_model\_requests, object, 4 more }
+The aggregated moderations usage details of the specific time bucket.
+input\_tokens: number
+The aggregated number of input tokens used.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) input_tokens>)
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) num_model_requests>)
+object: "organization.usage.moderations.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) object>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) api_key_id>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) model>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) project_id>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 2>)
+UsageImagesResult object { images, num\_model\_requests, object, 6 more }
+The aggregated images usage details of the specific time bucket.
+images: number
+The number of images processed.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) images>)
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) num_model_requests>)
+object: "organization.usage.images.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) object>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) api_key_id>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) model>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) project_id>)
+size: optional string
+When `group\_by=size`, this field provides the image size of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) size>)
+source: optional string
+When `group\_by=source`, this field provides the source of the grouped usage result, possible values are `image.generation`, `image.edit`, `image.variation`.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) source>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 3>)
+UsageAudioSpeechesResult object { characters, num\_model\_requests, object, 4 more }
+The aggregated audio speeches usage details of the specific time bucket.
+characters: number
+The number of characters processed.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) characters>)
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) num_model_requests>)
+object: "organization.usage.audio\_speeches.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) object>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) api_key_id>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) model>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) project_id>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 4>)
+UsageAudioTranscriptionsResult object { num\_model\_requests, object, seconds, 4 more }
+The aggregated audio transcriptions usage details of the specific time bucket.
+num\_model\_requests: number
+The count of requests made to the model.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) num_model_requests>)
+object: "organization.usage.audio\_transcriptions.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) object>)
+seconds: number
+The number of seconds processed.
+formatint64
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) seconds>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API key ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) api_key_id>)
+model: optional string
+When `group\_by=model`, this field provides the model name of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) model>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) project_id>)
+user\_id: optional string
+When `group\_by=user\_id`, this field provides the user ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5 > (property) user_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 5>)
+UsageVectorStoresResult object { object, usage\_bytes, project\_id }
+The aggregated vector stores usage details of the specific time bucket.
+object: "organization.usage.vector\_stores.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) object>)
+usage\_bytes: number
+The vector stores usage in bytes.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) usage_bytes>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 6>)
+UsageCodeInterpreterSessionsResult object { object, num\_sessions, project\_id }
+The aggregated code interpreter sessions usage details of the specific time bucket.
+object: "organization.usage.code\_interpreter\_sessions.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) object>)
+num\_sessions: optional number
+The number of code interpreter sessions.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) num_sessions>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped usage result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 7>)
+CostsResult object { object, amount, api\_key\_id, 2 more }
+The aggregated costs details of the specific time bucket.
+object: "organization.costs.result"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) object>)
+amount: optional object { currency, value }
+The monetary value in its associated currency.
+currency: optional string
+Lowercase ISO-4217 currency e.g. “usd”
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount > (property) currency>)
+value: optional number
+The numeric value of the cost.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount > (property) value>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) amount>)
+api\_key\_id: optional string
+When `group\_by=api\_key\_id`, this field provides the API Key ID of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) api_key_id>)
+line\_item: optional string
+When `group\_by=line\_item`, this field provides the line item of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) line_item>)
+project\_id: optional string
+When `group\_by=project\_id`, this field provides the project ID of the grouped costs result.
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8 > (property) project_id>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result > (items) > (variant) 8>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) result>)
+start\_time: number
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data > (items) > (property) start_time>)
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) data>)
+has\_more: boolean
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) has_more>)
+next\_page: string
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) next_page>)
+object: "page"
+[](<#(resource) admin.organization.usage > (model) usage_vector_stores_response > (schema) > (property) object>)
+### Vector stores
+HTTP
+HTTP
+HTTP
+TypeScript
+TypeScript
+Python
+Python
+Java
+Java
+Go
+Go
+Ruby
+Ruby
+Terraform
+Terraform
+```
+`curl "https://api.openai.com/v1/organization/usage/vector\_stores?start\_time=1730419200&limit=1" \\
+-H "Authorization: Bearer $OPENAI\_ADMIN\_KEY" \\
+-H "Content-Type: application/json"
+`
+```
+```
+`{
+"object": "page",
+"data": [
+{
+"object": "bucket",
+"start\_time": 1730419200,
+"end\_time": 1730505600,
+"results": [
+{
+"object": "organization.usage.vector\_stores.result",
+"usage\_bytes": 1024,
+"project\_id": null
+}
+]
+}
+],
+"has\_more": false,
+"next\_page": null
+}
+`
+```
+##### Returns Examples
+```
+`{
+"object": "page",
+"data": [
+{
+"object": "bucket",
+"start\_time": 1730419200,
+"end\_time": 1730505600,
+"results": [
+{
+"object": "organization.usage.vector\_stores.result",
+"usage\_bytes": 1024,
+"project\_id": null
+}
+]
+}
+],
+"has\_more": false,
+"next\_page": null
+}
+`
+```

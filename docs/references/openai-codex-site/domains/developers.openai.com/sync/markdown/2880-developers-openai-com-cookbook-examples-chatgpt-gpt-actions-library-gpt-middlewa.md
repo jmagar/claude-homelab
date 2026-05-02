@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_middleware\_aws\_function [Redirecting from `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_middleware\_aws\_function.ipynb/` to `/cookbook/examples/chatgpt/gpt\_actions\_library/gpt\_middleware\_aws\_function`](/cookbook/examples/chatgpt/gpt_actions_library/gpt_middleware_aws_function)

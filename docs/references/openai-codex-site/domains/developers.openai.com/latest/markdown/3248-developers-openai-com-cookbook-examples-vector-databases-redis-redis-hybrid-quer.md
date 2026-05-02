@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/redis/redis-hybrid-query-examples [Redirecting from `/cookbook/examples/vector\_databases/redis/redis-hybrid-query-examples.ipynb/` to `/cookbook/examples/vector\_databases/redis/redis-hybrid-query-examples`](/cookbook/examples/vector_databases/redis/redis-hybrid-query-examples)

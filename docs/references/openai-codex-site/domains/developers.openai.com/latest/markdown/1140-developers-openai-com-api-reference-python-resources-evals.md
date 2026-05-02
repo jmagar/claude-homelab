@@ -1,0 +1,8529 @@
+Evals | OpenAI API Reference
+[Skip to content](#_top)
+[API Reference](/api/reference/python)
+Copy Markdown
+Open in **Claude**
+Open in **ChatGPT**
+Open in **Cursor**
+**Copy Markdown**
+**View as Markdown**
+# Evals
+Manage and run evals in the OpenAI platform.
+##### [List evals](/api/reference/python/resources/evals/methods/list)
+evals.list(EvalListParams\*\*kwargs) -\> SyncCursorPage[[EvalListResponse](</api/reference/python/resources/evals#(resource) evals > (model) eval_list_response > (schema)>)]
+GET/evals
+##### [Create eval](/api/reference/python/resources/evals/methods/create)
+evals.create(EvalCreateParams\*\*kwargs) -\> [EvalCreateResponse](</api/reference/python/resources/evals#(resource) evals > (model) eval_create_response > (schema)>)
+POST/evals
+##### [Get an eval](/api/reference/python/resources/evals/methods/retrieve)
+evals.retrieve(streval\_id) -\> [EvalRetrieveResponse](</api/reference/python/resources/evals#(resource) evals > (model) eval_retrieve_response > (schema)>)
+GET/evals/{eval\_id}
+##### [Update an eval](/api/reference/python/resources/evals/methods/update)
+evals.update(streval\_id, EvalUpdateParams\*\*kwargs) -\> [EvalUpdateResponse](</api/reference/python/resources/evals#(resource) evals > (model) eval_update_response > (schema)>)
+POST/evals/{eval\_id}
+##### [Delete an eval](/api/reference/python/resources/evals/methods/delete)
+evals.delete(streval\_id) -\> [EvalDeleteResponse](</api/reference/python/resources/evals#(resource) evals > (model) eval_delete_response > (schema)>)
+DELETE/evals/{eval\_id}
+##### ModelsExpand Collapse
+class EvalCustomDataSourceConfig: …
+A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.
+The response schema defines the shape of the data that will be:
+* Used to define your testing criteria and
+* What data is required when creating a run
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) schema>)
+type: Literal["custom"]
+The type of data source. Always `custom`.
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) type>)
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema)>)
+class EvalStoredCompletionsDataSourceConfig: …
+Deprecated in favor of LogsDataSourceConfig.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) schema>)
+type: Literal["stored\_completions"]
+The type of data source. Always `stored\_completions`.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) metadata>)
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema)>)
+class EvalListResponse: …
+An Eval object with a data source config and testing criteria.
+An Eval represents a task to be done for your LLM integration.
+Like:
+* Improve the quality of my chatbot
+* See how well my chatbot handles customer support
+* Check if o4-mini is better at my usecase than gpt-4o
+id: str
+Unique identifier for the evaluation.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) id>)
+created\_at: int
+The Unix timestamp (in seconds) for when the eval was created.
+formatunixtime
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) created_at>)
+data\_source\_config: DataSourceConfig
+Configuration of data sources used in runs of the evaluation.
+One of the following:
+class EvalCustomDataSourceConfig: …
+A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.
+The response schema defines the shape of the data that will be:
+* Used to define your testing criteria and
+* What data is required when creating a run
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) schema>)
+type: Literal["custom"]
+The type of data source. Always `custom`.
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) type>)
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema)>)
+class DataSourceConfigLogs: …
+A LogsDataSourceConfig which specifies the metadata property of your logs query.
+This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.
+The schema returned by this data source config is used to defined what variables are available in your evals.
+`item` and `sample` are both defined when using this data source config.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) data_source_config > (variant) 1 > (property) schema>)
+type: Literal["logs"]
+The type of data source. Always `logs`.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) data_source_config > (variant) 1 > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) data_source_config > (variant) 1 > (property) metadata>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) data_source_config > (variant) 1>)
+class EvalStoredCompletionsDataSourceConfig: …
+Deprecated in favor of LogsDataSourceConfig.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) schema>)
+type: Literal["stored\_completions"]
+The type of data source. Always `stored\_completions`.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) metadata>)
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema)>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) data_source_config>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) metadata>)
+name: str
+The name of the evaluation.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) name>)
+object: Literal["eval"]
+The object type.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) object>)
+testing\_criteria: List[TestingCriterion]
+A list of testing criteria.
+One of the following:
+class LabelModelGrader: …
+A LabelModelGrader object which uses a model to assign labels to each item
+in the evaluation.
+input: List[Input]
+content: InputContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2>)
+class InputContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 5>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 1>)
+"system"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 3>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input>)
+labels: List[str]
+The labels to assign to each item in the evaluation.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) labels>)
+model: str
+The model to use for the evaluation. Must support structured outputs.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) model>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) name>)
+passing\_labels: List[str]
+The labels that indicate a passing result. Must be a subset of labels.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) passing_labels>)
+type: Literal["label\_model"]
+The object type, which is always `label\_model`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema)>)
+class StringCheckGrader: …
+A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.
+input: str
+The input text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) input>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) name>)
+operation: Literal["eq", "ne", "like", "ilike"]
+The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
+One of the following:
+"eq"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 0>)
+"ne"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 1>)
+"like"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 2>)
+"ilike"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 3>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation>)
+reference: str
+The reference text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) reference>)
+type: Literal["string\_check"]
+The object type, which is always `string\_check`.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema)>)
+class TestingCriterionEvalGraderTextSimilarity: …
+A TextSimilarityGrader object which grades text based on similarity metrics.
+pass\_threshold: float
+The threshold for the score.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 2 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 2>)
+class TestingCriterionEvalGraderPython: …
+A PythonGrader object that runs a python script on the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 3 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 3>)
+class TestingCriterionEvalGraderScoreModel: …
+A ScoreModelGrader object that uses a model to assign a score to the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 4 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria > (items) > (variant) 4>)
+[](<#(resource) evals > (model) eval_list_response > (schema) > (property) testing_criteria>)
+[](<#(resource) evals > (model) eval_list_response > (schema)>)
+class EvalCreateResponse: …
+An Eval object with a data source config and testing criteria.
+An Eval represents a task to be done for your LLM integration.
+Like:
+* Improve the quality of my chatbot
+* See how well my chatbot handles customer support
+* Check if o4-mini is better at my usecase than gpt-4o
+id: str
+Unique identifier for the evaluation.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) id>)
+created\_at: int
+The Unix timestamp (in seconds) for when the eval was created.
+formatunixtime
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) created_at>)
+data\_source\_config: DataSourceConfig
+Configuration of data sources used in runs of the evaluation.
+One of the following:
+class EvalCustomDataSourceConfig: …
+A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.
+The response schema defines the shape of the data that will be:
+* Used to define your testing criteria and
+* What data is required when creating a run
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) schema>)
+type: Literal["custom"]
+The type of data source. Always `custom`.
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) type>)
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema)>)
+class DataSourceConfigLogs: …
+A LogsDataSourceConfig which specifies the metadata property of your logs query.
+This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.
+The schema returned by this data source config is used to defined what variables are available in your evals.
+`item` and `sample` are both defined when using this data source config.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) data_source_config > (variant) 1 > (property) schema>)
+type: Literal["logs"]
+The type of data source. Always `logs`.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) data_source_config > (variant) 1 > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) data_source_config > (variant) 1 > (property) metadata>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) data_source_config > (variant) 1>)
+class EvalStoredCompletionsDataSourceConfig: …
+Deprecated in favor of LogsDataSourceConfig.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) schema>)
+type: Literal["stored\_completions"]
+The type of data source. Always `stored\_completions`.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) metadata>)
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema)>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) data_source_config>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) metadata>)
+name: str
+The name of the evaluation.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) name>)
+object: Literal["eval"]
+The object type.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) object>)
+testing\_criteria: List[TestingCriterion]
+A list of testing criteria.
+One of the following:
+class LabelModelGrader: …
+A LabelModelGrader object which uses a model to assign labels to each item
+in the evaluation.
+input: List[Input]
+content: InputContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2>)
+class InputContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 5>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 1>)
+"system"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 3>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input>)
+labels: List[str]
+The labels to assign to each item in the evaluation.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) labels>)
+model: str
+The model to use for the evaluation. Must support structured outputs.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) model>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) name>)
+passing\_labels: List[str]
+The labels that indicate a passing result. Must be a subset of labels.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) passing_labels>)
+type: Literal["label\_model"]
+The object type, which is always `label\_model`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema)>)
+class StringCheckGrader: …
+A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.
+input: str
+The input text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) input>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) name>)
+operation: Literal["eq", "ne", "like", "ilike"]
+The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
+One of the following:
+"eq"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 0>)
+"ne"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 1>)
+"like"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 2>)
+"ilike"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 3>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation>)
+reference: str
+The reference text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) reference>)
+type: Literal["string\_check"]
+The object type, which is always `string\_check`.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema)>)
+class TestingCriterionEvalGraderTextSimilarity: …
+A TextSimilarityGrader object which grades text based on similarity metrics.
+pass\_threshold: float
+The threshold for the score.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 2 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 2>)
+class TestingCriterionEvalGraderPython: …
+A PythonGrader object that runs a python script on the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 3 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 3>)
+class TestingCriterionEvalGraderScoreModel: …
+A ScoreModelGrader object that uses a model to assign a score to the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 4 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria > (items) > (variant) 4>)
+[](<#(resource) evals > (model) eval_create_response > (schema) > (property) testing_criteria>)
+[](<#(resource) evals > (model) eval_create_response > (schema)>)
+class EvalRetrieveResponse: …
+An Eval object with a data source config and testing criteria.
+An Eval represents a task to be done for your LLM integration.
+Like:
+* Improve the quality of my chatbot
+* See how well my chatbot handles customer support
+* Check if o4-mini is better at my usecase than gpt-4o
+id: str
+Unique identifier for the evaluation.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) id>)
+created\_at: int
+The Unix timestamp (in seconds) for when the eval was created.
+formatunixtime
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) created_at>)
+data\_source\_config: DataSourceConfig
+Configuration of data sources used in runs of the evaluation.
+One of the following:
+class EvalCustomDataSourceConfig: …
+A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.
+The response schema defines the shape of the data that will be:
+* Used to define your testing criteria and
+* What data is required when creating a run
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) schema>)
+type: Literal["custom"]
+The type of data source. Always `custom`.
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) type>)
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema)>)
+class DataSourceConfigLogs: …
+A LogsDataSourceConfig which specifies the metadata property of your logs query.
+This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.
+The schema returned by this data source config is used to defined what variables are available in your evals.
+`item` and `sample` are both defined when using this data source config.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) data_source_config > (variant) 1 > (property) schema>)
+type: Literal["logs"]
+The type of data source. Always `logs`.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) data_source_config > (variant) 1 > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) data_source_config > (variant) 1 > (property) metadata>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) data_source_config > (variant) 1>)
+class EvalStoredCompletionsDataSourceConfig: …
+Deprecated in favor of LogsDataSourceConfig.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) schema>)
+type: Literal["stored\_completions"]
+The type of data source. Always `stored\_completions`.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) metadata>)
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema)>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) data_source_config>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) metadata>)
+name: str
+The name of the evaluation.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) name>)
+object: Literal["eval"]
+The object type.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) object>)
+testing\_criteria: List[TestingCriterion]
+A list of testing criteria.
+One of the following:
+class LabelModelGrader: …
+A LabelModelGrader object which uses a model to assign labels to each item
+in the evaluation.
+input: List[Input]
+content: InputContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2>)
+class InputContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 5>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 1>)
+"system"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 3>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input>)
+labels: List[str]
+The labels to assign to each item in the evaluation.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) labels>)
+model: str
+The model to use for the evaluation. Must support structured outputs.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) model>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) name>)
+passing\_labels: List[str]
+The labels that indicate a passing result. Must be a subset of labels.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) passing_labels>)
+type: Literal["label\_model"]
+The object type, which is always `label\_model`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema)>)
+class StringCheckGrader: …
+A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.
+input: str
+The input text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) input>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) name>)
+operation: Literal["eq", "ne", "like", "ilike"]
+The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
+One of the following:
+"eq"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 0>)
+"ne"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 1>)
+"like"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 2>)
+"ilike"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 3>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation>)
+reference: str
+The reference text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) reference>)
+type: Literal["string\_check"]
+The object type, which is always `string\_check`.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema)>)
+class TestingCriterionEvalGraderTextSimilarity: …
+A TextSimilarityGrader object which grades text based on similarity metrics.
+pass\_threshold: float
+The threshold for the score.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 2 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 2>)
+class TestingCriterionEvalGraderPython: …
+A PythonGrader object that runs a python script on the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 3 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 3>)
+class TestingCriterionEvalGraderScoreModel: …
+A ScoreModelGrader object that uses a model to assign a score to the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 4 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria > (items) > (variant) 4>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema) > (property) testing_criteria>)
+[](<#(resource) evals > (model) eval_retrieve_response > (schema)>)
+class EvalUpdateResponse: …
+An Eval object with a data source config and testing criteria.
+An Eval represents a task to be done for your LLM integration.
+Like:
+* Improve the quality of my chatbot
+* See how well my chatbot handles customer support
+* Check if o4-mini is better at my usecase than gpt-4o
+id: str
+Unique identifier for the evaluation.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) id>)
+created\_at: int
+The Unix timestamp (in seconds) for when the eval was created.
+formatunixtime
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) created_at>)
+data\_source\_config: DataSourceConfig
+Configuration of data sources used in runs of the evaluation.
+One of the following:
+class EvalCustomDataSourceConfig: …
+A CustomDataSourceConfig which specifies the schema of your `item` and optionally `sample` namespaces.
+The response schema defines the shape of the data that will be:
+* Used to define your testing criteria and
+* What data is required when creating a run
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) schema>)
+type: Literal["custom"]
+The type of data source. Always `custom`.
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema) > (property) type>)
+[](<#(resource) evals > (model) eval_custom_data_source_config > (schema)>)
+class DataSourceConfigLogs: …
+A LogsDataSourceConfig which specifies the metadata property of your logs query.
+This is usually metadata like `usecase=chatbot` or `prompt-version=v2`, etc.
+The schema returned by this data source config is used to defined what variables are available in your evals.
+`item` and `sample` are both defined when using this data source config.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) data_source_config > (variant) 1 > (property) schema>)
+type: Literal["logs"]
+The type of data source. Always `logs`.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) data_source_config > (variant) 1 > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) data_source_config > (variant) 1 > (property) metadata>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) data_source_config > (variant) 1>)
+class EvalStoredCompletionsDataSourceConfig: …
+Deprecated in favor of LogsDataSourceConfig.
+schema: Dict[str, object]
+The json schema for the run data source items.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) schema>)
+type: Literal["stored\_completions"]
+The type of data source. Always `stored\_completions`.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) type>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema) > (property) metadata>)
+[](<#(resource) evals > (model) eval_stored_completions_data_source_config > (schema)>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) data_source_config>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) metadata>)
+name: str
+The name of the evaluation.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) name>)
+object: Literal["eval"]
+The object type.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) object>)
+testing\_criteria: List[TestingCriterion]
+A list of testing criteria.
+One of the following:
+class LabelModelGrader: …
+A LabelModelGrader object which uses a model to assign labels to each item
+in the evaluation.
+input: List[Input]
+content: InputContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 2>)
+class InputContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content > (variant) 5>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 1>)
+"system"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role > (member) 3>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input > (items) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) input>)
+labels: List[str]
+The labels to assign to each item in the evaluation.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) labels>)
+model: str
+The model to use for the evaluation. Must support structured outputs.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) model>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) name>)
+passing\_labels: List[str]
+The labels that indicate a passing result. Must be a subset of labels.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) passing_labels>)
+type: Literal["label\_model"]
+The object type, which is always `label\_model`.
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) label_model_grader > (schema)>)
+class StringCheckGrader: …
+A StringCheckGrader object that performs a string comparison between input and reference using a specified operation.
+input: str
+The input text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) input>)
+name: str
+The name of the grader.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) name>)
+operation: Literal["eq", "ne", "like", "ilike"]
+The string check operation to perform. One of `eq`, `ne`, `like`, or `ilike`.
+One of the following:
+"eq"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 0>)
+"ne"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 1>)
+"like"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 2>)
+"ilike"
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation > (member) 3>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) operation>)
+reference: str
+The reference text. This may include template strings.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) reference>)
+type: Literal["string\_check"]
+The object type, which is always `string\_check`.
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema) > (property) type>)
+[](<#(resource) graders.grader_models > (model) string_check_grader > (schema)>)
+class TestingCriterionEvalGraderTextSimilarity: …
+A TextSimilarityGrader object which grades text based on similarity metrics.
+pass\_threshold: float
+The threshold for the score.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 2 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 2>)
+class TestingCriterionEvalGraderPython: …
+A PythonGrader object that runs a python script on the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 3 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 3>)
+class TestingCriterionEvalGraderScoreModel: …
+A ScoreModelGrader object that uses a model to assign a score to the input.
+pass\_threshold: Optional[float]
+The threshold for the score.
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 4 > (entry) 1 > (property) pass_threshold>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria > (items) > (variant) 4>)
+[](<#(resource) evals > (model) eval_update_response > (schema) > (property) testing_criteria>)
+[](<#(resource) evals > (model) eval_update_response > (schema)>)
+class EvalDeleteResponse: …
+deleted: bool
+[](<#(resource) evals > (model) eval_delete_response > (schema) > (property) deleted>)
+eval\_id: str
+[](<#(resource) evals > (model) eval_delete_response > (schema) > (property) eval_id>)
+object: str
+[](<#(resource) evals > (model) eval_delete_response > (schema) > (property) object>)
+[](<#(resource) evals > (model) eval_delete_response > (schema)>)
+#### EvalsRuns
+Manage and run evals in the OpenAI platform.
+##### [Get eval runs](/api/reference/python/resources/evals/subresources/runs/methods/list)
+evals.runs.list(streval\_id, RunListParams\*\*kwargs) -\> SyncCursorPage[[RunListResponse](</api/reference/python/resources/evals#(resource) evals.runs > (model) run_list_response > (schema)>)]
+GET/evals/{eval\_id}/runs
+##### [Create eval run](/api/reference/python/resources/evals/subresources/runs/methods/create)
+evals.runs.create(streval\_id, RunCreateParams\*\*kwargs) -\> [RunCreateResponse](</api/reference/python/resources/evals#(resource) evals.runs > (model) run_create_response > (schema)>)
+POST/evals/{eval\_id}/runs
+##### [Get an eval run](/api/reference/python/resources/evals/subresources/runs/methods/retrieve)
+evals.runs.retrieve(strrun\_id, RunRetrieveParams\*\*kwargs) -\> [RunRetrieveResponse](</api/reference/python/resources/evals#(resource) evals.runs > (model) run_retrieve_response > (schema)>)
+GET/evals/{eval\_id}/runs/{run\_id}
+##### [Cancel eval run](/api/reference/python/resources/evals/subresources/runs/methods/cancel)
+evals.runs.cancel(strrun\_id, RunCancelParams\*\*kwargs) -\> [RunCancelResponse](</api/reference/python/resources/evals#(resource) evals.runs > (model) run_cancel_response > (schema)>)
+POST/evals/{eval\_id}/runs/{run\_id}
+##### [Delete eval run](/api/reference/python/resources/evals/subresources/runs/methods/delete)
+evals.runs.delete(strrun\_id, RunDeleteParams\*\*kwargs) -\> [RunDeleteResponse](</api/reference/python/resources/evals#(resource) evals.runs > (model) run_delete_response > (schema)>)
+DELETE/evals/{eval\_id}/runs/{run\_id}
+##### ModelsExpand Collapse
+class CreateEvalCompletionsRunDataSource: …
+A CompletionsRunDataSource object describing a model sampling configuration.
+source: Source
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1>)
+class SourceStoredCompletions: …
+A StoredCompletionsRunDataSource configuration describing a set of filters
+type: Literal["stored\_completions"]
+The type of source. Always `stored\_completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+An optional Unix timestamp to filter items created after this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+An optional Unix timestamp to filter items created before this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_before>)
+limit: Optional[int]
+An optional maximum number of items to return.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) limit>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+An optional model to filter by (e.g., ‘gpt-4o’).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) model>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source>)
+type: Literal["completions"]
+The type of run data source. Always `completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) type>)
+input\_messages: Optional[InputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class InputMessagesTemplate: …
+template: List[InputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class EasyInputMessage: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: Union[str, [ResponseInputMessageContentList](</api/reference/python/resources/responses#(resource) responses > (model) response_input_message_content_list > (schema)>)]
+Text, image, or audio input to the model, used to generate a response.
+Can also contain previous assistant responses.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 0>)
+List[[ResponseInputContent](</api/reference/python/resources/responses#(resource) responses > (model) response_input_content > (schema)>)]
+One of the following:
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class ResponseInputImage: …
+An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+detail: Literal["low", "high", "auto", "original"]
+The detail level of the image to be sent to the model. One of `high`, `low`, `auto`, or `original`. Defaults to `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 2>)
+"original"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 3>)
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail>)
+type: Literal["input\_image"]
+The type of the input item. Always `input\_image`.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) type>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) file_id>)
+image\_url: Optional[str]
+The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) image_url>)
+[](<#(resource) responses > (model) response_input_image > (schema)>)
+class ResponseInputFile: …
+A file input to the model.
+type: Literal["input\_file"]
+The type of the input item. Always `input\_file`.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) type>)
+detail: Optional[Literal["low", "high"]]
+The detail level of the file to be sent to the model. Use `low` for the default rendering behavior, or `high` to render the file at higher quality. Defaults to `low`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 1>)
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail>)
+file\_data: Optional[str]
+The content of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_data>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_id>)
+file\_url: Optional[str]
+The URL of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_url>)
+filename: Optional[str]
+The name of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) filename>)
+[](<#(resource) responses > (model) response_input_file > (schema)>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 1>)
+"system"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 3>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role>)
+phase: Optional[Literal["commentary", "final\_answer"]]
+Labels an `assistant` message as intermediate commentary (`commentary`) or the final answer (`final\_answer`).
+For models like `gpt-5.3-codex` and beyond, when sending follow-up requests, preserve and resend
+phase on all assistant messages — dropping it can degrade performance. Not used for user messages.
+One of the following:
+"commentary"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 0>)
+"final\_answer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) type>)
+[](<#(resource) responses > (model) easy_input_message > (schema)>)
+class InputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: InputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class InputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0>)
+class InputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.input\_trajectory”
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) model>)
+sampling\_params: Optional[SamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) reasoning_effort>)
+response\_format: Optional[SamplingParamsResponseFormat]
+An object specifying the format that the model must output.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables
+Structured Outputs which ensures the model will match your supplied JSON
+schema. Learn more in the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+One of the following:
+class ResponseFormatText: …
+Default response format. Used to generate text responses.
+type: Literal["text"]
+The type of response format being defined. Always `text`.
+[](<#(resource) $shared > (model) response_format_text > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_text > (schema)>)
+class ResponseFormatJSONSchema: …
+JSON Schema response format. Used to generate structured JSON responses.
+Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+json\_schema: JSONSchema
+Structured Outputs configuration options, including a JSON Schema.
+name: str
+The name of the response format. Must be a-z, A-Z, 0-9, or contain
+underscores and dashes, with a maximum length of 64.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) name>)
+description: Optional[str]
+A description of what the response format is for, used by the model to
+determine how to respond in the format.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) description>)
+schema: Optional[Dict[str, object]]
+The schema for the response format, described as a JSON Schema object.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) schema>)
+strict: Optional[bool]
+Whether to enable strict schema adherence when generating the output.
+If set to true, the model will always follow the exact schema defined
+in the `schema` field. Only a subset of JSON Schema is supported when
+`strict` is `true`. To learn more, read the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) strict>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema>)
+type: Literal["json\_schema"]
+The type of response format being defined. Always `json\_schema`.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema)>)
+class ResponseFormatJSONObject: …
+JSON object response format. An older method of generating JSON responses.
+Using `json\_schema` is recommended for models that support it. Note that the
+model will not generate JSON without a system or user message instructing it
+to do so.
+type: Literal["json\_object"]
+The type of response format being defined. Always `json\_object`.
+[](<#(resource) $shared > (model) response_format_json_object > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_object > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) response_format>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) temperature>)
+tools: Optional[List[[ChatCompletionFunctionTool](</api/reference/python/resources/chat#(resource) chat.completions > (model) chat_completion_function_tool > (schema)>)]]
+A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
+function: [FunctionDefinition](</api/reference/python/resources/$shared#(resource) $shared > (model) function_definition > (schema)>)
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) function>)
+type: Literal["function"]
+The type of the tool. Currently, only `function` is supported.
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema)>)
+class CreateEvalJSONLRunDataSource: …
+A JsonlRunDataSource object with that specifies a JSONL file that matches the eval
+source: Source
+Determines what populates the `item` namespace in the data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source>)
+type: Literal["jsonl"]
+The type of data source. Always `jsonl`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema)>)
+class EvalAPIError: …
+An object representing an error response from the Eval API.
+code: str
+The error code.
+[](<#(resource) evals.runs > (model) eval_api_error > (schema) > (property) code>)
+message: str
+The error message.
+[](<#(resource) evals.runs > (model) eval_api_error > (schema) > (property) message>)
+[](<#(resource) evals.runs > (model) eval_api_error > (schema)>)
+class RunListResponse: …
+A schema representing an evaluation run.
+id: str
+Unique identifier for the evaluation run.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) created_at>)
+data\_source: DataSource
+Information about the run’s data source.
+One of the following:
+class CreateEvalJSONLRunDataSource: …
+A JsonlRunDataSource object with that specifies a JSONL file that matches the eval
+source: Source
+Determines what populates the `item` namespace in the data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source>)
+type: Literal["jsonl"]
+The type of data source. Always `jsonl`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema)>)
+class CreateEvalCompletionsRunDataSource: …
+A CompletionsRunDataSource object describing a model sampling configuration.
+source: Source
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1>)
+class SourceStoredCompletions: …
+A StoredCompletionsRunDataSource configuration describing a set of filters
+type: Literal["stored\_completions"]
+The type of source. Always `stored\_completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+An optional Unix timestamp to filter items created after this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+An optional Unix timestamp to filter items created before this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_before>)
+limit: Optional[int]
+An optional maximum number of items to return.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) limit>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+An optional model to filter by (e.g., ‘gpt-4o’).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) model>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source>)
+type: Literal["completions"]
+The type of run data source. Always `completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) type>)
+input\_messages: Optional[InputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class InputMessagesTemplate: …
+template: List[InputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class EasyInputMessage: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: Union[str, [ResponseInputMessageContentList](</api/reference/python/resources/responses#(resource) responses > (model) response_input_message_content_list > (schema)>)]
+Text, image, or audio input to the model, used to generate a response.
+Can also contain previous assistant responses.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 0>)
+List[[ResponseInputContent](</api/reference/python/resources/responses#(resource) responses > (model) response_input_content > (schema)>)]
+One of the following:
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class ResponseInputImage: …
+An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+detail: Literal["low", "high", "auto", "original"]
+The detail level of the image to be sent to the model. One of `high`, `low`, `auto`, or `original`. Defaults to `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 2>)
+"original"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 3>)
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail>)
+type: Literal["input\_image"]
+The type of the input item. Always `input\_image`.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) type>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) file_id>)
+image\_url: Optional[str]
+The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) image_url>)
+[](<#(resource) responses > (model) response_input_image > (schema)>)
+class ResponseInputFile: …
+A file input to the model.
+type: Literal["input\_file"]
+The type of the input item. Always `input\_file`.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) type>)
+detail: Optional[Literal["low", "high"]]
+The detail level of the file to be sent to the model. Use `low` for the default rendering behavior, or `high` to render the file at higher quality. Defaults to `low`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 1>)
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail>)
+file\_data: Optional[str]
+The content of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_data>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_id>)
+file\_url: Optional[str]
+The URL of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_url>)
+filename: Optional[str]
+The name of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) filename>)
+[](<#(resource) responses > (model) response_input_file > (schema)>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 1>)
+"system"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 3>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role>)
+phase: Optional[Literal["commentary", "final\_answer"]]
+Labels an `assistant` message as intermediate commentary (`commentary`) or the final answer (`final\_answer`).
+For models like `gpt-5.3-codex` and beyond, when sending follow-up requests, preserve and resend
+phase on all assistant messages — dropping it can degrade performance. Not used for user messages.
+One of the following:
+"commentary"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 0>)
+"final\_answer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) type>)
+[](<#(resource) responses > (model) easy_input_message > (schema)>)
+class InputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: InputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class InputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0>)
+class InputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.input\_trajectory”
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) model>)
+sampling\_params: Optional[SamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) reasoning_effort>)
+response\_format: Optional[SamplingParamsResponseFormat]
+An object specifying the format that the model must output.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables
+Structured Outputs which ensures the model will match your supplied JSON
+schema. Learn more in the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+One of the following:
+class ResponseFormatText: …
+Default response format. Used to generate text responses.
+type: Literal["text"]
+The type of response format being defined. Always `text`.
+[](<#(resource) $shared > (model) response_format_text > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_text > (schema)>)
+class ResponseFormatJSONSchema: …
+JSON Schema response format. Used to generate structured JSON responses.
+Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+json\_schema: JSONSchema
+Structured Outputs configuration options, including a JSON Schema.
+name: str
+The name of the response format. Must be a-z, A-Z, 0-9, or contain
+underscores and dashes, with a maximum length of 64.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) name>)
+description: Optional[str]
+A description of what the response format is for, used by the model to
+determine how to respond in the format.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) description>)
+schema: Optional[Dict[str, object]]
+The schema for the response format, described as a JSON Schema object.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) schema>)
+strict: Optional[bool]
+Whether to enable strict schema adherence when generating the output.
+If set to true, the model will always follow the exact schema defined
+in the `schema` field. Only a subset of JSON Schema is supported when
+`strict` is `true`. To learn more, read the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) strict>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema>)
+type: Literal["json\_schema"]
+The type of response format being defined. Always `json\_schema`.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema)>)
+class ResponseFormatJSONObject: …
+JSON object response format. An older method of generating JSON responses.
+Using `json\_schema` is recommended for models that support it. Note that the
+model will not generate JSON without a system or user message instructing it
+to do so.
+type: Literal["json\_object"]
+The type of response format being defined. Always `json\_object`.
+[](<#(resource) $shared > (model) response_format_json_object > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_object > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) response_format>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) temperature>)
+tools: Optional[List[[ChatCompletionFunctionTool](</api/reference/python/resources/chat#(resource) chat.completions > (model) chat_completion_function_tool > (schema)>)]]
+A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
+function: [FunctionDefinition](</api/reference/python/resources/$shared#(resource) $shared > (model) function_definition > (schema)>)
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) function>)
+type: Literal["function"]
+The type of the tool. Currently, only `function` is supported.
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema)>)
+class DataSourceResponses: …
+A ResponsesRunDataSource object describing a model sampling configuration.
+source: DataSourceResponsesSource
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class DataSourceResponsesSourceFileContent: …
+content: List[DataSourceResponsesSourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0>)
+class DataSourceResponsesSourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1>)
+class DataSourceResponsesSourceResponses: …
+A EvalResponsesSource object describing a run data source configuration.
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_before>)
+instructions\_search: Optional[str]
+Optional string to search the ‘instructions’ field. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) instructions_search>)
+metadata: Optional[object]
+Metadata filter for the responses. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+The name of the model to find responses for. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) model>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) reasoning_effort>)
+temperature: Optional[float]
+Sampling temperature. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) temperature>)
+tools: Optional[List[str]]
+List of tool names. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) tools>)
+top\_p: Optional[float]
+Nucleus sampling parameter. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) top_p>)
+users: Optional[List[str]]
+List of user identifiers. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) users>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) source>)
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) type>)
+input\_messages: Optional[DataSourceResponsesInputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class DataSourceResponsesInputMessagesTemplate: …
+template: List[DataSourceResponsesInputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class DataSourceResponsesInputMessagesTemplateTemplateChatMessage: …
+content: str
+The content of the message.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) content>)
+role: str
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) role>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: DataSourceResponsesInputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0>)
+class DataSourceResponsesInputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.name”
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) model>)
+sampling\_params: Optional[DataSourceResponsesSamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) reasoning_effort>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) temperature>)
+text: Optional[DataSourceResponsesSamplingParamsText]
+Configuration options for a text response from the model. Can be plain
+text or structured JSON data. Learn more:
+* [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+* [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+format: Optional[ResponseFormatTextConfig]
+An object specifying the format that the model must output.
+Configuring `{ "type": "json\_schema" }` enables Structured Outputs,
+which ensures the model will match your supplied JSON schema. Learn more in the
+[Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+The default format is `{ "type": "text" }` with no additional options.
+**Not recommended for gpt-4o and newer models:**
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text > (property) format>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text>)
+tools: Optional[List[[Tool](</api/reference/python/resources/responses#(resource) responses > (model) tool > (schema)>)]]
+An array of tools the model may call while generating a response. You
+can specify which tool to use by setting the `tool\_choice` parameter.
+The two categories of tools you can provide the model are:
+* **Built-in tools**: Tools that are provided by OpenAI that extend the
+model’s capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
+or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
+[built-in tools](https://platform.openai.com/docs/guides/tools).
+* **Function calls (custom tools)**: Functions that are defined by you,
+enabling the model to call your own code. Learn more about
+[function calling](https://platform.openai.com/docs/guides/function-calling).
+One of the following:
+class FunctionTool: …
+Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+name: str
+The name of the function to call.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) name>)
+parameters: Optional[Dict[str, object]]
+A JSON schema object describing the parameters of the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) parameters>)
+strict: Optional[bool]
+Whether to enforce strict parameter validation. Default `true`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) strict>)
+type: Literal["function"]
+The type of the function tool. Always `function`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function is deferred and loaded via tool search.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+A description of the function. Used by the model to determine whether or not to call the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) description>)
+[](<#(resource) responses > (model) function_tool > (schema)>)
+class FileSearchTool: …
+A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+type: Literal["file\_search"]
+The type of the file search tool. Always `file\_search`.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) type>)
+vector\_store\_ids: List[str]
+The IDs of the vector stores to search.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) vector_store_ids>)
+filters: Optional[Filters]
+A filter to apply.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+class CompoundFilter: …
+Combine multiple filters using `and` or `or`.
+filters: List[Filter]
+Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+object
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters>)
+type: Literal["and", "or"]
+Type of operation: `and` or `or`.
+One of the following:
+"and"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 0>)
+"or"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type>)
+[](<#(resource) $shared > (model) compound_filter > (schema)>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) filters>)
+max\_num\_results: Optional[int]
+The maximum number of results to return. This number should be between 1 and 50 inclusive.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) max_num_results>)
+ranking\_options: Optional[RankingOptions]
+Ranking options for search.
+hybrid\_search: Optional[RankingOptionsHybridSearch]
+Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.
+embedding\_weight: float
+The weight of the embedding in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) embedding_weight>)
+text\_weight: float
+The weight of the text in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) text_weight>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search>)
+ranker: Optional[Literal["auto", "default-2024-11-15"]]
+The ranker to use for the file search.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 0>)
+"default-2024-11-15"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 1>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker>)
+score\_threshold: Optional[float]
+The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) score_threshold>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options>)
+[](<#(resource) responses > (model) file_search_tool > (schema)>)
+class ComputerTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+type: Literal["computer"]
+The type of the computer tool. Always `computer`.
+[](<#(resource) responses > (model) computer_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_tool > (schema)>)
+class ComputerUsePreviewTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+display\_height: int
+The height of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_height>)
+display\_width: int
+The width of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_width>)
+environment: Literal["windows", "mac", "linux", 2 more]
+The type of computer environment to control.
+One of the following:
+"windows"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 0>)
+"mac"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 1>)
+"linux"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 2>)
+"ubuntu"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 3>)
+"browser"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 4>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment>)
+type: Literal["computer\_use\_preview"]
+The type of the computer use tool. Always `computer\_use\_preview`.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema)>)
+class WebSearchTool: …
+Search the Internet for sources related to the prompt. Learn more about the
+[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search", "web\_search\_2025\_08\_26"]
+The type of the web search tool. One of `web\_search` or `web\_search\_2025\_08\_26`.
+One of the following:
+"web\_search"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_2025\_08\_26"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type>)
+filters: Optional[Filters]
+Filters for the search.
+allowed\_domains: Optional[List[str]]
+Allowed domains for the search. If not provided, all domains are allowed.
+Subdomains of the provided domains are allowed as well.
+Example: `["pubmed.ncbi.nlm.nih.gov"]`
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters > (property) allowed_domains>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The approximate location of the user.
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) timezone>)
+type: Optional[Literal["approximate"]]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) type>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_tool > (schema)>)
+class Mcp: …
+Give the model access to additional tools via remote Model Context Protocol
+(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+server\_label: str
+A label for this MCP server, used to identify it in tool calls.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_label>)
+type: Literal["mcp"]
+The type of the MCP tool. Always `mcp`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) type>)
+allowed\_tools: Optional[McpAllowedTools]
+List of allowed tool names or a filter object.
+One of the following:
+List[str]
+A string array of allowed tool names
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 0>)
+class McpAllowedToolsMcpToolFilter: …
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools>)
+authorization: Optional[str]
+An OAuth access token that can be used with a remote MCP server, either
+with a custom MCP server URL or a service connector. Your application
+must handle the OAuth authorization flow and provide the token here.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) authorization>)
+connector\_id: Optional[Literal["connector\_dropbox", "connector\_gmail", "connector\_googlecalendar", 5 more]]
+Identifier for service connectors, like those available in ChatGPT. One of
+`server\_url` or `connector\_id` must be provided. Learn more about service
+connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+Currently supported `connector\_id` values are:
+* Dropbox: `connector\_dropbox`
+* Gmail: `connector\_gmail`
+* Google Calendar: `connector\_googlecalendar`
+* Google Drive: `connector\_googledrive`
+* Microsoft Teams: `connector\_microsoftteams`
+* Outlook Calendar: `connector\_outlookcalendar`
+* Outlook Email: `connector\_outlookemail`
+* SharePoint: `connector\_sharepoint`
+One of the following:
+"connector\_dropbox"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 0>)
+"connector\_gmail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 1>)
+"connector\_googlecalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 2>)
+"connector\_googledrive"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 3>)
+"connector\_microsoftteams"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 4>)
+"connector\_outlookcalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 5>)
+"connector\_outlookemail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 6>)
+"connector\_sharepoint"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 7>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id>)
+defer\_loading: Optional[bool]
+Whether this MCP tool is deferred and discovered via tool search.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) defer_loading>)
+headers: Optional[Dict[str, str]]
+Optional HTTP headers to send to the MCP server. Use for authentication
+or other purposes.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) headers>)
+require\_approval: Optional[McpRequireApproval]
+Specify which of the MCP server’s tools require approval.
+One of the following:
+class McpRequireApprovalMcpToolApprovalFilter: …
+Specify which of the MCP server’s tools require approval. Can be
+`always`, `never`, or a filter object associated with tools
+that require approval.
+always: Optional[McpRequireApprovalMcpToolApprovalFilterAlways]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always>)
+never: Optional[McpRequireApprovalMcpToolApprovalFilterNever]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0>)
+Literal["always", "never"]
+Specify a single approval policy for all tools. One of `always` or
+`never`. When set to `always`, all tools will require approval. When
+set to `never`, all tools will not require approval.
+One of the following:
+"always"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 0>)
+"never"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval>)
+server\_description: Optional[str]
+Optional description of the MCP server, used to provide more context.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_description>)
+server\_url: Optional[str]
+The URL for the MCP server. One of `server\_url` or `connector\_id` must be
+provided.
+formaturi
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5>)
+class CodeInterpreter: …
+A tool that runs Python code to help generate a response to a prompt.
+container: CodeInterpreterContainer
+The code interpreter container. Can be a container ID or an object that
+specifies uploaded file IDs to make available to your code, along with an
+optional `memory\_limit` setting.
+One of the following:
+str
+The container ID.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 0>)
+class CodeInterpreterContainerCodeInterpreterToolAuto: …
+Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+type: Literal["auto"]
+Always `auto`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the code interpreter container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit>)
+network\_policy: Optional[CodeInterpreterContainerCodeInterpreterToolAutoNetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) network_policy>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container>)
+type: Literal["code\_interpreter"]
+The type of the code interpreter tool. Always `code\_interpreter`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6>)
+class ImageGeneration: …
+A tool that generates images using the GPT image models.
+type: Literal["image\_generation"]
+The type of the image generation tool. Always `image\_generation`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) type>)
+action: Optional[Literal["generate", "edit", "auto"]]
+Whether to generate a new image or edit an existing image. Default: `auto`.
+One of the following:
+"generate"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 0>)
+"edit"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action>)
+background: Optional[Literal["transparent", "opaque", "auto"]]
+Background type for the generated image. One of `transparent`,
+`opaque`, or `auto`. Default: `auto`.
+One of the following:
+"transparent"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 0>)
+"opaque"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background>)
+input\_fidelity: Optional[Literal["high", "low"]]
+Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1` and `gpt-image-1.5` and later models, unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`.
+One of the following:
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity>)
+input\_image\_mask: Optional[ImageGenerationInputImageMask]
+Optional mask for inpainting. Contains `image\_url`
+(string, optional) and `file\_id` (string, optional).
+file\_id: Optional[str]
+File ID for the mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) file_id>)
+image\_url: Optional[str]
+Base64-encoded mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) image_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask>)
+model: Optional[Union[str, Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"], null]]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+str
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 0>)
+Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+"gpt-image-1"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 0>)
+"gpt-image-1-mini"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 1>)
+"gpt-image-1.5"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model>)
+moderation: Optional[Literal["auto", "low"]]
+Moderation level for the generated image. Default: `auto`.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation>)
+output\_compression: Optional[int]
+Compression level for the output image. Default: 100.
+minimum0
+maximum100
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_compression>)
+output\_format: Optional[Literal["png", "webp", "jpeg"]]
+The output format of the generated image. One of `png`, `webp`, or
+`jpeg`. Default: `png`.
+One of the following:
+"png"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 0>)
+"webp"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 1>)
+"jpeg"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format>)
+partial\_images: Optional[int]
+Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+minimum0
+maximum3
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) partial_images>)
+quality: Optional[Literal["low", "medium", "high", "auto"]]
+The quality of the generated image. One of `low`, `medium`, `high`,
+or `auto`. Default: `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 1>)
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality>)
+size: Optional[Literal["1024x1024", "1024x1536", "1536x1024", "auto"]]
+The size of the generated image. One of `1024x1024`, `1024x1536`,
+`1536x1024`, or `auto`. Default: `auto`.
+One of the following:
+"1024x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 0>)
+"1024x1536"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 1>)
+"1536x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7>)
+class LocalShell: …
+A tool that allows the model to execute shell commands in a local environment.
+type: Literal["local\_shell"]
+The type of the local shell tool. Always `local\_shell`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8>)
+class FunctionShellTool: …
+A tool that allows the model to execute shell commands.
+type: Literal["shell"]
+The type of the shell tool. Always `shell`.
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) type>)
+environment: Optional[Environment]
+One of the following:
+class ContainerAuto: …
+type: Literal["container\_auto"]
+Automatically creates a container for this request
+[](<#(resource) responses > (model) container_auto > (schema) > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) container_auto > (schema) > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit>)
+network\_policy: Optional[NetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) network_policy>)
+skills: Optional[List[Skill]]
+An optional list of skills referenced by id or inline data.
+One of the following:
+class SkillReference: …
+skill\_id: str
+The ID of the referenced skill.
+maxLength64
+minLength1
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) skill_id>)
+type: Literal["skill\_reference"]
+References a skill created with the /v1/skills endpoint.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) type>)
+version: Optional[str]
+Optional skill version. Use a positive integer or ‘latest’. Omit for default.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) version>)
+[](<#(resource) responses > (model) skill_reference > (schema)>)
+class InlineSkill: …
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) name>)
+source: [InlineSkillSource](</api/reference/python/resources/responses#(resource) responses > (model) inline_skill_source > (schema)>)
+Inline skill payload
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) source>)
+type: Literal["inline"]
+Defines an inline skill for this request.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) type>)
+[](<#(resource) responses > (model) inline_skill > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) skills>)
+[](<#(resource) responses > (model) container_auto > (schema)>)
+class LocalEnvironment: …
+type: Literal["local"]
+Use a local computer environment.
+[](<#(resource) responses > (model) local_environment > (schema) > (property) type>)
+skills: Optional[List[[LocalSkill](</api/reference/python/resources/responses#(resource) responses > (model) local_skill > (schema)>)]]
+An optional list of skills.
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) name>)
+path: str
+The path to the directory containing the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) path>)
+[](<#(resource) responses > (model) local_environment > (schema) > (property) skills>)
+[](<#(resource) responses > (model) local_environment > (schema)>)
+class ContainerReference: …
+container\_id: str
+The ID of the referenced container.
+[](<#(resource) responses > (model) container_reference > (schema) > (property) container_id>)
+type: Literal["container\_reference"]
+References a container created with the /v1/containers endpoint
+[](<#(resource) responses > (model) container_reference > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_reference > (schema)>)
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) environment>)
+[](<#(resource) responses > (model) function_shell_tool > (schema)>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+class NamespaceTool: …
+Groups function/custom tools under a shared namespace.
+description: str
+A description of the namespace shown to the model.
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) description>)
+name: str
+The namespace name used in tool calls (for example, `crm`).
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) name>)
+tools: List[Tool]
+The function/custom tools available inside this namespace.
+One of the following:
+class ToolFunction: …
+name: str
+maxLength128
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) name>)
+type: Literal["function"]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) defer_loading>)
+description: Optional[str]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) description>)
+parameters: Optional[object]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) parameters>)
+strict: Optional[bool]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) strict>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools>)
+type: Literal["namespace"]
+The type of the tool. Always `namespace`.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) namespace_tool > (schema)>)
+class ToolSearchTool: …
+Hosted or BYOT tool search configuration for deferred tools.
+type: Literal["tool\_search"]
+The type of the tool. Always `tool\_search`.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) type>)
+description: Optional[str]
+Description shown to the model for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) description>)
+execution: Optional[Literal["server", "client"]]
+Whether tool search is executed by the server or by the client.
+One of the following:
+"server"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 0>)
+"client"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 1>)
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution>)
+parameters: Optional[object]
+Parameter schema for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) parameters>)
+[](<#(resource) responses > (model) tool_search_tool > (schema)>)
+class WebSearchPreviewTool: …
+This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search\_preview", "web\_search\_preview\_2025\_03\_11"]
+The type of the web search tool. One of `web\_search\_preview` or `web\_search\_preview\_2025\_03\_11`.
+One of the following:
+"web\_search\_preview"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_preview\_2025\_03\_11"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type>)
+search\_content\_types: Optional[List[Literal["text", "image"]]]
+One of the following:
+"text"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 0>)
+"image"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The user’s location.
+type: Literal["approximate"]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) type>)
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) timezone>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema)>)
+class ApplyPatchTool: …
+Allows the assistant to create, delete, or update files using unified diffs.
+type: Literal["apply\_patch"]
+The type of the tool. Always `apply\_patch`.
+[](<#(resource) responses > (model) apply_patch_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) apply_patch_tool > (schema)>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) data_source>)
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) error>)
+eval\_id: str
+The identifier of the associated evaluation.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) eval_id>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) metadata>)
+model: str
+The model that is evaluated, if applicable.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) model>)
+name: str
+The name of the evaluation run.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) name>)
+object: Literal["eval.run"]
+The type of the object. Always “eval.run”.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) object>)
+per\_model\_usage: List[PerModelUsage]
+Usage statistics for each model during the evaluation run.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) completion_tokens>)
+invocation\_count: int
+The number of invocations.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) invocation_count>)
+model\_name: str
+The name of the model.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) model_name>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage > (items) > (property) total_tokens>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_model_usage>)
+per\_testing\_criteria\_results: List[PerTestingCriteriaResult]
+Results per testing criteria applied during the evaluation run.
+failed: int
+Number of tests failed for this criteria.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_testing_criteria_results > (items) > (property) failed>)
+passed: int
+Number of tests passed for this criteria.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_testing_criteria_results > (items) > (property) passed>)
+testing\_criteria: str
+A description of the testing criteria.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_testing_criteria_results > (items) > (property) testing_criteria>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) per_testing_criteria_results>)
+report\_url: str
+The URL to the rendered evaluation run report on the UI dashboard.
+formaturi
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) report_url>)
+result\_counts: ResultCounts
+Counters summarizing the outcomes of the evaluation run.
+errored: int
+Number of output items that resulted in an error.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) result_counts > (property) errored>)
+failed: int
+Number of output items that failed to pass the evaluation.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) result_counts > (property) failed>)
+passed: int
+Number of output items that passed the evaluation.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) result_counts > (property) passed>)
+total: int
+Total number of executed output items.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) result_counts > (property) total>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) result_counts>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs > (model) run_list_response > (schema) > (property) status>)
+[](<#(resource) evals.runs > (model) run_list_response > (schema)>)
+class RunCreateResponse: …
+A schema representing an evaluation run.
+id: str
+Unique identifier for the evaluation run.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) created_at>)
+data\_source: DataSource
+Information about the run’s data source.
+One of the following:
+class CreateEvalJSONLRunDataSource: …
+A JsonlRunDataSource object with that specifies a JSONL file that matches the eval
+source: Source
+Determines what populates the `item` namespace in the data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source>)
+type: Literal["jsonl"]
+The type of data source. Always `jsonl`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema)>)
+class CreateEvalCompletionsRunDataSource: …
+A CompletionsRunDataSource object describing a model sampling configuration.
+source: Source
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1>)
+class SourceStoredCompletions: …
+A StoredCompletionsRunDataSource configuration describing a set of filters
+type: Literal["stored\_completions"]
+The type of source. Always `stored\_completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+An optional Unix timestamp to filter items created after this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+An optional Unix timestamp to filter items created before this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_before>)
+limit: Optional[int]
+An optional maximum number of items to return.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) limit>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+An optional model to filter by (e.g., ‘gpt-4o’).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) model>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source>)
+type: Literal["completions"]
+The type of run data source. Always `completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) type>)
+input\_messages: Optional[InputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class InputMessagesTemplate: …
+template: List[InputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class EasyInputMessage: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: Union[str, [ResponseInputMessageContentList](</api/reference/python/resources/responses#(resource) responses > (model) response_input_message_content_list > (schema)>)]
+Text, image, or audio input to the model, used to generate a response.
+Can also contain previous assistant responses.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 0>)
+List[[ResponseInputContent](</api/reference/python/resources/responses#(resource) responses > (model) response_input_content > (schema)>)]
+One of the following:
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class ResponseInputImage: …
+An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+detail: Literal["low", "high", "auto", "original"]
+The detail level of the image to be sent to the model. One of `high`, `low`, `auto`, or `original`. Defaults to `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 2>)
+"original"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 3>)
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail>)
+type: Literal["input\_image"]
+The type of the input item. Always `input\_image`.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) type>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) file_id>)
+image\_url: Optional[str]
+The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) image_url>)
+[](<#(resource) responses > (model) response_input_image > (schema)>)
+class ResponseInputFile: …
+A file input to the model.
+type: Literal["input\_file"]
+The type of the input item. Always `input\_file`.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) type>)
+detail: Optional[Literal["low", "high"]]
+The detail level of the file to be sent to the model. Use `low` for the default rendering behavior, or `high` to render the file at higher quality. Defaults to `low`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 1>)
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail>)
+file\_data: Optional[str]
+The content of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_data>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_id>)
+file\_url: Optional[str]
+The URL of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_url>)
+filename: Optional[str]
+The name of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) filename>)
+[](<#(resource) responses > (model) response_input_file > (schema)>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 1>)
+"system"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 3>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role>)
+phase: Optional[Literal["commentary", "final\_answer"]]
+Labels an `assistant` message as intermediate commentary (`commentary`) or the final answer (`final\_answer`).
+For models like `gpt-5.3-codex` and beyond, when sending follow-up requests, preserve and resend
+phase on all assistant messages — dropping it can degrade performance. Not used for user messages.
+One of the following:
+"commentary"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 0>)
+"final\_answer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) type>)
+[](<#(resource) responses > (model) easy_input_message > (schema)>)
+class InputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: InputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class InputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0>)
+class InputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.input\_trajectory”
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) model>)
+sampling\_params: Optional[SamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) reasoning_effort>)
+response\_format: Optional[SamplingParamsResponseFormat]
+An object specifying the format that the model must output.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables
+Structured Outputs which ensures the model will match your supplied JSON
+schema. Learn more in the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+One of the following:
+class ResponseFormatText: …
+Default response format. Used to generate text responses.
+type: Literal["text"]
+The type of response format being defined. Always `text`.
+[](<#(resource) $shared > (model) response_format_text > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_text > (schema)>)
+class ResponseFormatJSONSchema: …
+JSON Schema response format. Used to generate structured JSON responses.
+Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+json\_schema: JSONSchema
+Structured Outputs configuration options, including a JSON Schema.
+name: str
+The name of the response format. Must be a-z, A-Z, 0-9, or contain
+underscores and dashes, with a maximum length of 64.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) name>)
+description: Optional[str]
+A description of what the response format is for, used by the model to
+determine how to respond in the format.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) description>)
+schema: Optional[Dict[str, object]]
+The schema for the response format, described as a JSON Schema object.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) schema>)
+strict: Optional[bool]
+Whether to enable strict schema adherence when generating the output.
+If set to true, the model will always follow the exact schema defined
+in the `schema` field. Only a subset of JSON Schema is supported when
+`strict` is `true`. To learn more, read the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) strict>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema>)
+type: Literal["json\_schema"]
+The type of response format being defined. Always `json\_schema`.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema)>)
+class ResponseFormatJSONObject: …
+JSON object response format. An older method of generating JSON responses.
+Using `json\_schema` is recommended for models that support it. Note that the
+model will not generate JSON without a system or user message instructing it
+to do so.
+type: Literal["json\_object"]
+The type of response format being defined. Always `json\_object`.
+[](<#(resource) $shared > (model) response_format_json_object > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_object > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) response_format>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) temperature>)
+tools: Optional[List[[ChatCompletionFunctionTool](</api/reference/python/resources/chat#(resource) chat.completions > (model) chat_completion_function_tool > (schema)>)]]
+A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
+function: [FunctionDefinition](</api/reference/python/resources/$shared#(resource) $shared > (model) function_definition > (schema)>)
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) function>)
+type: Literal["function"]
+The type of the tool. Currently, only `function` is supported.
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema)>)
+class DataSourceResponses: …
+A ResponsesRunDataSource object describing a model sampling configuration.
+source: DataSourceResponsesSource
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class DataSourceResponsesSourceFileContent: …
+content: List[DataSourceResponsesSourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0>)
+class DataSourceResponsesSourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1>)
+class DataSourceResponsesSourceResponses: …
+A EvalResponsesSource object describing a run data source configuration.
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_before>)
+instructions\_search: Optional[str]
+Optional string to search the ‘instructions’ field. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) instructions_search>)
+metadata: Optional[object]
+Metadata filter for the responses. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+The name of the model to find responses for. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) model>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) reasoning_effort>)
+temperature: Optional[float]
+Sampling temperature. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) temperature>)
+tools: Optional[List[str]]
+List of tool names. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) tools>)
+top\_p: Optional[float]
+Nucleus sampling parameter. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) top_p>)
+users: Optional[List[str]]
+List of user identifiers. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) users>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) source>)
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) type>)
+input\_messages: Optional[DataSourceResponsesInputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class DataSourceResponsesInputMessagesTemplate: …
+template: List[DataSourceResponsesInputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class DataSourceResponsesInputMessagesTemplateTemplateChatMessage: …
+content: str
+The content of the message.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) content>)
+role: str
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) role>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: DataSourceResponsesInputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0>)
+class DataSourceResponsesInputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.name”
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) model>)
+sampling\_params: Optional[DataSourceResponsesSamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) reasoning_effort>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) temperature>)
+text: Optional[DataSourceResponsesSamplingParamsText]
+Configuration options for a text response from the model. Can be plain
+text or structured JSON data. Learn more:
+* [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+* [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+format: Optional[ResponseFormatTextConfig]
+An object specifying the format that the model must output.
+Configuring `{ "type": "json\_schema" }` enables Structured Outputs,
+which ensures the model will match your supplied JSON schema. Learn more in the
+[Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+The default format is `{ "type": "text" }` with no additional options.
+**Not recommended for gpt-4o and newer models:**
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text > (property) format>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text>)
+tools: Optional[List[[Tool](</api/reference/python/resources/responses#(resource) responses > (model) tool > (schema)>)]]
+An array of tools the model may call while generating a response. You
+can specify which tool to use by setting the `tool\_choice` parameter.
+The two categories of tools you can provide the model are:
+* **Built-in tools**: Tools that are provided by OpenAI that extend the
+model’s capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
+or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
+[built-in tools](https://platform.openai.com/docs/guides/tools).
+* **Function calls (custom tools)**: Functions that are defined by you,
+enabling the model to call your own code. Learn more about
+[function calling](https://platform.openai.com/docs/guides/function-calling).
+One of the following:
+class FunctionTool: …
+Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+name: str
+The name of the function to call.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) name>)
+parameters: Optional[Dict[str, object]]
+A JSON schema object describing the parameters of the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) parameters>)
+strict: Optional[bool]
+Whether to enforce strict parameter validation. Default `true`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) strict>)
+type: Literal["function"]
+The type of the function tool. Always `function`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function is deferred and loaded via tool search.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+A description of the function. Used by the model to determine whether or not to call the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) description>)
+[](<#(resource) responses > (model) function_tool > (schema)>)
+class FileSearchTool: …
+A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+type: Literal["file\_search"]
+The type of the file search tool. Always `file\_search`.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) type>)
+vector\_store\_ids: List[str]
+The IDs of the vector stores to search.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) vector_store_ids>)
+filters: Optional[Filters]
+A filter to apply.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+class CompoundFilter: …
+Combine multiple filters using `and` or `or`.
+filters: List[Filter]
+Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+object
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters>)
+type: Literal["and", "or"]
+Type of operation: `and` or `or`.
+One of the following:
+"and"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 0>)
+"or"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type>)
+[](<#(resource) $shared > (model) compound_filter > (schema)>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) filters>)
+max\_num\_results: Optional[int]
+The maximum number of results to return. This number should be between 1 and 50 inclusive.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) max_num_results>)
+ranking\_options: Optional[RankingOptions]
+Ranking options for search.
+hybrid\_search: Optional[RankingOptionsHybridSearch]
+Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.
+embedding\_weight: float
+The weight of the embedding in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) embedding_weight>)
+text\_weight: float
+The weight of the text in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) text_weight>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search>)
+ranker: Optional[Literal["auto", "default-2024-11-15"]]
+The ranker to use for the file search.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 0>)
+"default-2024-11-15"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 1>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker>)
+score\_threshold: Optional[float]
+The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) score_threshold>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options>)
+[](<#(resource) responses > (model) file_search_tool > (schema)>)
+class ComputerTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+type: Literal["computer"]
+The type of the computer tool. Always `computer`.
+[](<#(resource) responses > (model) computer_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_tool > (schema)>)
+class ComputerUsePreviewTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+display\_height: int
+The height of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_height>)
+display\_width: int
+The width of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_width>)
+environment: Literal["windows", "mac", "linux", 2 more]
+The type of computer environment to control.
+One of the following:
+"windows"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 0>)
+"mac"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 1>)
+"linux"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 2>)
+"ubuntu"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 3>)
+"browser"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 4>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment>)
+type: Literal["computer\_use\_preview"]
+The type of the computer use tool. Always `computer\_use\_preview`.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema)>)
+class WebSearchTool: …
+Search the Internet for sources related to the prompt. Learn more about the
+[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search", "web\_search\_2025\_08\_26"]
+The type of the web search tool. One of `web\_search` or `web\_search\_2025\_08\_26`.
+One of the following:
+"web\_search"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_2025\_08\_26"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type>)
+filters: Optional[Filters]
+Filters for the search.
+allowed\_domains: Optional[List[str]]
+Allowed domains for the search. If not provided, all domains are allowed.
+Subdomains of the provided domains are allowed as well.
+Example: `["pubmed.ncbi.nlm.nih.gov"]`
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters > (property) allowed_domains>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The approximate location of the user.
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) timezone>)
+type: Optional[Literal["approximate"]]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) type>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_tool > (schema)>)
+class Mcp: …
+Give the model access to additional tools via remote Model Context Protocol
+(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+server\_label: str
+A label for this MCP server, used to identify it in tool calls.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_label>)
+type: Literal["mcp"]
+The type of the MCP tool. Always `mcp`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) type>)
+allowed\_tools: Optional[McpAllowedTools]
+List of allowed tool names or a filter object.
+One of the following:
+List[str]
+A string array of allowed tool names
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 0>)
+class McpAllowedToolsMcpToolFilter: …
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools>)
+authorization: Optional[str]
+An OAuth access token that can be used with a remote MCP server, either
+with a custom MCP server URL or a service connector. Your application
+must handle the OAuth authorization flow and provide the token here.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) authorization>)
+connector\_id: Optional[Literal["connector\_dropbox", "connector\_gmail", "connector\_googlecalendar", 5 more]]
+Identifier for service connectors, like those available in ChatGPT. One of
+`server\_url` or `connector\_id` must be provided. Learn more about service
+connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+Currently supported `connector\_id` values are:
+* Dropbox: `connector\_dropbox`
+* Gmail: `connector\_gmail`
+* Google Calendar: `connector\_googlecalendar`
+* Google Drive: `connector\_googledrive`
+* Microsoft Teams: `connector\_microsoftteams`
+* Outlook Calendar: `connector\_outlookcalendar`
+* Outlook Email: `connector\_outlookemail`
+* SharePoint: `connector\_sharepoint`
+One of the following:
+"connector\_dropbox"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 0>)
+"connector\_gmail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 1>)
+"connector\_googlecalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 2>)
+"connector\_googledrive"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 3>)
+"connector\_microsoftteams"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 4>)
+"connector\_outlookcalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 5>)
+"connector\_outlookemail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 6>)
+"connector\_sharepoint"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 7>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id>)
+defer\_loading: Optional[bool]
+Whether this MCP tool is deferred and discovered via tool search.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) defer_loading>)
+headers: Optional[Dict[str, str]]
+Optional HTTP headers to send to the MCP server. Use for authentication
+or other purposes.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) headers>)
+require\_approval: Optional[McpRequireApproval]
+Specify which of the MCP server’s tools require approval.
+One of the following:
+class McpRequireApprovalMcpToolApprovalFilter: …
+Specify which of the MCP server’s tools require approval. Can be
+`always`, `never`, or a filter object associated with tools
+that require approval.
+always: Optional[McpRequireApprovalMcpToolApprovalFilterAlways]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always>)
+never: Optional[McpRequireApprovalMcpToolApprovalFilterNever]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0>)
+Literal["always", "never"]
+Specify a single approval policy for all tools. One of `always` or
+`never`. When set to `always`, all tools will require approval. When
+set to `never`, all tools will not require approval.
+One of the following:
+"always"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 0>)
+"never"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval>)
+server\_description: Optional[str]
+Optional description of the MCP server, used to provide more context.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_description>)
+server\_url: Optional[str]
+The URL for the MCP server. One of `server\_url` or `connector\_id` must be
+provided.
+formaturi
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5>)
+class CodeInterpreter: …
+A tool that runs Python code to help generate a response to a prompt.
+container: CodeInterpreterContainer
+The code interpreter container. Can be a container ID or an object that
+specifies uploaded file IDs to make available to your code, along with an
+optional `memory\_limit` setting.
+One of the following:
+str
+The container ID.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 0>)
+class CodeInterpreterContainerCodeInterpreterToolAuto: …
+Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+type: Literal["auto"]
+Always `auto`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the code interpreter container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit>)
+network\_policy: Optional[CodeInterpreterContainerCodeInterpreterToolAutoNetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) network_policy>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container>)
+type: Literal["code\_interpreter"]
+The type of the code interpreter tool. Always `code\_interpreter`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6>)
+class ImageGeneration: …
+A tool that generates images using the GPT image models.
+type: Literal["image\_generation"]
+The type of the image generation tool. Always `image\_generation`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) type>)
+action: Optional[Literal["generate", "edit", "auto"]]
+Whether to generate a new image or edit an existing image. Default: `auto`.
+One of the following:
+"generate"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 0>)
+"edit"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action>)
+background: Optional[Literal["transparent", "opaque", "auto"]]
+Background type for the generated image. One of `transparent`,
+`opaque`, or `auto`. Default: `auto`.
+One of the following:
+"transparent"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 0>)
+"opaque"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background>)
+input\_fidelity: Optional[Literal["high", "low"]]
+Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1` and `gpt-image-1.5` and later models, unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`.
+One of the following:
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity>)
+input\_image\_mask: Optional[ImageGenerationInputImageMask]
+Optional mask for inpainting. Contains `image\_url`
+(string, optional) and `file\_id` (string, optional).
+file\_id: Optional[str]
+File ID for the mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) file_id>)
+image\_url: Optional[str]
+Base64-encoded mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) image_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask>)
+model: Optional[Union[str, Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"], null]]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+str
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 0>)
+Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+"gpt-image-1"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 0>)
+"gpt-image-1-mini"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 1>)
+"gpt-image-1.5"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model>)
+moderation: Optional[Literal["auto", "low"]]
+Moderation level for the generated image. Default: `auto`.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation>)
+output\_compression: Optional[int]
+Compression level for the output image. Default: 100.
+minimum0
+maximum100
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_compression>)
+output\_format: Optional[Literal["png", "webp", "jpeg"]]
+The output format of the generated image. One of `png`, `webp`, or
+`jpeg`. Default: `png`.
+One of the following:
+"png"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 0>)
+"webp"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 1>)
+"jpeg"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format>)
+partial\_images: Optional[int]
+Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+minimum0
+maximum3
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) partial_images>)
+quality: Optional[Literal["low", "medium", "high", "auto"]]
+The quality of the generated image. One of `low`, `medium`, `high`,
+or `auto`. Default: `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 1>)
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality>)
+size: Optional[Literal["1024x1024", "1024x1536", "1536x1024", "auto"]]
+The size of the generated image. One of `1024x1024`, `1024x1536`,
+`1536x1024`, or `auto`. Default: `auto`.
+One of the following:
+"1024x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 0>)
+"1024x1536"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 1>)
+"1536x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7>)
+class LocalShell: …
+A tool that allows the model to execute shell commands in a local environment.
+type: Literal["local\_shell"]
+The type of the local shell tool. Always `local\_shell`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8>)
+class FunctionShellTool: …
+A tool that allows the model to execute shell commands.
+type: Literal["shell"]
+The type of the shell tool. Always `shell`.
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) type>)
+environment: Optional[Environment]
+One of the following:
+class ContainerAuto: …
+type: Literal["container\_auto"]
+Automatically creates a container for this request
+[](<#(resource) responses > (model) container_auto > (schema) > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) container_auto > (schema) > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit>)
+network\_policy: Optional[NetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) network_policy>)
+skills: Optional[List[Skill]]
+An optional list of skills referenced by id or inline data.
+One of the following:
+class SkillReference: …
+skill\_id: str
+The ID of the referenced skill.
+maxLength64
+minLength1
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) skill_id>)
+type: Literal["skill\_reference"]
+References a skill created with the /v1/skills endpoint.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) type>)
+version: Optional[str]
+Optional skill version. Use a positive integer or ‘latest’. Omit for default.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) version>)
+[](<#(resource) responses > (model) skill_reference > (schema)>)
+class InlineSkill: …
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) name>)
+source: [InlineSkillSource](</api/reference/python/resources/responses#(resource) responses > (model) inline_skill_source > (schema)>)
+Inline skill payload
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) source>)
+type: Literal["inline"]
+Defines an inline skill for this request.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) type>)
+[](<#(resource) responses > (model) inline_skill > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) skills>)
+[](<#(resource) responses > (model) container_auto > (schema)>)
+class LocalEnvironment: …
+type: Literal["local"]
+Use a local computer environment.
+[](<#(resource) responses > (model) local_environment > (schema) > (property) type>)
+skills: Optional[List[[LocalSkill](</api/reference/python/resources/responses#(resource) responses > (model) local_skill > (schema)>)]]
+An optional list of skills.
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) name>)
+path: str
+The path to the directory containing the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) path>)
+[](<#(resource) responses > (model) local_environment > (schema) > (property) skills>)
+[](<#(resource) responses > (model) local_environment > (schema)>)
+class ContainerReference: …
+container\_id: str
+The ID of the referenced container.
+[](<#(resource) responses > (model) container_reference > (schema) > (property) container_id>)
+type: Literal["container\_reference"]
+References a container created with the /v1/containers endpoint
+[](<#(resource) responses > (model) container_reference > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_reference > (schema)>)
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) environment>)
+[](<#(resource) responses > (model) function_shell_tool > (schema)>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+class NamespaceTool: …
+Groups function/custom tools under a shared namespace.
+description: str
+A description of the namespace shown to the model.
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) description>)
+name: str
+The namespace name used in tool calls (for example, `crm`).
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) name>)
+tools: List[Tool]
+The function/custom tools available inside this namespace.
+One of the following:
+class ToolFunction: …
+name: str
+maxLength128
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) name>)
+type: Literal["function"]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) defer_loading>)
+description: Optional[str]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) description>)
+parameters: Optional[object]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) parameters>)
+strict: Optional[bool]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) strict>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools>)
+type: Literal["namespace"]
+The type of the tool. Always `namespace`.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) namespace_tool > (schema)>)
+class ToolSearchTool: …
+Hosted or BYOT tool search configuration for deferred tools.
+type: Literal["tool\_search"]
+The type of the tool. Always `tool\_search`.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) type>)
+description: Optional[str]
+Description shown to the model for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) description>)
+execution: Optional[Literal["server", "client"]]
+Whether tool search is executed by the server or by the client.
+One of the following:
+"server"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 0>)
+"client"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 1>)
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution>)
+parameters: Optional[object]
+Parameter schema for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) parameters>)
+[](<#(resource) responses > (model) tool_search_tool > (schema)>)
+class WebSearchPreviewTool: …
+This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search\_preview", "web\_search\_preview\_2025\_03\_11"]
+The type of the web search tool. One of `web\_search\_preview` or `web\_search\_preview\_2025\_03\_11`.
+One of the following:
+"web\_search\_preview"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_preview\_2025\_03\_11"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type>)
+search\_content\_types: Optional[List[Literal["text", "image"]]]
+One of the following:
+"text"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 0>)
+"image"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The user’s location.
+type: Literal["approximate"]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) type>)
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) timezone>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema)>)
+class ApplyPatchTool: …
+Allows the assistant to create, delete, or update files using unified diffs.
+type: Literal["apply\_patch"]
+The type of the tool. Always `apply\_patch`.
+[](<#(resource) responses > (model) apply_patch_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) apply_patch_tool > (schema)>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) data_source>)
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) error>)
+eval\_id: str
+The identifier of the associated evaluation.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) eval_id>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) metadata>)
+model: str
+The model that is evaluated, if applicable.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) model>)
+name: str
+The name of the evaluation run.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) name>)
+object: Literal["eval.run"]
+The type of the object. Always “eval.run”.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) object>)
+per\_model\_usage: List[PerModelUsage]
+Usage statistics for each model during the evaluation run.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) completion_tokens>)
+invocation\_count: int
+The number of invocations.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) invocation_count>)
+model\_name: str
+The name of the model.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) model_name>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage > (items) > (property) total_tokens>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_model_usage>)
+per\_testing\_criteria\_results: List[PerTestingCriteriaResult]
+Results per testing criteria applied during the evaluation run.
+failed: int
+Number of tests failed for this criteria.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_testing_criteria_results > (items) > (property) failed>)
+passed: int
+Number of tests passed for this criteria.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_testing_criteria_results > (items) > (property) passed>)
+testing\_criteria: str
+A description of the testing criteria.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_testing_criteria_results > (items) > (property) testing_criteria>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) per_testing_criteria_results>)
+report\_url: str
+The URL to the rendered evaluation run report on the UI dashboard.
+formaturi
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) report_url>)
+result\_counts: ResultCounts
+Counters summarizing the outcomes of the evaluation run.
+errored: int
+Number of output items that resulted in an error.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) result_counts > (property) errored>)
+failed: int
+Number of output items that failed to pass the evaluation.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) result_counts > (property) failed>)
+passed: int
+Number of output items that passed the evaluation.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) result_counts > (property) passed>)
+total: int
+Total number of executed output items.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) result_counts > (property) total>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) result_counts>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs > (model) run_create_response > (schema) > (property) status>)
+[](<#(resource) evals.runs > (model) run_create_response > (schema)>)
+class RunRetrieveResponse: …
+A schema representing an evaluation run.
+id: str
+Unique identifier for the evaluation run.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) created_at>)
+data\_source: DataSource
+Information about the run’s data source.
+One of the following:
+class CreateEvalJSONLRunDataSource: …
+A JsonlRunDataSource object with that specifies a JSONL file that matches the eval
+source: Source
+Determines what populates the `item` namespace in the data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source>)
+type: Literal["jsonl"]
+The type of data source. Always `jsonl`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema)>)
+class CreateEvalCompletionsRunDataSource: …
+A CompletionsRunDataSource object describing a model sampling configuration.
+source: Source
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1>)
+class SourceStoredCompletions: …
+A StoredCompletionsRunDataSource configuration describing a set of filters
+type: Literal["stored\_completions"]
+The type of source. Always `stored\_completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+An optional Unix timestamp to filter items created after this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+An optional Unix timestamp to filter items created before this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_before>)
+limit: Optional[int]
+An optional maximum number of items to return.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) limit>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+An optional model to filter by (e.g., ‘gpt-4o’).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) model>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source>)
+type: Literal["completions"]
+The type of run data source. Always `completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) type>)
+input\_messages: Optional[InputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class InputMessagesTemplate: …
+template: List[InputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class EasyInputMessage: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: Union[str, [ResponseInputMessageContentList](</api/reference/python/resources/responses#(resource) responses > (model) response_input_message_content_list > (schema)>)]
+Text, image, or audio input to the model, used to generate a response.
+Can also contain previous assistant responses.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 0>)
+List[[ResponseInputContent](</api/reference/python/resources/responses#(resource) responses > (model) response_input_content > (schema)>)]
+One of the following:
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class ResponseInputImage: …
+An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+detail: Literal["low", "high", "auto", "original"]
+The detail level of the image to be sent to the model. One of `high`, `low`, `auto`, or `original`. Defaults to `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 2>)
+"original"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 3>)
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail>)
+type: Literal["input\_image"]
+The type of the input item. Always `input\_image`.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) type>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) file_id>)
+image\_url: Optional[str]
+The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) image_url>)
+[](<#(resource) responses > (model) response_input_image > (schema)>)
+class ResponseInputFile: …
+A file input to the model.
+type: Literal["input\_file"]
+The type of the input item. Always `input\_file`.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) type>)
+detail: Optional[Literal["low", "high"]]
+The detail level of the file to be sent to the model. Use `low` for the default rendering behavior, or `high` to render the file at higher quality. Defaults to `low`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 1>)
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail>)
+file\_data: Optional[str]
+The content of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_data>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_id>)
+file\_url: Optional[str]
+The URL of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_url>)
+filename: Optional[str]
+The name of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) filename>)
+[](<#(resource) responses > (model) response_input_file > (schema)>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 1>)
+"system"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 3>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role>)
+phase: Optional[Literal["commentary", "final\_answer"]]
+Labels an `assistant` message as intermediate commentary (`commentary`) or the final answer (`final\_answer`).
+For models like `gpt-5.3-codex` and beyond, when sending follow-up requests, preserve and resend
+phase on all assistant messages — dropping it can degrade performance. Not used for user messages.
+One of the following:
+"commentary"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 0>)
+"final\_answer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) type>)
+[](<#(resource) responses > (model) easy_input_message > (schema)>)
+class InputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: InputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class InputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0>)
+class InputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.input\_trajectory”
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) model>)
+sampling\_params: Optional[SamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) reasoning_effort>)
+response\_format: Optional[SamplingParamsResponseFormat]
+An object specifying the format that the model must output.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables
+Structured Outputs which ensures the model will match your supplied JSON
+schema. Learn more in the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+One of the following:
+class ResponseFormatText: …
+Default response format. Used to generate text responses.
+type: Literal["text"]
+The type of response format being defined. Always `text`.
+[](<#(resource) $shared > (model) response_format_text > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_text > (schema)>)
+class ResponseFormatJSONSchema: …
+JSON Schema response format. Used to generate structured JSON responses.
+Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+json\_schema: JSONSchema
+Structured Outputs configuration options, including a JSON Schema.
+name: str
+The name of the response format. Must be a-z, A-Z, 0-9, or contain
+underscores and dashes, with a maximum length of 64.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) name>)
+description: Optional[str]
+A description of what the response format is for, used by the model to
+determine how to respond in the format.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) description>)
+schema: Optional[Dict[str, object]]
+The schema for the response format, described as a JSON Schema object.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) schema>)
+strict: Optional[bool]
+Whether to enable strict schema adherence when generating the output.
+If set to true, the model will always follow the exact schema defined
+in the `schema` field. Only a subset of JSON Schema is supported when
+`strict` is `true`. To learn more, read the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) strict>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema>)
+type: Literal["json\_schema"]
+The type of response format being defined. Always `json\_schema`.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema)>)
+class ResponseFormatJSONObject: …
+JSON object response format. An older method of generating JSON responses.
+Using `json\_schema` is recommended for models that support it. Note that the
+model will not generate JSON without a system or user message instructing it
+to do so.
+type: Literal["json\_object"]
+The type of response format being defined. Always `json\_object`.
+[](<#(resource) $shared > (model) response_format_json_object > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_object > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) response_format>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) temperature>)
+tools: Optional[List[[ChatCompletionFunctionTool](</api/reference/python/resources/chat#(resource) chat.completions > (model) chat_completion_function_tool > (schema)>)]]
+A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
+function: [FunctionDefinition](</api/reference/python/resources/$shared#(resource) $shared > (model) function_definition > (schema)>)
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) function>)
+type: Literal["function"]
+The type of the tool. Currently, only `function` is supported.
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema)>)
+class DataSourceResponses: …
+A ResponsesRunDataSource object describing a model sampling configuration.
+source: DataSourceResponsesSource
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class DataSourceResponsesSourceFileContent: …
+content: List[DataSourceResponsesSourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0>)
+class DataSourceResponsesSourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1>)
+class DataSourceResponsesSourceResponses: …
+A EvalResponsesSource object describing a run data source configuration.
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_before>)
+instructions\_search: Optional[str]
+Optional string to search the ‘instructions’ field. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) instructions_search>)
+metadata: Optional[object]
+Metadata filter for the responses. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+The name of the model to find responses for. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) model>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) reasoning_effort>)
+temperature: Optional[float]
+Sampling temperature. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) temperature>)
+tools: Optional[List[str]]
+List of tool names. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) tools>)
+top\_p: Optional[float]
+Nucleus sampling parameter. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) top_p>)
+users: Optional[List[str]]
+List of user identifiers. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) users>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) source>)
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) type>)
+input\_messages: Optional[DataSourceResponsesInputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class DataSourceResponsesInputMessagesTemplate: …
+template: List[DataSourceResponsesInputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class DataSourceResponsesInputMessagesTemplateTemplateChatMessage: …
+content: str
+The content of the message.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) content>)
+role: str
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) role>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: DataSourceResponsesInputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0>)
+class DataSourceResponsesInputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.name”
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) model>)
+sampling\_params: Optional[DataSourceResponsesSamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) reasoning_effort>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) temperature>)
+text: Optional[DataSourceResponsesSamplingParamsText]
+Configuration options for a text response from the model. Can be plain
+text or structured JSON data. Learn more:
+* [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+* [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+format: Optional[ResponseFormatTextConfig]
+An object specifying the format that the model must output.
+Configuring `{ "type": "json\_schema" }` enables Structured Outputs,
+which ensures the model will match your supplied JSON schema. Learn more in the
+[Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+The default format is `{ "type": "text" }` with no additional options.
+**Not recommended for gpt-4o and newer models:**
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text > (property) format>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text>)
+tools: Optional[List[[Tool](</api/reference/python/resources/responses#(resource) responses > (model) tool > (schema)>)]]
+An array of tools the model may call while generating a response. You
+can specify which tool to use by setting the `tool\_choice` parameter.
+The two categories of tools you can provide the model are:
+* **Built-in tools**: Tools that are provided by OpenAI that extend the
+model’s capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
+or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
+[built-in tools](https://platform.openai.com/docs/guides/tools).
+* **Function calls (custom tools)**: Functions that are defined by you,
+enabling the model to call your own code. Learn more about
+[function calling](https://platform.openai.com/docs/guides/function-calling).
+One of the following:
+class FunctionTool: …
+Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+name: str
+The name of the function to call.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) name>)
+parameters: Optional[Dict[str, object]]
+A JSON schema object describing the parameters of the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) parameters>)
+strict: Optional[bool]
+Whether to enforce strict parameter validation. Default `true`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) strict>)
+type: Literal["function"]
+The type of the function tool. Always `function`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function is deferred and loaded via tool search.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+A description of the function. Used by the model to determine whether or not to call the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) description>)
+[](<#(resource) responses > (model) function_tool > (schema)>)
+class FileSearchTool: …
+A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+type: Literal["file\_search"]
+The type of the file search tool. Always `file\_search`.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) type>)
+vector\_store\_ids: List[str]
+The IDs of the vector stores to search.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) vector_store_ids>)
+filters: Optional[Filters]
+A filter to apply.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+class CompoundFilter: …
+Combine multiple filters using `and` or `or`.
+filters: List[Filter]
+Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+object
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters>)
+type: Literal["and", "or"]
+Type of operation: `and` or `or`.
+One of the following:
+"and"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 0>)
+"or"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type>)
+[](<#(resource) $shared > (model) compound_filter > (schema)>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) filters>)
+max\_num\_results: Optional[int]
+The maximum number of results to return. This number should be between 1 and 50 inclusive.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) max_num_results>)
+ranking\_options: Optional[RankingOptions]
+Ranking options for search.
+hybrid\_search: Optional[RankingOptionsHybridSearch]
+Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.
+embedding\_weight: float
+The weight of the embedding in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) embedding_weight>)
+text\_weight: float
+The weight of the text in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) text_weight>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search>)
+ranker: Optional[Literal["auto", "default-2024-11-15"]]
+The ranker to use for the file search.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 0>)
+"default-2024-11-15"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 1>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker>)
+score\_threshold: Optional[float]
+The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) score_threshold>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options>)
+[](<#(resource) responses > (model) file_search_tool > (schema)>)
+class ComputerTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+type: Literal["computer"]
+The type of the computer tool. Always `computer`.
+[](<#(resource) responses > (model) computer_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_tool > (schema)>)
+class ComputerUsePreviewTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+display\_height: int
+The height of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_height>)
+display\_width: int
+The width of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_width>)
+environment: Literal["windows", "mac", "linux", 2 more]
+The type of computer environment to control.
+One of the following:
+"windows"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 0>)
+"mac"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 1>)
+"linux"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 2>)
+"ubuntu"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 3>)
+"browser"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 4>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment>)
+type: Literal["computer\_use\_preview"]
+The type of the computer use tool. Always `computer\_use\_preview`.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema)>)
+class WebSearchTool: …
+Search the Internet for sources related to the prompt. Learn more about the
+[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search", "web\_search\_2025\_08\_26"]
+The type of the web search tool. One of `web\_search` or `web\_search\_2025\_08\_26`.
+One of the following:
+"web\_search"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_2025\_08\_26"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type>)
+filters: Optional[Filters]
+Filters for the search.
+allowed\_domains: Optional[List[str]]
+Allowed domains for the search. If not provided, all domains are allowed.
+Subdomains of the provided domains are allowed as well.
+Example: `["pubmed.ncbi.nlm.nih.gov"]`
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters > (property) allowed_domains>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The approximate location of the user.
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) timezone>)
+type: Optional[Literal["approximate"]]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) type>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_tool > (schema)>)
+class Mcp: …
+Give the model access to additional tools via remote Model Context Protocol
+(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+server\_label: str
+A label for this MCP server, used to identify it in tool calls.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_label>)
+type: Literal["mcp"]
+The type of the MCP tool. Always `mcp`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) type>)
+allowed\_tools: Optional[McpAllowedTools]
+List of allowed tool names or a filter object.
+One of the following:
+List[str]
+A string array of allowed tool names
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 0>)
+class McpAllowedToolsMcpToolFilter: …
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools>)
+authorization: Optional[str]
+An OAuth access token that can be used with a remote MCP server, either
+with a custom MCP server URL or a service connector. Your application
+must handle the OAuth authorization flow and provide the token here.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) authorization>)
+connector\_id: Optional[Literal["connector\_dropbox", "connector\_gmail", "connector\_googlecalendar", 5 more]]
+Identifier for service connectors, like those available in ChatGPT. One of
+`server\_url` or `connector\_id` must be provided. Learn more about service
+connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+Currently supported `connector\_id` values are:
+* Dropbox: `connector\_dropbox`
+* Gmail: `connector\_gmail`
+* Google Calendar: `connector\_googlecalendar`
+* Google Drive: `connector\_googledrive`
+* Microsoft Teams: `connector\_microsoftteams`
+* Outlook Calendar: `connector\_outlookcalendar`
+* Outlook Email: `connector\_outlookemail`
+* SharePoint: `connector\_sharepoint`
+One of the following:
+"connector\_dropbox"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 0>)
+"connector\_gmail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 1>)
+"connector\_googlecalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 2>)
+"connector\_googledrive"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 3>)
+"connector\_microsoftteams"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 4>)
+"connector\_outlookcalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 5>)
+"connector\_outlookemail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 6>)
+"connector\_sharepoint"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 7>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id>)
+defer\_loading: Optional[bool]
+Whether this MCP tool is deferred and discovered via tool search.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) defer_loading>)
+headers: Optional[Dict[str, str]]
+Optional HTTP headers to send to the MCP server. Use for authentication
+or other purposes.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) headers>)
+require\_approval: Optional[McpRequireApproval]
+Specify which of the MCP server’s tools require approval.
+One of the following:
+class McpRequireApprovalMcpToolApprovalFilter: …
+Specify which of the MCP server’s tools require approval. Can be
+`always`, `never`, or a filter object associated with tools
+that require approval.
+always: Optional[McpRequireApprovalMcpToolApprovalFilterAlways]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always>)
+never: Optional[McpRequireApprovalMcpToolApprovalFilterNever]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0>)
+Literal["always", "never"]
+Specify a single approval policy for all tools. One of `always` or
+`never`. When set to `always`, all tools will require approval. When
+set to `never`, all tools will not require approval.
+One of the following:
+"always"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 0>)
+"never"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval>)
+server\_description: Optional[str]
+Optional description of the MCP server, used to provide more context.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_description>)
+server\_url: Optional[str]
+The URL for the MCP server. One of `server\_url` or `connector\_id` must be
+provided.
+formaturi
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5>)
+class CodeInterpreter: …
+A tool that runs Python code to help generate a response to a prompt.
+container: CodeInterpreterContainer
+The code interpreter container. Can be a container ID or an object that
+specifies uploaded file IDs to make available to your code, along with an
+optional `memory\_limit` setting.
+One of the following:
+str
+The container ID.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 0>)
+class CodeInterpreterContainerCodeInterpreterToolAuto: …
+Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+type: Literal["auto"]
+Always `auto`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the code interpreter container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit>)
+network\_policy: Optional[CodeInterpreterContainerCodeInterpreterToolAutoNetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) network_policy>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container>)
+type: Literal["code\_interpreter"]
+The type of the code interpreter tool. Always `code\_interpreter`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6>)
+class ImageGeneration: …
+A tool that generates images using the GPT image models.
+type: Literal["image\_generation"]
+The type of the image generation tool. Always `image\_generation`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) type>)
+action: Optional[Literal["generate", "edit", "auto"]]
+Whether to generate a new image or edit an existing image. Default: `auto`.
+One of the following:
+"generate"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 0>)
+"edit"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action>)
+background: Optional[Literal["transparent", "opaque", "auto"]]
+Background type for the generated image. One of `transparent`,
+`opaque`, or `auto`. Default: `auto`.
+One of the following:
+"transparent"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 0>)
+"opaque"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background>)
+input\_fidelity: Optional[Literal["high", "low"]]
+Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1` and `gpt-image-1.5` and later models, unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`.
+One of the following:
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity>)
+input\_image\_mask: Optional[ImageGenerationInputImageMask]
+Optional mask for inpainting. Contains `image\_url`
+(string, optional) and `file\_id` (string, optional).
+file\_id: Optional[str]
+File ID for the mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) file_id>)
+image\_url: Optional[str]
+Base64-encoded mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) image_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask>)
+model: Optional[Union[str, Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"], null]]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+str
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 0>)
+Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+"gpt-image-1"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 0>)
+"gpt-image-1-mini"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 1>)
+"gpt-image-1.5"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model>)
+moderation: Optional[Literal["auto", "low"]]
+Moderation level for the generated image. Default: `auto`.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation>)
+output\_compression: Optional[int]
+Compression level for the output image. Default: 100.
+minimum0
+maximum100
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_compression>)
+output\_format: Optional[Literal["png", "webp", "jpeg"]]
+The output format of the generated image. One of `png`, `webp`, or
+`jpeg`. Default: `png`.
+One of the following:
+"png"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 0>)
+"webp"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 1>)
+"jpeg"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format>)
+partial\_images: Optional[int]
+Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+minimum0
+maximum3
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) partial_images>)
+quality: Optional[Literal["low", "medium", "high", "auto"]]
+The quality of the generated image. One of `low`, `medium`, `high`,
+or `auto`. Default: `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 1>)
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality>)
+size: Optional[Literal["1024x1024", "1024x1536", "1536x1024", "auto"]]
+The size of the generated image. One of `1024x1024`, `1024x1536`,
+`1536x1024`, or `auto`. Default: `auto`.
+One of the following:
+"1024x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 0>)
+"1024x1536"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 1>)
+"1536x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7>)
+class LocalShell: …
+A tool that allows the model to execute shell commands in a local environment.
+type: Literal["local\_shell"]
+The type of the local shell tool. Always `local\_shell`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8>)
+class FunctionShellTool: …
+A tool that allows the model to execute shell commands.
+type: Literal["shell"]
+The type of the shell tool. Always `shell`.
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) type>)
+environment: Optional[Environment]
+One of the following:
+class ContainerAuto: …
+type: Literal["container\_auto"]
+Automatically creates a container for this request
+[](<#(resource) responses > (model) container_auto > (schema) > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) container_auto > (schema) > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit>)
+network\_policy: Optional[NetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) network_policy>)
+skills: Optional[List[Skill]]
+An optional list of skills referenced by id or inline data.
+One of the following:
+class SkillReference: …
+skill\_id: str
+The ID of the referenced skill.
+maxLength64
+minLength1
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) skill_id>)
+type: Literal["skill\_reference"]
+References a skill created with the /v1/skills endpoint.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) type>)
+version: Optional[str]
+Optional skill version. Use a positive integer or ‘latest’. Omit for default.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) version>)
+[](<#(resource) responses > (model) skill_reference > (schema)>)
+class InlineSkill: …
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) name>)
+source: [InlineSkillSource](</api/reference/python/resources/responses#(resource) responses > (model) inline_skill_source > (schema)>)
+Inline skill payload
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) source>)
+type: Literal["inline"]
+Defines an inline skill for this request.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) type>)
+[](<#(resource) responses > (model) inline_skill > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) skills>)
+[](<#(resource) responses > (model) container_auto > (schema)>)
+class LocalEnvironment: …
+type: Literal["local"]
+Use a local computer environment.
+[](<#(resource) responses > (model) local_environment > (schema) > (property) type>)
+skills: Optional[List[[LocalSkill](</api/reference/python/resources/responses#(resource) responses > (model) local_skill > (schema)>)]]
+An optional list of skills.
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) name>)
+path: str
+The path to the directory containing the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) path>)
+[](<#(resource) responses > (model) local_environment > (schema) > (property) skills>)
+[](<#(resource) responses > (model) local_environment > (schema)>)
+class ContainerReference: …
+container\_id: str
+The ID of the referenced container.
+[](<#(resource) responses > (model) container_reference > (schema) > (property) container_id>)
+type: Literal["container\_reference"]
+References a container created with the /v1/containers endpoint
+[](<#(resource) responses > (model) container_reference > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_reference > (schema)>)
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) environment>)
+[](<#(resource) responses > (model) function_shell_tool > (schema)>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+class NamespaceTool: …
+Groups function/custom tools under a shared namespace.
+description: str
+A description of the namespace shown to the model.
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) description>)
+name: str
+The namespace name used in tool calls (for example, `crm`).
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) name>)
+tools: List[Tool]
+The function/custom tools available inside this namespace.
+One of the following:
+class ToolFunction: …
+name: str
+maxLength128
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) name>)
+type: Literal["function"]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) defer_loading>)
+description: Optional[str]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) description>)
+parameters: Optional[object]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) parameters>)
+strict: Optional[bool]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) strict>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools>)
+type: Literal["namespace"]
+The type of the tool. Always `namespace`.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) namespace_tool > (schema)>)
+class ToolSearchTool: …
+Hosted or BYOT tool search configuration for deferred tools.
+type: Literal["tool\_search"]
+The type of the tool. Always `tool\_search`.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) type>)
+description: Optional[str]
+Description shown to the model for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) description>)
+execution: Optional[Literal["server", "client"]]
+Whether tool search is executed by the server or by the client.
+One of the following:
+"server"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 0>)
+"client"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 1>)
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution>)
+parameters: Optional[object]
+Parameter schema for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) parameters>)
+[](<#(resource) responses > (model) tool_search_tool > (schema)>)
+class WebSearchPreviewTool: …
+This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search\_preview", "web\_search\_preview\_2025\_03\_11"]
+The type of the web search tool. One of `web\_search\_preview` or `web\_search\_preview\_2025\_03\_11`.
+One of the following:
+"web\_search\_preview"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_preview\_2025\_03\_11"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type>)
+search\_content\_types: Optional[List[Literal["text", "image"]]]
+One of the following:
+"text"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 0>)
+"image"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The user’s location.
+type: Literal["approximate"]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) type>)
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) timezone>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema)>)
+class ApplyPatchTool: …
+Allows the assistant to create, delete, or update files using unified diffs.
+type: Literal["apply\_patch"]
+The type of the tool. Always `apply\_patch`.
+[](<#(resource) responses > (model) apply_patch_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) apply_patch_tool > (schema)>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) data_source>)
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) error>)
+eval\_id: str
+The identifier of the associated evaluation.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) eval_id>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) metadata>)
+model: str
+The model that is evaluated, if applicable.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) model>)
+name: str
+The name of the evaluation run.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) name>)
+object: Literal["eval.run"]
+The type of the object. Always “eval.run”.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) object>)
+per\_model\_usage: List[PerModelUsage]
+Usage statistics for each model during the evaluation run.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) completion_tokens>)
+invocation\_count: int
+The number of invocations.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) invocation_count>)
+model\_name: str
+The name of the model.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) model_name>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage > (items) > (property) total_tokens>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_model_usage>)
+per\_testing\_criteria\_results: List[PerTestingCriteriaResult]
+Results per testing criteria applied during the evaluation run.
+failed: int
+Number of tests failed for this criteria.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_testing_criteria_results > (items) > (property) failed>)
+passed: int
+Number of tests passed for this criteria.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_testing_criteria_results > (items) > (property) passed>)
+testing\_criteria: str
+A description of the testing criteria.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_testing_criteria_results > (items) > (property) testing_criteria>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) per_testing_criteria_results>)
+report\_url: str
+The URL to the rendered evaluation run report on the UI dashboard.
+formaturi
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) report_url>)
+result\_counts: ResultCounts
+Counters summarizing the outcomes of the evaluation run.
+errored: int
+Number of output items that resulted in an error.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) result_counts > (property) errored>)
+failed: int
+Number of output items that failed to pass the evaluation.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) result_counts > (property) failed>)
+passed: int
+Number of output items that passed the evaluation.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) result_counts > (property) passed>)
+total: int
+Total number of executed output items.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) result_counts > (property) total>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) result_counts>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema) > (property) status>)
+[](<#(resource) evals.runs > (model) run_retrieve_response > (schema)>)
+class RunCancelResponse: …
+A schema representing an evaluation run.
+id: str
+Unique identifier for the evaluation run.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) created_at>)
+data\_source: DataSource
+Information about the run’s data source.
+One of the following:
+class CreateEvalJSONLRunDataSource: …
+A JsonlRunDataSource object with that specifies a JSONL file that matches the eval
+source: Source
+Determines what populates the `item` namespace in the data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) source>)
+type: Literal["jsonl"]
+The type of data source. Always `jsonl`.
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_jsonl_run_data_source > (schema)>)
+class CreateEvalCompletionsRunDataSource: …
+A CompletionsRunDataSource object describing a model sampling configuration.
+source: Source
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class SourceFileContent: …
+content: List[SourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 0>)
+class SourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 1>)
+class SourceStoredCompletions: …
+A StoredCompletionsRunDataSource configuration describing a set of filters
+type: Literal["stored\_completions"]
+The type of source. Always `stored\_completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+An optional Unix timestamp to filter items created after this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+An optional Unix timestamp to filter items created before this time.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) created_before>)
+limit: Optional[int]
+An optional maximum number of items to return.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) limit>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+An optional model to filter by (e.g., ‘gpt-4o’).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2 > (property) model>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) source>)
+type: Literal["completions"]
+The type of run data source. Always `completions`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) type>)
+input\_messages: Optional[InputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class InputMessagesTemplate: …
+template: List[InputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class EasyInputMessage: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: Union[str, [ResponseInputMessageContentList](</api/reference/python/resources/responses#(resource) responses > (model) response_input_message_content_list > (schema)>)]
+Text, image, or audio input to the model, used to generate a response.
+Can also contain previous assistant responses.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 0>)
+List[[ResponseInputContent](</api/reference/python/resources/responses#(resource) responses > (model) response_input_content > (schema)>)]
+One of the following:
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class ResponseInputImage: …
+An image input to the model. Learn about [image inputs](https://platform.openai.com/docs/guides/vision).
+detail: Literal["low", "high", "auto", "original"]
+The detail level of the image to be sent to the model. One of `high`, `low`, `auto`, or `original`. Defaults to `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 2>)
+"original"
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail > (member) 3>)
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) detail>)
+type: Literal["input\_image"]
+The type of the input item. Always `input\_image`.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) type>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) file_id>)
+image\_url: Optional[str]
+The URL of the image to be sent to the model. A fully qualified URL or base64 encoded image in a data URL.
+[](<#(resource) responses > (model) response_input_image > (schema) > (property) image_url>)
+[](<#(resource) responses > (model) response_input_image > (schema)>)
+class ResponseInputFile: …
+A file input to the model.
+type: Literal["input\_file"]
+The type of the input item. Always `input\_file`.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) type>)
+detail: Optional[Literal["low", "high"]]
+The detail level of the file to be sent to the model. Use `low` for the default rendering behavior, or `high` to render the file at higher quality. Defaults to `low`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 0>)
+"high"
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail > (member) 1>)
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) detail>)
+file\_data: Optional[str]
+The content of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_data>)
+file\_id: Optional[str]
+The ID of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_id>)
+file\_url: Optional[str]
+The URL of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) file_url>)
+filename: Optional[str]
+The name of the file to be sent to the model.
+[](<#(resource) responses > (model) response_input_file > (schema) > (property) filename>)
+[](<#(resource) responses > (model) response_input_file > (schema)>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content > (variant) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 1>)
+"system"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 2>)
+"developer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role > (member) 3>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) role>)
+phase: Optional[Literal["commentary", "final\_answer"]]
+Labels an `assistant` message as intermediate commentary (`commentary`) or the final answer (`final\_answer`).
+For models like `gpt-5.3-codex` and beyond, when sending follow-up requests, preserve and resend
+phase on all assistant messages — dropping it can degrade performance. Not used for user messages.
+One of the following:
+"commentary"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 0>)
+"final\_answer"
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase > (member) 1>)
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) phase>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) responses > (model) easy_input_message > (schema) > (property) type>)
+[](<#(resource) responses > (model) easy_input_message > (schema)>)
+class InputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: InputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class InputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class InputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 0>)
+class InputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.input\_trajectory”
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) model>)
+sampling\_params: Optional[SamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) reasoning_effort>)
+response\_format: Optional[SamplingParamsResponseFormat]
+An object specifying the format that the model must output.
+Setting to `{ "type": "json\_schema", "json\_schema": {...} }` enables
+Structured Outputs which ensures the model will match your supplied JSON
+schema. Learn more in the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+One of the following:
+class ResponseFormatText: …
+Default response format. Used to generate text responses.
+type: Literal["text"]
+The type of response format being defined. Always `text`.
+[](<#(resource) $shared > (model) response_format_text > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_text > (schema)>)
+class ResponseFormatJSONSchema: …
+JSON Schema response format. Used to generate structured JSON responses.
+Learn more about [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs).
+json\_schema: JSONSchema
+Structured Outputs configuration options, including a JSON Schema.
+name: str
+The name of the response format. Must be a-z, A-Z, 0-9, or contain
+underscores and dashes, with a maximum length of 64.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) name>)
+description: Optional[str]
+A description of what the response format is for, used by the model to
+determine how to respond in the format.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) description>)
+schema: Optional[Dict[str, object]]
+The schema for the response format, described as a JSON Schema object.
+Learn how to build JSON schemas [here](https://json-schema.org/).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) schema>)
+strict: Optional[bool]
+Whether to enable strict schema adherence when generating the output.
+If set to true, the model will always follow the exact schema defined
+in the `schema` field. Only a subset of JSON Schema is supported when
+`strict` is `true`. To learn more, read the [Structured Outputs
+guide](https://platform.openai.com/docs/guides/structured-outputs).
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema > (property) strict>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) json_schema>)
+type: Literal["json\_schema"]
+The type of response format being defined. Always `json\_schema`.
+[](<#(resource) $shared > (model) response_format_json_schema > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_schema > (schema)>)
+class ResponseFormatJSONObject: …
+JSON object response format. An older method of generating JSON responses.
+Using `json\_schema` is recommended for models that support it. Note that the
+model will not generate JSON without a system or user message instructing it
+to do so.
+type: Literal["json\_object"]
+The type of response format being defined. Always `json\_object`.
+[](<#(resource) $shared > (model) response_format_json_object > (schema) > (property) type>)
+[](<#(resource) $shared > (model) response_format_json_object > (schema)>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) response_format>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) temperature>)
+tools: Optional[List[[ChatCompletionFunctionTool](</api/reference/python/resources/chat#(resource) chat.completions > (model) chat_completion_function_tool > (schema)>)]]
+A list of tools the model may call. Currently, only functions are supported as a tool. Use this to provide a list of functions the model may generate JSON inputs for. A max of 128 functions are supported.
+function: [FunctionDefinition](</api/reference/python/resources/$shared#(resource) $shared > (model) function_definition > (schema)>)
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) function>)
+type: Literal["function"]
+The type of the tool. Currently, only `function` is supported.
+[](<#(resource) chat.completions > (model) chat_completion_function_tool > (schema) > (property) type>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema) > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) create_eval_completions_run_data_source > (schema)>)
+class DataSourceResponses: …
+A ResponsesRunDataSource object describing a model sampling configuration.
+source: DataSourceResponsesSource
+Determines what populates the `item` namespace in this run’s data source.
+One of the following:
+class DataSourceResponsesSourceFileContent: …
+content: List[DataSourceResponsesSourceFileContentContent]
+The content of the jsonl file.
+item: Dict[str, object]
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) item>)
+sample: Optional[Dict[str, object]]
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content > (items) > (property) sample>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) content>)
+type: Literal["file\_content"]
+The type of jsonl source. Always `file\_content`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 0>)
+class DataSourceResponsesSourceFileID: …
+id: str
+The identifier of the file.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) id>)
+type: Literal["file\_id"]
+The type of jsonl source. Always `file\_id`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 1>)
+class DataSourceResponsesSourceResponses: …
+A EvalResponsesSource object describing a run data source configuration.
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) type>)
+created\_after: Optional[int]
+Only include items created after this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_after>)
+created\_before: Optional[int]
+Only include items created before this timestamp (inclusive). This is a query parameter used to select responses.
+minimum0
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) created_before>)
+instructions\_search: Optional[str]
+Optional string to search the ‘instructions’ field. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) instructions_search>)
+metadata: Optional[object]
+Metadata filter for the responses. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) metadata>)
+model: Optional[str]
+The name of the model to find responses for. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) model>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) reasoning_effort>)
+temperature: Optional[float]
+Sampling temperature. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) temperature>)
+tools: Optional[List[str]]
+List of tool names. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) tools>)
+top\_p: Optional[float]
+Nucleus sampling parameter. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) top_p>)
+users: Optional[List[str]]
+List of user identifiers. This is a query parameter used to select responses.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2 > (property) users>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) source>)
+type: Literal["responses"]
+The type of run data source. Always `responses`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) type>)
+input\_messages: Optional[DataSourceResponsesInputMessages]
+Used when sampling from a model. Dictates the structure of the messages passed into the model. Can either be a reference to a prebuilt trajectory (ie, `item.input\_trajectory`), or a template with variable references to the `item` namespace.
+One of the following:
+class DataSourceResponsesInputMessagesTemplate: …
+template: List[DataSourceResponsesInputMessagesTemplateTemplate]
+A list of chat messages forming the prompt or context. May include variable references to the `item` namespace, ie {{item.name}}.
+One of the following:
+class DataSourceResponsesInputMessagesTemplateTemplateChatMessage: …
+content: str
+The content of the message.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) content>)
+role: str
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0 > (property) role>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 0>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItem: …
+A message input to the model with a role indicating instruction following
+hierarchy. Instructions given with the `developer` or `system` role take
+precedence over instructions given with the `user` role. Messages with the
+`assistant` role are presumed to have been generated by the model in previous
+interactions.
+content: DataSourceResponsesInputMessagesTemplateTemplateEvalItemContent
+Inputs to the model - can contain template strings. Supports text, output text, input images, and input audio, either as a single item or an array of items.
+One of the following:
+str
+A text input to the model.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 2>)
+class DataSourceResponsesInputMessagesTemplateTemplateEvalItemContentInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3 > (property) detail>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+List[GraderInputItem]
+One of the following:
+str
+A text input to the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 0>)
+class ResponseInputText: …
+A text input to the model.
+text: str
+The text input to the model.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) text>)
+type: Literal["input\_text"]
+The type of the input item. Always `input\_text`.
+[](<#(resource) responses > (model) response_input_text > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_text > (schema)>)
+class GraderInputItemOutputText: …
+A text output from the model.
+text: str
+The text output from the model.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) text>)
+type: Literal["output\_text"]
+The type of the output text. Always `output\_text`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2 > (property) type>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 2>)
+class GraderInputItemInputImage: …
+An image input block used within EvalItem content arrays.
+image\_url: str
+The URL of the image input.
+formaturi
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) image_url>)
+type: Literal["input\_image"]
+The type of the image input. Always `input\_image`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) type>)
+detail: Optional[str]
+The detail level of the image to be sent to the model. One of `high`, `low`, or `auto`. Defaults to `auto`.
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3 > (property) detail>)
+[](<#(resource) graders.grader_models > (model) grader_inputs > (schema) > (items) > (variant) 3>)
+class ResponseInputAudio: …
+An audio input to the model.
+input\_audio: InputAudio
+data: str
+Base64-encoded audio data.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) data>)
+format: Literal["mp3", "wav"]
+The format of the audio data. Currently supported formats are `mp3` and
+`wav`.
+One of the following:
+"mp3"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 0>)
+"wav"
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format > (member) 1>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio > (property) format>)
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) input_audio>)
+type: Literal["input\_audio"]
+The type of the input item. Always `input\_audio`.
+[](<#(resource) responses > (model) response_input_audio > (schema) > (property) type>)
+[](<#(resource) responses > (model) response_input_audio > (schema)>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content > (variant) 5>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) content>)
+role: Literal["user", "assistant", "system", "developer"]
+The role of the message input. One of `user`, `assistant`, `system`, or
+`developer`.
+One of the following:
+"user"
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 0>)
+"assistant"
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 1>)
+"system"
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 2>)
+"developer"
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role > (member) 3>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) role>)
+type: Optional[Literal["message"]]
+The type of the message input. Always `message`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template > (items) > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) template>)
+type: Literal["template"]
+The type of input messages. Always `template`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 0>)
+class DataSourceResponsesInputMessagesItemReference: …
+item\_reference: str
+A reference to a variable in the `item` namespace. Ie, “item.name”
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) item_reference>)
+type: Literal["item\_reference"]
+The type of input messages. Always `item\_reference`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1 > (property) type>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages > (variant) 1>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) input_messages>)
+model: Optional[str]
+The name of the model to use for generating completions (e.g. “o3-mini”).
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) model>)
+sampling\_params: Optional[DataSourceResponsesSamplingParams]
+max\_completion\_tokens: Optional[int]
+The maximum number of tokens in the generated output.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) max_completion_tokens>)
+reasoning\_effort: Optional[ReasoningEffort]
+Constrains effort on reasoning for
+[reasoning models](https://platform.openai.com/docs/guides/reasoning).
+Currently supported values are `none`, `minimal`, `low`, `medium`, `high`, and `xhigh`. Reducing
+reasoning effort can result in faster responses and fewer tokens used
+on reasoning in a response.
+* `gpt-5.1` defaults to `none`, which does not perform reasoning. The supported reasoning values for `gpt-5.1` are `none`, `low`, `medium`, and `high`. Tool calls are supported for all reasoning values in gpt-5.1.
+* All models before `gpt-5.1` default to `medium` reasoning effort, and do not support `none`.
+* The `gpt-5-pro` model defaults to (and only supports) `high` reasoning effort.
+* `xhigh` is supported for all models after `gpt-5.1-codex-max`.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) reasoning_effort>)
+seed: Optional[int]
+A seed value to initialize the randomness, during sampling.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) seed>)
+temperature: Optional[float]
+A higher temperature increases randomness in the outputs.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) temperature>)
+text: Optional[DataSourceResponsesSamplingParamsText]
+Configuration options for a text response from the model. Can be plain
+text or structured JSON data. Learn more:
+* [Text inputs and outputs](https://platform.openai.com/docs/guides/text)
+* [Structured Outputs](https://platform.openai.com/docs/guides/structured-outputs)
+format: Optional[ResponseFormatTextConfig]
+An object specifying the format that the model must output.
+Configuring `{ "type": "json\_schema" }` enables Structured Outputs,
+which ensures the model will match your supplied JSON schema. Learn more in the
+[Structured Outputs guide](https://platform.openai.com/docs/guides/structured-outputs).
+The default format is `{ "type": "text" }` with no additional options.
+**Not recommended for gpt-4o and newer models:**
+Setting to `{ "type": "json\_object" }` enables the older JSON mode, which
+ensures the message the model generates is valid JSON. Using `json\_schema`
+is preferred for models that support it.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text > (property) format>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) text>)
+tools: Optional[List[[Tool](</api/reference/python/resources/responses#(resource) responses > (model) tool > (schema)>)]]
+An array of tools the model may call while generating a response. You
+can specify which tool to use by setting the `tool\_choice` parameter.
+The two categories of tools you can provide the model are:
+* **Built-in tools**: Tools that are provided by OpenAI that extend the
+model’s capabilities, like [web search](https://platform.openai.com/docs/guides/tools-web-search)
+or [file search](https://platform.openai.com/docs/guides/tools-file-search). Learn more about
+[built-in tools](https://platform.openai.com/docs/guides/tools).
+* **Function calls (custom tools)**: Functions that are defined by you,
+enabling the model to call your own code. Learn more about
+[function calling](https://platform.openai.com/docs/guides/function-calling).
+One of the following:
+class FunctionTool: …
+Defines a function in your own code the model can choose to call. Learn more about [function calling](https://platform.openai.com/docs/guides/function-calling).
+name: str
+The name of the function to call.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) name>)
+parameters: Optional[Dict[str, object]]
+A JSON schema object describing the parameters of the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) parameters>)
+strict: Optional[bool]
+Whether to enforce strict parameter validation. Default `true`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) strict>)
+type: Literal["function"]
+The type of the function tool. Always `function`.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function is deferred and loaded via tool search.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+A description of the function. Used by the model to determine whether or not to call the function.
+[](<#(resource) responses > (model) function_tool > (schema) > (property) description>)
+[](<#(resource) responses > (model) function_tool > (schema)>)
+class FileSearchTool: …
+A tool that searches for relevant content from uploaded files. Learn more about the [file search tool](https://platform.openai.com/docs/guides/tools-file-search).
+type: Literal["file\_search"]
+The type of the file search tool. Always `file\_search`.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) type>)
+vector\_store\_ids: List[str]
+The IDs of the vector stores to search.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) vector_store_ids>)
+filters: Optional[Filters]
+A filter to apply.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+class CompoundFilter: …
+Combine multiple filters using `and` or `or`.
+filters: List[Filter]
+Array of filters to combine. Items can be `ComparisonFilter` or `CompoundFilter`.
+One of the following:
+class ComparisonFilter: …
+A filter used to compare a specified attribute key to a given value using a defined comparison operation.
+key: str
+The key to compare against the value.
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) key>)
+type: Literal["eq", "ne", "gt", 5 more]
+Specifies the comparison operator: `eq`, `ne`, `gt`, `gte`, `lt`, `lte`, `in`, `nin`.
+* `eq`: equals
+* `ne`: not equal
+* `gt`: greater than
+* `gte`: greater than or equal
+* `lt`: less than
+* `lte`: less than or equal
+* `in`: in
+* `nin`: not in
+One of the following:
+"eq"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 0>)
+"ne"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 1>)
+"gt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 2>)
+"gte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 3>)
+"lt"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 4>)
+"lte"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 5>)
+"in"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 6>)
+"nin"
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type > (member) 7>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) type>)
+value: Union[str, float, bool, List[Union[str, float]]]
+The value to compare against the attribute key; supports string, number, or boolean types.
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 1>)
+bool
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 2>)
+List[Union[str, float]]
+One of the following:
+str
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 0>)
+float
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3 > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value > (variant) 3>)
+[](<#(resource) $shared > (model) comparison_filter > (schema) > (property) value>)
+[](<#(resource) $shared > (model) comparison_filter > (schema)>)
+object
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters > (items) > (variant) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) filters>)
+type: Literal["and", "or"]
+Type of operation: `and` or `or`.
+One of the following:
+"and"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 0>)
+"or"
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type > (member) 1>)
+[](<#(resource) $shared > (model) compound_filter > (schema) > (property) type>)
+[](<#(resource) $shared > (model) compound_filter > (schema)>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) filters>)
+max\_num\_results: Optional[int]
+The maximum number of results to return. This number should be between 1 and 50 inclusive.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) max_num_results>)
+ranking\_options: Optional[RankingOptions]
+Ranking options for search.
+hybrid\_search: Optional[RankingOptionsHybridSearch]
+Weights that control how reciprocal rank fusion balances semantic embedding matches versus sparse keyword matches when hybrid search is enabled.
+embedding\_weight: float
+The weight of the embedding in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) embedding_weight>)
+text\_weight: float
+The weight of the text in the reciprocal ranking fusion.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search > (property) text_weight>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) hybrid_search>)
+ranker: Optional[Literal["auto", "default-2024-11-15"]]
+The ranker to use for the file search.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 0>)
+"default-2024-11-15"
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker > (member) 1>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) ranker>)
+score\_threshold: Optional[float]
+The score threshold for the file search, a number between 0 and 1. Numbers closer to 1 will attempt to return only the most relevant results, but may return fewer results.
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options > (property) score_threshold>)
+[](<#(resource) responses > (model) file_search_tool > (schema) > (property) ranking_options>)
+[](<#(resource) responses > (model) file_search_tool > (schema)>)
+class ComputerTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+type: Literal["computer"]
+The type of the computer tool. Always `computer`.
+[](<#(resource) responses > (model) computer_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_tool > (schema)>)
+class ComputerUsePreviewTool: …
+A tool that controls a virtual computer. Learn more about the [computer tool](https://platform.openai.com/docs/guides/tools-computer-use).
+display\_height: int
+The height of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_height>)
+display\_width: int
+The width of the computer display.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) display_width>)
+environment: Literal["windows", "mac", "linux", 2 more]
+The type of computer environment to control.
+One of the following:
+"windows"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 0>)
+"mac"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 1>)
+"linux"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 2>)
+"ubuntu"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 3>)
+"browser"
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment > (member) 4>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) environment>)
+type: Literal["computer\_use\_preview"]
+The type of the computer use tool. Always `computer\_use\_preview`.
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) computer_use_preview_tool > (schema)>)
+class WebSearchTool: …
+Search the Internet for sources related to the prompt. Learn more about the
+[web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search", "web\_search\_2025\_08\_26"]
+The type of the web search tool. One of `web\_search` or `web\_search\_2025\_08\_26`.
+One of the following:
+"web\_search"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_2025\_08\_26"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) type>)
+filters: Optional[Filters]
+Filters for the search.
+allowed\_domains: Optional[List[str]]
+Allowed domains for the search. If not provided, all domains are allowed.
+Subdomains of the provided domains are allowed as well.
+Example: `["pubmed.ncbi.nlm.nih.gov"]`
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters > (property) allowed_domains>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) filters>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The approximate location of the user.
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) timezone>)
+type: Optional[Literal["approximate"]]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location > (property) type>)
+[](<#(resource) responses > (model) web_search_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_tool > (schema)>)
+class Mcp: …
+Give the model access to additional tools via remote Model Context Protocol
+(MCP) servers. [Learn more about MCP](https://platform.openai.com/docs/guides/tools-remote-mcp).
+server\_label: str
+A label for this MCP server, used to identify it in tool calls.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_label>)
+type: Literal["mcp"]
+The type of the MCP tool. Always `mcp`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) type>)
+allowed\_tools: Optional[McpAllowedTools]
+List of allowed tool names or a filter object.
+One of the following:
+List[str]
+A string array of allowed tool names
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 0>)
+class McpAllowedToolsMcpToolFilter: …
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1 > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) allowed_tools>)
+authorization: Optional[str]
+An OAuth access token that can be used with a remote MCP server, either
+with a custom MCP server URL or a service connector. Your application
+must handle the OAuth authorization flow and provide the token here.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) authorization>)
+connector\_id: Optional[Literal["connector\_dropbox", "connector\_gmail", "connector\_googlecalendar", 5 more]]
+Identifier for service connectors, like those available in ChatGPT. One of
+`server\_url` or `connector\_id` must be provided. Learn more about service
+connectors [here](https://platform.openai.com/docs/guides/tools-remote-mcp#connectors).
+Currently supported `connector\_id` values are:
+* Dropbox: `connector\_dropbox`
+* Gmail: `connector\_gmail`
+* Google Calendar: `connector\_googlecalendar`
+* Google Drive: `connector\_googledrive`
+* Microsoft Teams: `connector\_microsoftteams`
+* Outlook Calendar: `connector\_outlookcalendar`
+* Outlook Email: `connector\_outlookemail`
+* SharePoint: `connector\_sharepoint`
+One of the following:
+"connector\_dropbox"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 0>)
+"connector\_gmail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 1>)
+"connector\_googlecalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 2>)
+"connector\_googledrive"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 3>)
+"connector\_microsoftteams"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 4>)
+"connector\_outlookcalendar"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 5>)
+"connector\_outlookemail"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 6>)
+"connector\_sharepoint"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id > (member) 7>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) connector_id>)
+defer\_loading: Optional[bool]
+Whether this MCP tool is deferred and discovered via tool search.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) defer_loading>)
+headers: Optional[Dict[str, str]]
+Optional HTTP headers to send to the MCP server. Use for authentication
+or other purposes.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) headers>)
+require\_approval: Optional[McpRequireApproval]
+Specify which of the MCP server’s tools require approval.
+One of the following:
+class McpRequireApprovalMcpToolApprovalFilter: …
+Specify which of the MCP server’s tools require approval. Can be
+`always`, `never`, or a filter object associated with tools
+that require approval.
+always: Optional[McpRequireApprovalMcpToolApprovalFilterAlways]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) always>)
+never: Optional[McpRequireApprovalMcpToolApprovalFilterNever]
+A filter object to specify which tools are allowed.
+read\_only: Optional[bool]
+Indicates whether or not a tool modifies data or is read-only. If an
+MCP server is [annotated with `readOnlyHint`](https://modelcontextprotocol.io/specification/2025-06-18/schema#toolannotations-readonlyhint),
+it will match this filter.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) read_only>)
+tool\_names: Optional[List[str]]
+List of allowed tool names.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never > (property) tool_names>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0 > (property) never>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 0>)
+Literal["always", "never"]
+Specify a single approval policy for all tools. One of `always` or
+`never`. When set to `always`, all tools will require approval. When
+set to `never`, all tools will not require approval.
+One of the following:
+"always"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 0>)
+"never"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1 > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) require_approval>)
+server\_description: Optional[str]
+Optional description of the MCP server, used to provide more context.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_description>)
+server\_url: Optional[str]
+The URL for the MCP server. One of `server\_url` or `connector\_id` must be
+provided.
+formaturi
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5 > (property) server_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 5>)
+class CodeInterpreter: …
+A tool that runs Python code to help generate a response to a prompt.
+container: CodeInterpreterContainer
+The code interpreter container. Can be a container ID or an object that
+specifies uploaded file IDs to make available to your code, along with an
+optional `memory\_limit` setting.
+One of the following:
+str
+The container ID.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 0>)
+class CodeInterpreterContainerCodeInterpreterToolAuto: …
+Configuration for a code interpreter container. Optionally specify the IDs of the files to run the code on.
+type: Literal["auto"]
+Always `auto`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the code interpreter container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) memory_limit>)
+network\_policy: Optional[CodeInterpreterContainerCodeInterpreterToolAutoNetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1 > (property) network_policy>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) container>)
+type: Literal["code\_interpreter"]
+The type of the code interpreter tool. Always `code\_interpreter`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 6>)
+class ImageGeneration: …
+A tool that generates images using the GPT image models.
+type: Literal["image\_generation"]
+The type of the image generation tool. Always `image\_generation`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) type>)
+action: Optional[Literal["generate", "edit", "auto"]]
+Whether to generate a new image or edit an existing image. Default: `auto`.
+One of the following:
+"generate"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 0>)
+"edit"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) action>)
+background: Optional[Literal["transparent", "opaque", "auto"]]
+Background type for the generated image. One of `transparent`,
+`opaque`, or `auto`. Default: `auto`.
+One of the following:
+"transparent"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 0>)
+"opaque"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 1>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) background>)
+input\_fidelity: Optional[Literal["high", "low"]]
+Control how much effort the model will exert to match the style and features, especially facial features, of input images. This parameter is only supported for `gpt-image-1` and `gpt-image-1.5` and later models, unsupported for `gpt-image-1-mini`. Supports `high` and `low`. Defaults to `low`.
+One of the following:
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_fidelity>)
+input\_image\_mask: Optional[ImageGenerationInputImageMask]
+Optional mask for inpainting. Contains `image\_url`
+(string, optional) and `file\_id` (string, optional).
+file\_id: Optional[str]
+File ID for the mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) file_id>)
+image\_url: Optional[str]
+Base64-encoded mask image.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask > (property) image_url>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) input_image_mask>)
+model: Optional[Union[str, Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"], null]]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+str
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 0>)
+Literal["gpt-image-1", "gpt-image-1-mini", "gpt-image-1.5"]
+The image generation model to use. Default: `gpt-image-1`.
+One of the following:
+"gpt-image-1"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 0>)
+"gpt-image-1-mini"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 1>)
+"gpt-image-1.5"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1 > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model > (variant) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) model>)
+moderation: Optional[Literal["auto", "low"]]
+Moderation level for the generated image. Default: `auto`.
+One of the following:
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 0>)
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation > (member) 1>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) moderation>)
+output\_compression: Optional[int]
+Compression level for the output image. Default: 100.
+minimum0
+maximum100
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_compression>)
+output\_format: Optional[Literal["png", "webp", "jpeg"]]
+The output format of the generated image. One of `png`, `webp`, or
+`jpeg`. Default: `png`.
+One of the following:
+"png"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 0>)
+"webp"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 1>)
+"jpeg"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format > (member) 2>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) output_format>)
+partial\_images: Optional[int]
+Number of partial images to generate in streaming mode, from 0 (default value) to 3.
+minimum0
+maximum3
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) partial_images>)
+quality: Optional[Literal["low", "medium", "high", "auto"]]
+The quality of the generated image. One of `low`, `medium`, `high`,
+or `auto`. Default: `auto`.
+One of the following:
+"low"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 1>)
+"high"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) quality>)
+size: Optional[Literal["1024x1024", "1024x1536", "1536x1024", "auto"]]
+The size of the generated image. One of `1024x1024`, `1024x1536`,
+`1536x1024`, or `auto`. Default: `auto`.
+One of the following:
+"1024x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 0>)
+"1024x1536"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 1>)
+"1536x1024"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 2>)
+"auto"
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size > (member) 3>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7 > (property) size>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 7>)
+class LocalShell: …
+A tool that allows the model to execute shell commands in a local environment.
+type: Literal["local\_shell"]
+The type of the local shell tool. Always `local\_shell`.
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8 > (property) type>)
+[](<#(resource) responses > (model) tool > (schema) > (variant) 8>)
+class FunctionShellTool: …
+A tool that allows the model to execute shell commands.
+type: Literal["shell"]
+The type of the shell tool. Always `shell`.
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) type>)
+environment: Optional[Environment]
+One of the following:
+class ContainerAuto: …
+type: Literal["container\_auto"]
+Automatically creates a container for this request
+[](<#(resource) responses > (model) container_auto > (schema) > (property) type>)
+file\_ids: Optional[List[str]]
+An optional list of uploaded files to make available to your code.
+[](<#(resource) responses > (model) container_auto > (schema) > (property) file_ids>)
+memory\_limit: Optional[Literal["1g", "4g", "16g", "64g"]]
+The memory limit for the container.
+One of the following:
+"1g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 0>)
+"4g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 1>)
+"16g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 2>)
+"64g"
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit > (member) 3>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) memory_limit>)
+network\_policy: Optional[NetworkPolicy]
+Network access policy for the container.
+One of the following:
+class ContainerNetworkPolicyDisabled: …
+type: Literal["disabled"]
+Disable outbound network access. Always `disabled`.
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_network_policy_disabled > (schema)>)
+class ContainerNetworkPolicyAllowlist: …
+allowed\_domains: List[str]
+A list of allowed domains when type is `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) allowed_domains>)
+type: Literal["allowlist"]
+Allow outbound network access only to specified domains. Always `allowlist`.
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) type>)
+domain\_secrets: Optional[List[[ContainerNetworkPolicyDomainSecret](</api/reference/python/resources/responses#(resource) responses > (model) container_network_policy_domain_secret > (schema)>)]]
+Optional domain-scoped secrets for allowlisted domains.
+domain: str
+The domain associated with the secret.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) domain>)
+name: str
+The name of the secret to inject for the domain.
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) name>)
+value: str
+The secret value to inject for the domain.
+maxLength10485760
+minLength1
+[](<#(resource) responses > (model) container_network_policy_domain_secret > (schema) > (property) value>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema) > (property) domain_secrets>)
+[](<#(resource) responses > (model) container_network_policy_allowlist > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) network_policy>)
+skills: Optional[List[Skill]]
+An optional list of skills referenced by id or inline data.
+One of the following:
+class SkillReference: …
+skill\_id: str
+The ID of the referenced skill.
+maxLength64
+minLength1
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) skill_id>)
+type: Literal["skill\_reference"]
+References a skill created with the /v1/skills endpoint.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) type>)
+version: Optional[str]
+Optional skill version. Use a positive integer or ‘latest’. Omit for default.
+[](<#(resource) responses > (model) skill_reference > (schema) > (property) version>)
+[](<#(resource) responses > (model) skill_reference > (schema)>)
+class InlineSkill: …
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) name>)
+source: [InlineSkillSource](</api/reference/python/resources/responses#(resource) responses > (model) inline_skill_source > (schema)>)
+Inline skill payload
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) source>)
+type: Literal["inline"]
+Defines an inline skill for this request.
+[](<#(resource) responses > (model) inline_skill > (schema) > (property) type>)
+[](<#(resource) responses > (model) inline_skill > (schema)>)
+[](<#(resource) responses > (model) container_auto > (schema) > (property) skills>)
+[](<#(resource) responses > (model) container_auto > (schema)>)
+class LocalEnvironment: …
+type: Literal["local"]
+Use a local computer environment.
+[](<#(resource) responses > (model) local_environment > (schema) > (property) type>)
+skills: Optional[List[[LocalSkill](</api/reference/python/resources/responses#(resource) responses > (model) local_skill > (schema)>)]]
+An optional list of skills.
+description: str
+The description of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) description>)
+name: str
+The name of the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) name>)
+path: str
+The path to the directory containing the skill.
+[](<#(resource) responses > (model) local_skill > (schema) > (property) path>)
+[](<#(resource) responses > (model) local_environment > (schema) > (property) skills>)
+[](<#(resource) responses > (model) local_environment > (schema)>)
+class ContainerReference: …
+container\_id: str
+The ID of the referenced container.
+[](<#(resource) responses > (model) container_reference > (schema) > (property) container_id>)
+type: Literal["container\_reference"]
+References a container created with the /v1/containers endpoint
+[](<#(resource) responses > (model) container_reference > (schema) > (property) type>)
+[](<#(resource) responses > (model) container_reference > (schema)>)
+[](<#(resource) responses > (model) function_shell_tool > (schema) > (property) environment>)
+[](<#(resource) responses > (model) function_shell_tool > (schema)>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+class NamespaceTool: …
+Groups function/custom tools under a shared namespace.
+description: str
+A description of the namespace shown to the model.
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) description>)
+name: str
+The namespace name used in tool calls (for example, `crm`).
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) name>)
+tools: List[Tool]
+The function/custom tools available inside this namespace.
+One of the following:
+class ToolFunction: …
+name: str
+maxLength128
+minLength1
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) name>)
+type: Literal["function"]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) type>)
+defer\_loading: Optional[bool]
+Whether this function should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) defer_loading>)
+description: Optional[str]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) description>)
+parameters: Optional[object]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) parameters>)
+strict: Optional[bool]
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0 > (property) strict>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools > (items) > (variant) 0>)
+class CustomTool: …
+A custom tool that processes input using a specified format. Learn more about [custom tools](https://platform.openai.com/docs/guides/function-calling#custom-tools)
+name: str
+The name of the custom tool, used to identify it in tool calls.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) name>)
+type: Literal["custom"]
+The type of the custom tool. Always `custom`.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) type>)
+defer\_loading: Optional[bool]
+Whether this tool should be deferred and discovered via tool search.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) defer_loading>)
+description: Optional[str]
+Optional description of the custom tool, used to provide more context.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) description>)
+format: Optional[CustomToolInputFormat]
+The input format for the custom tool. Default is unconstrained text.
+[](<#(resource) responses > (model) custom_tool > (schema) > (property) format>)
+[](<#(resource) responses > (model) custom_tool > (schema)>)
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) tools>)
+type: Literal["namespace"]
+The type of the tool. Always `namespace`.
+[](<#(resource) responses > (model) namespace_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) namespace_tool > (schema)>)
+class ToolSearchTool: …
+Hosted or BYOT tool search configuration for deferred tools.
+type: Literal["tool\_search"]
+The type of the tool. Always `tool\_search`.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) type>)
+description: Optional[str]
+Description shown to the model for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) description>)
+execution: Optional[Literal["server", "client"]]
+Whether tool search is executed by the server or by the client.
+One of the following:
+"server"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 0>)
+"client"
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution > (member) 1>)
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) execution>)
+parameters: Optional[object]
+Parameter schema for a client-executed tool search tool.
+[](<#(resource) responses > (model) tool_search_tool > (schema) > (property) parameters>)
+[](<#(resource) responses > (model) tool_search_tool > (schema)>)
+class WebSearchPreviewTool: …
+This tool searches the web for relevant results to use in a response. Learn more about the [web search tool](https://platform.openai.com/docs/guides/tools-web-search).
+type: Literal["web\_search\_preview", "web\_search\_preview\_2025\_03\_11"]
+The type of the web search tool. One of `web\_search\_preview` or `web\_search\_preview\_2025\_03\_11`.
+One of the following:
+"web\_search\_preview"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 0>)
+"web\_search\_preview\_2025\_03\_11"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) type>)
+search\_content\_types: Optional[List[Literal["text", "image"]]]
+One of the following:
+"text"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 0>)
+"image"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types > (items) > (member) 1>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_content_types>)
+search\_context\_size: Optional[Literal["low", "medium", "high"]]
+High level guidance for the amount of context window space to use for the search. One of `low`, `medium`, or `high`. `medium` is the default.
+One of the following:
+"low"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 0>)
+"medium"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 1>)
+"high"
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size > (member) 2>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) search_context_size>)
+user\_location: Optional[UserLocation]
+The user’s location.
+type: Literal["approximate"]
+The type of location approximation. Always `approximate`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) type>)
+city: Optional[str]
+Free text input for the city of the user, e.g. `San Francisco`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) city>)
+country: Optional[str]
+The two-letter [ISO country code](https://en.wikipedia.org/wiki/ISO_3166-1) of the user, e.g. `US`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) country>)
+region: Optional[str]
+Free text input for the region of the user, e.g. `California`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) region>)
+timezone: Optional[str]
+The [IANA timezone](https://timeapi.io/documentation/iana-timezones) of the user, e.g. `America/Los\_Angeles`.
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location > (property) timezone>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema) > (property) user_location>)
+[](<#(resource) responses > (model) web_search_preview_tool > (schema)>)
+class ApplyPatchTool: …
+Allows the assistant to create, delete, or update files using unified diffs.
+type: Literal["apply\_patch"]
+The type of the tool. Always `apply\_patch`.
+[](<#(resource) responses > (model) apply_patch_tool > (schema) > (property) type>)
+[](<#(resource) responses > (model) apply_patch_tool > (schema)>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) tools>)
+top\_p: Optional[float]
+An alternative to temperature for nucleus sampling; 1.0 includes all tokens.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params > (property) top_p>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2 > (property) sampling_params>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source > (variant) 2>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) data_source>)
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) error>)
+eval\_id: str
+The identifier of the associated evaluation.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) eval_id>)
+metadata: Optional[Metadata]
+Set of 16 key-value pairs that can be attached to an object. This can be
+useful for storing additional information about the object in a structured
+format, and querying for objects via API or the dashboard.
+Keys are strings with a maximum length of 64 characters. Values are strings
+with a maximum length of 512 characters.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) metadata>)
+model: str
+The model that is evaluated, if applicable.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) model>)
+name: str
+The name of the evaluation run.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) name>)
+object: Literal["eval.run"]
+The type of the object. Always “eval.run”.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) object>)
+per\_model\_usage: List[PerModelUsage]
+Usage statistics for each model during the evaluation run.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) completion_tokens>)
+invocation\_count: int
+The number of invocations.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) invocation_count>)
+model\_name: str
+The name of the model.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) model_name>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage > (items) > (property) total_tokens>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_model_usage>)
+per\_testing\_criteria\_results: List[PerTestingCriteriaResult]
+Results per testing criteria applied during the evaluation run.
+failed: int
+Number of tests failed for this criteria.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_testing_criteria_results > (items) > (property) failed>)
+passed: int
+Number of tests passed for this criteria.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_testing_criteria_results > (items) > (property) passed>)
+testing\_criteria: str
+A description of the testing criteria.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_testing_criteria_results > (items) > (property) testing_criteria>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) per_testing_criteria_results>)
+report\_url: str
+The URL to the rendered evaluation run report on the UI dashboard.
+formaturi
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) report_url>)
+result\_counts: ResultCounts
+Counters summarizing the outcomes of the evaluation run.
+errored: int
+Number of output items that resulted in an error.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) result_counts > (property) errored>)
+failed: int
+Number of output items that failed to pass the evaluation.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) result_counts > (property) failed>)
+passed: int
+Number of output items that passed the evaluation.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) result_counts > (property) passed>)
+total: int
+Total number of executed output items.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) result_counts > (property) total>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) result_counts>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema) > (property) status>)
+[](<#(resource) evals.runs > (model) run_cancel_response > (schema)>)
+class RunDeleteResponse: …
+deleted: Optional[bool]
+[](<#(resource) evals.runs > (model) run_delete_response > (schema) > (property) deleted>)
+object: Optional[str]
+[](<#(resource) evals.runs > (model) run_delete_response > (schema) > (property) object>)
+run\_id: Optional[str]
+[](<#(resource) evals.runs > (model) run_delete_response > (schema) > (property) run_id>)
+[](<#(resource) evals.runs > (model) run_delete_response > (schema)>)
+#### EvalsRunsOutput Items
+Manage and run evals in the OpenAI platform.
+##### [Get eval run output items](/api/reference/python/resources/evals/subresources/runs/subresources/output_items/methods/list)
+evals.runs.output\_items.list(strrun\_id, OutputItemListParams\*\*kwargs) -\> SyncCursorPage[[OutputItemListResponse](</api/reference/python/resources/evals#(resource) evals.runs.output_items > (model) output_item_list_response > (schema)>)]
+GET/evals/{eval\_id}/runs/{run\_id}/output\_items
+##### [Get an output item of an eval run](/api/reference/python/resources/evals/subresources/runs/subresources/output_items/methods/retrieve)
+evals.runs.output\_items.retrieve(stroutput\_item\_id, OutputItemRetrieveParams\*\*kwargs) -\> [OutputItemRetrieveResponse](</api/reference/python/resources/evals#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema)>)
+GET/evals/{eval\_id}/runs/{run\_id}/output\_items/{output\_item\_id}
+##### ModelsExpand Collapse
+class OutputItemListResponse: …
+A schema representing an evaluation run output item.
+id: str
+Unique identifier for the evaluation run output item.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) created_at>)
+datasource\_item: Dict[str, object]
+Details of the input data source item.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) datasource_item>)
+datasource\_item\_id: int
+The identifier for the data source item.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) datasource_item_id>)
+eval\_id: str
+The identifier of the evaluation group.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) eval_id>)
+object: Literal["eval.run.output\_item"]
+The type of the object. Always “eval.run.output\_item”.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) object>)
+results: List[Result]
+A list of grader results for this output item.
+name: str
+The name of the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results > (items) > (property) name>)
+passed: bool
+Whether the grader considered the output a pass.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results > (items) > (property) passed>)
+score: float
+The numeric score produced by the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results > (items) > (property) score>)
+sample: Optional[Dict[str, object]]
+Optional sample or intermediate data produced by the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results > (items) > (property) sample>)
+type: Optional[str]
+The grader type (for example, “string-check-grader”).
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results > (items) > (property) type>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) results>)
+run\_id: str
+The identifier of the evaluation run associated with this output item.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) run_id>)
+sample: Sample
+A sample containing the input and output of the evaluation run.
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) error>)
+finish\_reason: str
+The reason why the sample generation was finished.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) finish_reason>)
+input: List[SampleInput]
+An array of input messages.
+content: str
+The content of the message.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) input > (items) > (property) content>)
+role: str
+The role of the message sender (e.g., system, user, developer).
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) input > (items) > (property) role>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) input>)
+max\_completion\_tokens: int
+The maximum number of tokens allowed for completion.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) max_completion_tokens>)
+model: str
+The model used for generating the sample.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) model>)
+output: List[SampleOutput]
+An array of output messages.
+content: Optional[str]
+The content of the message.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) output > (items) > (property) content>)
+role: Optional[str]
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) output > (items) > (property) role>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) output>)
+seed: int
+The seed used for generating the sample.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) seed>)
+temperature: float
+The sampling temperature used.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) temperature>)
+top\_p: float
+The top\_p value used for sampling.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) top_p>)
+usage: SampleUsage
+Token usage details for the sample.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) usage > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) usage > (property) completion_tokens>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) usage > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) usage > (property) total_tokens>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample > (property) usage>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) sample>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema) > (property) status>)
+[](<#(resource) evals.runs.output_items > (model) output_item_list_response > (schema)>)
+class OutputItemRetrieveResponse: …
+A schema representing an evaluation run output item.
+id: str
+Unique identifier for the evaluation run output item.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) id>)
+created\_at: int
+Unix timestamp (in seconds) when the evaluation run was created.
+formatunixtime
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) created_at>)
+datasource\_item: Dict[str, object]
+Details of the input data source item.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) datasource_item>)
+datasource\_item\_id: int
+The identifier for the data source item.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) datasource_item_id>)
+eval\_id: str
+The identifier of the evaluation group.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) eval_id>)
+object: Literal["eval.run.output\_item"]
+The type of the object. Always “eval.run.output\_item”.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) object>)
+results: List[Result]
+A list of grader results for this output item.
+name: str
+The name of the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results > (items) > (property) name>)
+passed: bool
+Whether the grader considered the output a pass.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results > (items) > (property) passed>)
+score: float
+The numeric score produced by the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results > (items) > (property) score>)
+sample: Optional[Dict[str, object]]
+Optional sample or intermediate data produced by the grader.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results > (items) > (property) sample>)
+type: Optional[str]
+The grader type (for example, “string-check-grader”).
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results > (items) > (property) type>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) results>)
+run\_id: str
+The identifier of the evaluation run associated with this output item.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) run_id>)
+sample: Sample
+A sample containing the input and output of the evaluation run.
+error: [EvalAPIError](</api/reference/python/resources/evals#(resource) evals.runs > (model) eval_api_error > (schema)>)
+An object representing an error response from the Eval API.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) error>)
+finish\_reason: str
+The reason why the sample generation was finished.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) finish_reason>)
+input: List[SampleInput]
+An array of input messages.
+content: str
+The content of the message.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) input > (items) > (property) content>)
+role: str
+The role of the message sender (e.g., system, user, developer).
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) input > (items) > (property) role>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) input>)
+max\_completion\_tokens: int
+The maximum number of tokens allowed for completion.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) max_completion_tokens>)
+model: str
+The model used for generating the sample.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) model>)
+output: List[SampleOutput]
+An array of output messages.
+content: Optional[str]
+The content of the message.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) output > (items) > (property) content>)
+role: Optional[str]
+The role of the message (e.g. “system”, “assistant”, “user”).
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) output > (items) > (property) role>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) output>)
+seed: int
+The seed used for generating the sample.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) seed>)
+temperature: float
+The sampling temperature used.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) temperature>)
+top\_p: float
+The top\_p value used for sampling.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) top_p>)
+usage: SampleUsage
+Token usage details for the sample.
+cached\_tokens: int
+The number of tokens retrieved from cache.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) usage > (property) cached_tokens>)
+completion\_tokens: int
+The number of completion tokens generated.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) usage > (property) completion_tokens>)
+prompt\_tokens: int
+The number of prompt tokens used.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) usage > (property) prompt_tokens>)
+total\_tokens: int
+The total number of tokens used.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) usage > (property) total_tokens>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample > (property) usage>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) sample>)
+status: str
+The status of the evaluation run.
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema) > (property) status>)
+[](<#(resource) evals.runs.output_items > (model) output_item_retrieve_response > (schema)>)

@@ -1,0 +1,34 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "unraid-mcp",
+  "version": "1.4.1",
+  "description": "Query, monitor, and manage Unraid servers via GraphQL API through MCP tools. Supports system info, Docker, VMs, array/parity, notifications, plugins, rclone, and live telemetry.",
+  "author": {
+    "name": "Jacob Magar",
+    "email": "jmagar@users.noreply.github.com"
+  },
+  "repository": "https://github.com/jmagar/unraid-mcp",
+  "homepage": "https://github.com/jmagar/unraid-mcp",
+  "license": "MIT",
+  "keywords": [
+    "unraid",
+    "homelab",
+    "mcp",
+    "graphql",
+    "docker",
+    "nas",
+    "monitoring"
+  ],
+  "hooks": {
+    "SessionStart": [
+      {
+        "hooks": [
+          {
+            "type": "command",
+            "command": "diff -q \"${CLAUDE_PLUGIN_ROOT}/uv.lock\" \"${CLAUDE_PLUGIN_DATA}/uv.lock\" >/dev/null 2>&1 || (cp \"${CLAUDE_PLUGIN_ROOT}/uv.lock\" \"${CLAUDE_PLUGIN_DATA}/uv.lock\" && UV_PROJECT_ENVIRONMENT=\"${CLAUDE_PLUGIN_DATA}/.venv\" uv sync --project \"${CLAUDE_PLUGIN_ROOT}\") || rm -f \"${CLAUDE_PLUGIN_DATA}/uv.lock\""
+          }
+        ]
+      }
+    ]
+  }
+}

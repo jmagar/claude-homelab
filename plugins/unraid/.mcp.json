@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "unraid": {
+      "command": "lab",
+      "args": ["mcp", "--services", "unraid"]
+    }
+  }
+}

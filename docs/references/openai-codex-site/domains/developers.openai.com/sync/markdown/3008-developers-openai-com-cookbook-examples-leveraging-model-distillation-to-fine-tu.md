@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/leveraging\_model\_distillation\_to\_fine-tune\_a\_model [Redirecting from `/cookbook/examples/leveraging\_model\_distillation\_to\_fine-tune\_a\_model.ipynb/` to `/cookbook/examples/leveraging\_model\_distillation\_to\_fine-tune\_a\_model`](/cookbook/examples/leveraging_model_distillation_to_fine-tune_a_model)

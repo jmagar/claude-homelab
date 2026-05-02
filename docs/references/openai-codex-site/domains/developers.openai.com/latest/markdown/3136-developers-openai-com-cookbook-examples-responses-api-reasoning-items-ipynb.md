@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/responses\_api/reasoning\_items [Redirecting from `/cookbook/examples/responses\_api/reasoning\_items.ipynb/` to `/cookbook/examples/responses\_api/reasoning\_items`](/cookbook/examples/responses_api/reasoning_items)

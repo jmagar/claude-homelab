@@ -1,0 +1,438 @@
+Additional Workspace Roots for Session Lifecycle Requests - Agent Client Protocol
+[Protocol
+](/get-started/introduction)[RFDs
+](/rfds/about)[Community
+](/community/communication)[Publications
+](/publications)[Updates
+](/updates)[Brand
+](/brand)
+## > Documentation Index
+> Fetch the complete documentation index at:
+[> https://agentclientprotocol.com/llms.txt
+](https://agentclientprotocol.com/llms.txt)
+> Use this file to discover all available pages before exploring further.
+* Author(s): [egor-baranov](https://github.com/egor-baranov)
+* Champion: [benbrandt](https://github.com/benbrandt)
+##
+[​
+](#elevator-pitch)
+Elevator pitch
+>
+> What are you proposing to change?
+>
+ACP currently standardizes `cwd` on session lifecycle requests, but does not define a standard way to declare additional filesystem roots for a session.
+This RFD proposes an optional field:
+```
+`additionalDirectories?: string[]
+`
+```
+on:
+* `NewSessionRequest`
+* `ResumeSessionRequest`
+* `ForkSessionRequest`
+* `LoadSessionRequest`
+and an optional capability:
+```
+`sessionCapabilities.additionalDirectories?: {}
+`
+```
+`cwd` remains the primary working directory. `additionalDirectories` expands filesystem scope only. It does not replace `cwd`, define directory contents, or introduce new RPC methods.
+##
+[​
+](#status-quo)
+Status quo
+>
+> How do things work today and what problems does this cause? Why would we change things?
+>
+ACP currently allows a client to identify one primary workspace root through `cwd`. That is sufficient for single-root projects, but it does not provide a standard way to expose additional roots in multi-root repositories or environments where project code, shared instructions, skills, or mounted workspaces live at separate absolute paths.
+Without a standardized field, clients and agents must rely on implementation-specific conventions. `\_meta` is not appropriate for interoperable workspace-root semantics. This leaves multi-root behavior fragmented and less predictable across implementations.
+##
+[​
+](#what-we-propose-to-do-about-it)
+What we propose to do about it
+>
+> What are you proposing to improve the situation?
+>
+Add `additionalDirectories?: string[]` to the session lifecycle request schemas listed above and to `session/list`, and define protocol-level validation and semantics for it.
+The proposal is scoped to session lifecycle requests, session discovery requests, and session discovery metadata only:
+* no new RPC methods are added;
+* `cwd` remains unchanged as the primary root; and
+* ACP remains agnostic to directory naming and directory contents.
+Agents advertise support with `sessionCapabilities.additionalDirectories`. Clients MUST gate usage on that capability.
+This proposal also extends `SessionInfo` returned by `session/list` with authoritative `additionalDirectories` state, and allows `session/list` to filter on `cwd` plus `additionalDirectories`, so clients that support session discovery can recover and query the active root set for listed sessions. `session/load` and `session/resume` nevertheless remain explicit-list only: omitting `additionalDirectories` or supplying an empty array means no additional roots are activated for the resulting session, while a non-empty array-valued `additionalDirectories` becomes the complete resulting additional-root list for that request.
+##
+[​
+](#shiny-future)
+Shiny future
+>
+> How will things will play out once this feature exists?
+>
+Clients can declare multi-root workspace scope in a standard way while preserving existing `cwd` behavior.
+Agents can treat a session as an ordered root set starting with `cwd` and followed by any array-valued `additionalDirectories` entries, and apply the same discovery and resource-handling behavior they already apply under `cwd` to the other declared roots.
+Security boundaries remain explicit: declared roots communicate intended scope, while sandboxing, approvals, and OS permissions continue to govern actual access.
+##
+[​
+](#implementation-details-and-plan)
+Implementation details and plan
+>
+> Tell me more about your implementation. What is your detailed implementation plan?
+>
+###
+[​
+](#goals-/-non-goals)
+Goals / Non-goals
+####
+[​
+](#goals)
+Goals
+* Standardize additional workspace roots on session lifecycle entry points.
+* Preserve `cwd` as the primary working directory for the session.
+* Define clear validation and error-handling rules.
+* Enable generic multi-root discovery and resource handling by agents across all declared roots.
+* Expand the filesystem scope without changing the existing RPC method structure.
+####
+[​
+](#non-goals)
+Non-goals
+* Defining any required directory names or layouts, such as `.agents/`, `skills/`, or `.\<agent\>/`.
+* Defining a standard instruction, skill, or configuration file format.
+* Replacing `cwd` with a list-valued field.
+* Changing relative-path semantics.
+* Adding new RPC methods.
+* Defining per-root read/write permissions in the protocol.
+###
+[​
+](#schema-changes)
+Schema changes
+The following optional property is added to each request type named above:
+```
+`additionalDirectories?: string[]
+`
+```
+The following optional property is also added to `ListSessionsRequest`:
+```
+`additionalDirectories?: string[]
+`
+```
+The following optional property is also added to `SessionInfo`:
+```
+`additionalDirectories?: string[]
+`
+```
+The following capability is added to `SessionCapabilities`:
+```
+`additionalDirectories?: {}
+`
+```
+Clients MUST send `additionalDirectories` only when `sessionCapabilities.additionalDirectories` is present.
+If an agent advertises `sessionCapabilities.additionalDirectories` and also supports `session/list`, any `SessionInfo.additionalDirectories` value it returns is the authoritative ordered additional-root list for that session. Agents MAY omit the field when there are no additional roots, and clients MUST treat an omitted field the same as `[]`.
+If an agent advertises `sessionCapabilities.additionalDirectories` and also supports `session/list`, `ListSessionsRequest.additionalDirectories` filters sessions by exact match on the authoritative ordered additional-root list when the field is present and non-empty. When both `cwd` and a non-empty `additionalDirectories` are present on `session/list`, both filters apply. Omitting the field or supplying an empty array means no additional-root filter is applied.
+If adopted, the session-setup, session-list, and filesystem documentation will need corresponding updates so they describe the effective root set rather than `cwd` alone as the session filesystem context or boundary.
+###
+[​
+](#capability-advertisement-example)
+Capability advertisement example
+```
+`{
+"jsonrpc": "2.0",
+"id": 0,
+"result": {
+"protocolVersion": 1,
+"agentCapabilities": {
+"sessionCapabilities": {
+"additionalDirectories": {}
+}
+}
+}
+}
+`
+```
+###
+[​
+](#session/list-example)
+`session/list` example
+When an agent supports both `sessionCapabilities.additionalDirectories` and `session/list`, clients may filter by `cwd`, `additionalDirectories`, or both. Each returned `SessionInfo` includes the authoritative additional-root list for that session:
+```
+`{
+"jsonrpc": "2.0",
+"id": 5,
+"method": "session/list",
+"params": {
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+]
+}
+}
+`
+```
+```
+`{
+"jsonrpc": "2.0",
+"id": 5,
+"result": {
+"sessions": [
+{
+"sessionId": "sess\_abc123",
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+],
+"updatedAt": "2026-03-24T12:00:00Z"
+}
+]
+}
+}
+`
+```
+###
+[​
+](#field-definition)
+Field definition
+`additionalDirectories` has the following properties:
+* The field MUST be an array of strings when present.
+* Each entry MUST be an absolute path under the same platform path rules used for `cwd`.
+* Empty strings MUST be rejected.
+* `null` is not a valid value for the field or for any entry.
+ACP does not define a wire-level lexical normalization algorithm for `cwd` or `additionalDirectories`.
+Clients SHOULD remove exact duplicate path strings before sending the request. Clients SHOULD also avoid entries whose path string exactly matches `cwd`. Overlapping or nested roots are not semantically redundant for ACP purposes: because discovery across the effective ordered root list is ordered and implementation-defined, such entries MAY affect behavior even when they do not change the union of accessible paths. Agents MAY remove exact duplicate path strings, including entries identical to `cwd`, provided doing so preserves the first occurrence order of the remaining entries and does not expand scope.
+For `session/list` filtering, matching is against the session’s authoritative ordered additional-root list as surfaced in `SessionInfo.additionalDirectories`. Implementations that normalize or canonicalize path strings for comparison SHOULD apply the same platform-appropriate rule consistently to stored session state, `SessionInfo.additionalDirectories`, and `ListSessionsRequest.additionalDirectories`.
+###
+[​
+](#semantics)
+Semantics
+`cwd` remains the primary working directory for the session. It continues to define:
+* the default base for relative-path resolution;
+* the primary working directory semantics already defined by ACP; and
+* the primary workspace root for clients or agents that distinguish one root as primary.
+`additionalDirectories` defines zero or more extra filesystem roots that are part of the same session workspace scope.
+The effective ordered root list for a session is:
+* `[cwd]` when `additionalDirectories` is omitted or is an empty array
+* `[cwd, ...additionalDirectories]` when `additionalDirectories` is a non-empty array
+This ordered root list has the following semantics:
+* The session workspace is a multi-root workspace.
+* The roots form a logical union of accessible roots.
+* The roots are not a virtual overlay filesystem.
+* ACP does not define shadowing, mount, or merge semantics between roots.
+* Relative paths MUST continue to resolve only against `cwd`.
+A file path is in scope for the session if, after platform-appropriate path resolution for access control, it is contained within at least one declared root. This proposal expands workspace scope only. It does not imply that all in-scope paths are writable, nor does it bypass client capability checks, user approvals, sandbox rules, or operating-system permissions.
+###
+[​
+](#request-specific-behavior)
+Request-specific behavior
+For `NewSessionRequest`, the resulting additional root list is:
+* `additionalDirectories` when present with a non-empty array value;
+* otherwise `[]`.
+For `LoadSessionRequest` and `ResumeSessionRequest`:
+* when `additionalDirectories` is present with a non-empty array value, it is the complete resulting list of additional roots for the active session, even if that list differs from the session’s previously stored additional roots;
+* when omitted or present as an empty array, the resulting additional root list is `[]`.
+Agents MUST NOT implicitly reactivate stored additional roots that were not supplied on the `session/load` or `session/resume` request. Supplying `additionalDirectories` on `session/load` or `session/resume` is always allowed when the capability is advertised, and doing so may preserve, replace, reduce, or expand the session’s previously stored additional-root list for the resulting active session, subject to validation and policy checks. Clients that need to preserve a session’s additional roots across restarts or across client instances MUST obtain, persist, or reconstruct the full list and resend it on load or resume. When `session/list` is available, `SessionInfo.additionalDirectories` provides the authoritative current additional-root list for that purpose.
+For `ForkSessionRequest`:
+* when `additionalDirectories` is present with a non-empty array value, it is a full replacement list for the forked session;
+* when omitted or present as an empty array, the resulting additional root list is `[]`.
+Agents MUST NOT implicitly inherit additional roots from the source session unless the implementation can prove that the active root list is already authoritative to the requesting client on the current connection. Otherwise, the agent MUST fail the request or require the client to provide the full list explicitly.
+For all lifecycle methods, an agent MAY reject the request if the resulting roots are incompatible with stored session state, fork semantics, sandbox policy, or other implementation constraints. An agent MUST NOT silently drop unsupported or unauthorized roots.
+This RFD defines lifecycle-time workspace scope only. It does not define mid-session mutation of `additionalDirectories`.
+###
+[​
+](#agent-behavior-expectations)
+Agent behavior expectations
+Agents MUST treat paths under `additionalDirectories` as part of the session’s accessible workspace scope in the same sense as paths under `cwd`, subject to capabilities and permissions actually available for that session.
+For any discovery, indexing, or resource-loading behavior an agent applies under `cwd` such as instructions, skills, configuration, or other agent-specific artifacts, the agent SHOULD apply the same behavior to each declared root in `additionalDirectories`, subject to the same capabilities and permissions.
+If an implementation resolves conflicts across multiple roots, earlier roots in the effective ordered root list SHOULD take precedence over later roots. Conflict resolution within a single root remains implementation-defined.
+ACP does not define:
+* required directory names or layouts;
+* the contents or file formats of discovered artifacts;
+* whether an agent MUST perform any discovery at all; or
+* how discovered artifacts affect prompting or execution.
+Implementations MAY define such behavior independently, but ACP remains agnostic to directory contents.
+###
+[​
+](#validation-and-error-handling)
+Validation and error handling
+An agent receiving a session lifecycle request with `additionalDirectories` MUST validate the field before creating, loading, resuming, or forking the session.
+The agent MUST reject the request if:
+* `additionalDirectories` is not an array;
+* any entry is not a string;
+* any entry is empty;
+* any entry is not absolute.
+`invalid\_params` is the RECOMMENDED error class for malformed values.
+If an entry is syntactically valid but cannot be granted under the implementation’s policy, sandbox, or user-consent model, the agent MUST fail the request with an appropriate error. The agent MUST NOT silently ignore invalid, unauthorized, or unsupported entries and proceed with a reduced root set.
+ACP does not require a specific lexical normalization algorithm for validating `cwd` or `additionalDirectories`. Implementations that normalize or canonicalize path strings for comparison, deduplication, or storage SHOULD apply the same platform-appropriate rule consistently to both fields, but authorization and containment checks MUST NOT rely solely on lexical normalization.
+When enforcing root boundaries for subsequent file access, implementations SHOULD use canonical or real paths where available and MUST prevent escapes through symlinks, junctions, mount points, or equivalent mechanisms. If the implementation cannot safely determine whether a path is within an allowed root, it MUST fail closed.
+###
+[​
+](#client-responsibilities)
+Client responsibilities
+A client that sends `additionalDirectories`:
+* MUST send only paths it intends to expose to the session;
+* MUST ensure those paths are absolute;
+* MUST send the full intended active additional root list on `session/load` and `session/resume`;
+* SHOULD obtain user consent or otherwise act consistently with the client’s trust and permission model;
+* SHOULD remove exact duplicate path strings and entries identical to `cwd` before sending; and
+* MUST NOT assume an agent will infer extra roots from project metadata, directory conventions, or prior session state.
+If a client mediates filesystem access through ACP client capabilities such as `fs/read\_text\_file` and `fs/write\_text\_file`, it MUST enforce the effective root set for that session when authorizing path-based access. ACP’s filesystem methods are client-mediated and operate on absolute paths, so the client remains responsible for boundary enforcement in those flows. When the client learns about an existing session through `session/list`, it SHOULD use `SessionInfo.additionalDirectories` together with `cwd` as the authoritative current root set for those checks until a subsequent lifecycle request establishes a different one.
+If a client launches an agent with direct filesystem access, `additionalDirectories` is not, by itself, a sandbox. Clients that need root boundaries to be enforced in that deployment model SHOULD apply operating-system or runtime sandboxing consistent with the declared root set.
+###
+[​
+](#examples)
+Examples
+####
+[​
+](#session/new)
+`session/new`
+```
+`{
+"jsonrpc": "2.0",
+"id": 1,
+"method": "session/new",
+"params": {
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+],
+"mcpServers": []
+}
+}
+`
+```
+####
+[​
+](#session/load)
+`session/load`
+```
+`{
+"jsonrpc": "2.0",
+"id": 2,
+"method": "session/load",
+"params": {
+"sessionId": "sess\_abc123",
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+],
+"mcpServers": []
+}
+}
+`
+```
+####
+[​
+](#session/resume)
+`session/resume`
+```
+`{
+"jsonrpc": "2.0",
+"id": 3,
+"method": "session/resume",
+"params": {
+"sessionId": "sess\_abc123",
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+],
+"mcpServers": []
+}
+}
+`
+```
+####
+[​
+](#session/fork)
+`session/fork`
+```
+`{
+"jsonrpc": "2.0",
+"id": 4,
+"method": "session/fork",
+"params": {
+"sessionId": "sess\_abc123",
+"cwd": "/home/user/project",
+"additionalDirectories": [
+"/home/user/shared-lib",
+"/home/user/product-docs"
+],
+"mcpServers": []
+}
+}
+`
+```
+###
+[​
+](#security-considerations)
+Security considerations
+`additionalDirectories` increases the set of filesystem paths the agent may be able to inspect or modify. This increases the potential impact of user error, client misconfiguration, or insufficient sandboxing.
+Clients MUST NOT send directories that the user has not granted to the session under the client’s trust model. Clients SHOULD default to explicit selection or other clear workspace-grant semantics for roots outside the primary project directory.
+Agents and clients MUST treat root enforcement as a security boundary when they claim to enforce it. Boundary checks MUST account for symlink and path-resolution attacks. Ambiguous cases MUST fail closed.
+This field does not create a new privilege model. All existing permission prompts, approval flows, filesystem capabilities, sandbox controls, and operating-system access rules continue to apply.
+Because ACP does not define directory contents, agents SHOULD avoid assuming that any discovered file under an additional root is safe, authoritative, or intended for automatic execution. Discovery is not equivalent to trust.
+###
+[​
+](#backward-compatibility)
+Backward compatibility
+This proposal is additive at the schema level. Requests that omit `additionalDirectories` behave exactly as they do today. Existing clients that do not need multi-root support require no changes.
+Updated agents MUST continue to accept requests that do not include the field.
+Older implementations may validate request objects strictly against older schemas and MAY reject unknown fields. Clients therefore MUST gate usage on `sessionCapabilities.additionalDirectories`.
+This proposal intentionally does not extend the responses to `session/new`, `session/load`, `session/resume`, or `session/fork` to surface authoritative additional-root state directly. That remains consistent with existing ACP response shapes, which also do not return `cwd`. Instead, when `session/list` is supported, `SessionInfo.additionalDirectories` exposes the authoritative ordered additional-root list for listed sessions. `SessionInfoUpdate` remains unchanged because this RFD does not define mid-session mutation of `additionalDirectories`. Clients that need multi-root continuity across `session/load` or `session/resume` MUST still send the full intended list explicitly.
+`session/list` filtering no longer remains `cwd`-only: sessions may be filtered by `cwd`, by `additionalDirectories`, or by both together. Sessions that differ by `additionalDirectories` are therefore both distinguishable and filterable through `SessionInfo.additionalDirectories` and `ListSessionsRequest.additionalDirectories`.
+This RFD does not add a new RPC method. It also does not change the meaning of `cwd`, `sessionId`, or `mcpServers`.
+###
+[​
+](#drawbacks)
+Drawbacks
+* It expands the workspace surface area and therefore the risk of accidental data exposure.
+* It introduces another dimension of interoperability for clients and agents to test.
+* It does not standardize discovery behavior, so implementations may still differ in how they use additional roots.
+* Older strict validators may reject the new field until they adopt the updated schema.
+##
+[​
+](#frequently-asked-questions)
+Frequently asked questions
+>
+> What questions have arisen over the course of authoring this document or during subsequent discussions?
+>
+###
+[​
+](#why-not-use-_meta)
+Why not use `\_meta`?
+`\_meta` is intended for implementation-specific custom data. A standardized workspace-root concept should be protocol-level, typed, and interoperable across implementations.
+###
+[​
+](#why-not-replace-cwd-with-workspaceroots)
+Why not replace `cwd` with `workspaceRoots`?
+`cwd` already has established semantics as the primary working directory. Replacing it with an array would blur relative-path behavior, reduce clarity for existing implementations, and create a larger migration surface.
+###
+[​
+](#does-acp-define-agents-skills-or-instruction-directory-conventions)
+Does ACP define `.agents`, `skills`, or instruction directory conventions?
+No. ACP does not define `.agents`, `skills`, or other instruction directory conventions. This proposal only defines additional accessible roots.
+Agents SHOULD handle resources under `additionalDirectories` the same way they handle analogous resources under `cwd`, but the names, layouts, and file formats of those resources remain implementation-defined.
+###
+[​
+](#how-should-clients-handle-older-agents-that-may-not-support-this-field)
+How should clients handle older agents that may not support this field?
+Clients MUST gate `additionalDirectories` on `sessionCapabilities.additionalDirectories`. If support is absent, clients SHOULD omit the field and preserve existing behavior.
+###
+[​
+](#why-not-restore-stored-roots-on-session/load-or-session/resume-when-the-field-is-omitted)
+Why not restore stored roots on `session/load` or `session/resume` when the field is omitted?
+Even with `SessionInfo.additionalDirectories` available through `session/list`, implicit restoration would still let an agent reactivate filesystem scope that the current request did not state explicitly. That is undesirable for clients that do not use `session/list`, for clients resuming a session by ID without first listing it, and for clients that want request-time control over the active root set. This proposal therefore keeps load and resume explicit-list only for additional roots: omitting the field or supplying an empty array activates none, while supplying a non-empty array is explicitly allowed and sets the complete resulting additional-root list for that request.
+###
+[​
+](#what-alternative-approaches-did-you-consider-and-why-did-you-settle-on-this-one)
+What alternative approaches did you consider, and why did you settle on this one?
+Alternatives considered:
+* putting extra roots in `\_meta`;
+* adding a new workspace-configuration RPC method; and
+* requiring clients to copy or mount everything under `cwd`.
+This proposal is preferred because it is additive, keeps `cwd` semantics stable, avoids new methods, and standardizes multi-root scope at session lifecycle boundaries.
+##
+[​
+](#revision-history)
+Revision history
+* 2026-03-24: Initial draft.

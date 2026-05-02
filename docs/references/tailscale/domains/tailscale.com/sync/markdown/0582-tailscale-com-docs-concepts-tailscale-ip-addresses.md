@@ -1,0 +1,12 @@
+What are these 100.x.y.z addresses? · Tailscale Docs
+[Aperture beta is now available. Start building with AI safely in minutes.READ MORE -\>](https://tailscale.com/blog/aperture-public-beta)
+# What are these 100.x.y.z addresses?
+Last validated: Jan 12, 2026
+Tailscale automatically assigns a unique IP address to each device in your Tailscale network (known as a [tailnet](/docs/concepts/tailnet)). This IP address is known as a Tailscale IP address and comes from the shared address space defined in [RFC6598](https://www.rfc-editor.org/rfc/rfc6598.html), known as Carrier-Grade NAT (CGNAT).
+Tailscale IP addresses remain constant regardless of the device's physical location. Even if a device switches network connections, such as from Wi-Fi to a cellular network, its Tailscale IP address remains the same. Additionally, every tailnet device has local access to a private service IP address called [Quad100 (`100.100.100.100`)](/docs/reference/quad100). Tailscale also reserves specific address ranges for internal services. Refer to [reserved IP addresses](/docs/reference/reserved-ip-addresses) for details.
+IP addresses from the CGNAT range are [special-use](https://www.rfc-editor.org/rfc/rfc5735.html) IPv4 addresses from the `100.64.0.0/10` subnet (`100.64.0.0` through `100.127.255.255`). They're similar to other special-use IP addresses (such as private IP addresses); they differ from private IP addresses in that they're reserved for Internet Service Provider (ISP) networks and routing equipment rather than private networks.
+Tailscale uses IP addresses from the CGNAT range for the following reasons:
+* They don't conflict with IP addresses from subnets commonly used for private networks (such as `10.0.0.0/8` and `192.168.0.0/16`). However, conflicts might occur when using Tailscale with [other VPNs that use the same address space](/docs/reference/faq/other-vpns).
+* They're for intermediate traffic that requires additional NAT before reaching the public internet, which is precisely [how Tailscale uses these addresses](/blog/how-nat-traversal-works).
+* They're for Internet Service Providers (ISPs) rather than private networks. Philosophically, [Tailscale](/docs/concepts/what-is-tailscale) is a service provider creating a shared network on top of the regular internet. Tailscale IP addresses aren't exposed to the public internet.
+Scroll to top

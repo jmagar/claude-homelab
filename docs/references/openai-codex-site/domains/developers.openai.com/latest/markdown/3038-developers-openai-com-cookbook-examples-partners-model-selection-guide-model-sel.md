@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/partners/model\_selection\_guide/model\_selection\_guide [Redirecting from `/cookbook/examples/partners/model\_selection\_guide/model\_selection\_guide.ipynb/` to `/cookbook/examples/partners/model\_selection\_guide/model\_selection\_guide`](/cookbook/examples/partners/model_selection_guide/model_selection_guide)

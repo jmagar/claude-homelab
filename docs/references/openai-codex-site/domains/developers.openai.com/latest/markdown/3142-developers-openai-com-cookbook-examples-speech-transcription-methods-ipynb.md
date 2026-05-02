@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/speech\_transcription\_methods [Redirecting from `/cookbook/examples/speech\_transcription\_methods.ipynb/` to `/cookbook/examples/speech\_transcription\_methods`](/cookbook/examples/speech_transcription_methods)

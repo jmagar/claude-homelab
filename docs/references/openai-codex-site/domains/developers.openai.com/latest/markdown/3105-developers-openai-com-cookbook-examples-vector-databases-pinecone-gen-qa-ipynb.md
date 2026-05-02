@@ -1,0 +1,1 @@
+Redirecting to: /cookbook/examples/vector\_databases/pinecone/gen\_qa [Redirecting from `/cookbook/examples/vector\_databases/pinecone/gen\_qa.ipynb/` to `/cookbook/examples/vector\_databases/pinecone/gen\_qa`](/cookbook/examples/vector_databases/pinecone/gen_qa)

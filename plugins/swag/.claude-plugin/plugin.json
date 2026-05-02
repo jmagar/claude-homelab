@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json.schemastore.org/claude-code-plugin-manifest.json",
+  "name": "swag-mcp",
+  "version": "1.4.1",
+  "description": "SWAG reverse proxy configuration management via MCP. Create, edit, view, and manage nginx proxy configurations with auth integration.",
+  "author": {
+    "name": "Jacob Magar"
+  },
+  "repository": "https://github.com/jmagar/swag-mcp",
+  "license": "MIT",
+  "keywords": [
+    "swag",
+    "nginx",
+    "reverse-proxy",
+    "homelab",
+    "mcp"
+  ]
+}
