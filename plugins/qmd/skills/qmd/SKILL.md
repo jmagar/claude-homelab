@@ -32,6 +32,28 @@ See [tips-gotchas.md](references/tips-gotchas.md) for partial download recovery,
 
 ---
 
+## PREREQUISITE 2 — Set Up a Collection Before Using MCP Tools
+
+**CRITICAL — if no collection has been indexed, all MCP search tools return empty results with no error.**
+
+Users who enable the plugin via the marketplace without running CLI setup will get a working MCP server that silently returns nothing. You must add at least one collection and build the index before MCP tools are useful:
+
+```sh
+# 1. Add your markdown directory as a collection
+qmd collection add ~/notes
+# (or any directory containing .md files)
+
+# 2. Build the vector index
+qmd embed
+
+# 3. Verify indexing worked — should return results
+qmd query "test"
+```
+
+After these three steps, `qmd_search`, `qmd_vector_search`, `qmd_deep_search`, and related MCP tools will return results.
+
+---
+
 ## MCP Tools
 
 When the MCP server is running (via `.mcp.json`), these tools are available:

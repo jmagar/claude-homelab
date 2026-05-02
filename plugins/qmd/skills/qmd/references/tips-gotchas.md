@@ -142,6 +142,34 @@ Docids (e.g. `#a1b2c3`) are content hashes. Editing a document changes its docid
 
 ---
 
+## Zero Results With No Error — No Collection Indexed
+
+**Symptom:** All MCP search tools (`qmd_search`, `qmd_vector_search`, `qmd_deep_search`) return empty results. No error message is shown. `qmd_status` may show zero documents or an empty collection list.
+
+**Cause:** The MCP server starts successfully regardless of whether any collection has been indexed. If no collection has been added and embedded, search tools have nothing to query and return empty without signaling a problem.
+
+**Who hits this:** Users who enable the plugin via the marketplace (or add it to `.mcp.json`) before running any CLI setup steps.
+
+**Fix — run the full collection setup sequence:**
+
+```sh
+# 1. Add your markdown directory as a collection
+qmd collection add ~/notes
+# (substitute any directory containing .md files)
+
+# 2. Build the vector index
+qmd embed
+
+# 3. Verify — should return results if setup succeeded
+qmd query "test"
+```
+
+After all three steps complete, MCP search tools will return results.
+
+**Verification:** Run `qmd status` — a healthy setup shows at least one collection with a non-zero document count.
+
+---
+
 ## `qmd search` vs `qmd vsearch` vs `qmd query`
 
 | Aspect | `search` (BM25) | `vsearch` | `query` (hybrid) |

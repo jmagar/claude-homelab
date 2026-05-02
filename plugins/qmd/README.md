@@ -31,6 +31,28 @@ See [tips-gotchas.md](skills/qmd/references/tips-gotchas.md) for partial downloa
 
 ---
 
+## IMPORTANT: Index a Collection Before Using MCP Tools
+
+**If no collection has been indexed, all MCP search tools return empty results with no error.** Users who install the plugin via the marketplace without running CLI setup first will get a working-but-useless MCP server.
+
+After installing qmd, run these steps before enabling the plugin:
+
+```sh
+# 1. Add your markdown directory as a collection
+qmd collection add ~/notes
+# (substitute any directory containing .md files)
+
+# 2. Build the vector index
+qmd embed
+
+# 3. Verify — should return results if setup succeeded
+qmd query "test"
+```
+
+Once the index is built, all MCP tools (`qmd_search`, `qmd_vector_search`, `qmd_deep_search`, etc.) will return results.
+
+---
+
 ## Installation
 
 ```sh
