@@ -94,7 +94,7 @@ Settings resolve in this order (highest wins): CLI flags → `sweetlink.json` �
 
 Place `sweetlink.json` in the project root. Full schema: [`references/configuration.md`](references/configuration.md).
 
-Key environment variables: `SWEETLINK_APP_URL`, `SWEETLINK_DAEMON_URL`, `SWEETLINK_ADMIN_API_KEY`. Full list in [`references/configuration.md`](references/configuration.md).
+Key environment variables: `SWEETLINK_APP_URL`, `SWEETLINK_DAEMON_URL`, `SWEETLINK_ADMIN_API_KEY` (**security-critical** — if unset, the daemon accepts all requests unauthenticated; must be set before starting the daemon on shared machines or in CI). Full list and auth posture in [`references/configuration.md`](references/configuration.md).
 
 ## Full command reference
 
