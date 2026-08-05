@@ -85,7 +85,7 @@ Commit prefix determines bump type:
 - [ ] `entrypoint.sh` is executable and handles env rewriting
 - [ ] SWAG/reverse-proxy config tested (if applicable)
 - [ ] Server registered in MCP registry (if publishing)
-- [ ] DNS verification complete for `tv.tootie/<name>` (if applicable)
+- [ ] DNS verification complete for `tv.nashost/<name>` (if applicable)
 
 ## Post-merge
 
