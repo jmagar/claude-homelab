@@ -1,7 +1,10 @@
 #!/bin/bash
-# Environment Loading Library
+# Environment Loading Library (Doppler-backed)
 # Canonical source: ~/claude-homelab/scripts/load-env.sh
 # Installed to:     ~/.claude-homelab/load-env.sh  (via setup-symlinks.sh)
+#
+# Secrets are stored in Doppler (project: claude-homelab, config: prd).
+# Falls back to ~/.claude-homelab/.env if Doppler is unavailable.
 #
 # In skill scripts, source as:
 #   source "$HOME/.claude-homelab/load-env.sh"
@@ -12,15 +15,33 @@ if [[ "${BASH_SOURCE[0]}" == "${0}" ]]; then
     exit 1
 fi
 
-# Load ~/.claude-homelab/.env (or an explicit override path)
-# Usage: load_env_file [/optional/override/path]
-load_env_file() {
+# Internal: export all secrets from Doppler into the current shell
+_load_from_doppler() {
+    local project="${DOPPLER_PROJECT:-claude-homelab}"
+    local config="${DOPPLER_CONFIG:-prd}"
+
+    local secrets
+    secrets=$(doppler secrets download \
+        --project "$project" \
+        --config "$config" \
+        --no-file --format env-no-quotes 2>/dev/null) || return 1
+
+    # Export each line into the environment
+    while IFS= read -r line; do
+        # Skip empty lines and comments
+        [[ -z "$line" || "$line" == \#* ]] && continue
+        export "${line?}"
+    done <<< "$secrets"
+}
+
+# Internal: fall back to flat .env file
+_load_from_file() {
     local env_file="${1:-$HOME/.claude-homelab/.env}"
 
     if [[ ! -f "$env_file" ]]; then
-        echo "ERROR: $env_file not found" >&2
-        echo "Run setup: ~/claude-homelab/scripts/setup-symlinks.sh" >&2
-        echo "Then add your credentials to ~/.claude-homelab/.env" >&2
+        echo "ERROR: $env_file not found and Doppler unavailable" >&2
+        echo "Run: doppler setup --project claude-homelab --config prd" >&2
+        echo "Or create ~/.claude-homelab/.env manually" >&2
         return 1
     fi
 
@@ -28,6 +49,26 @@ load_env_file() {
     # shellcheck source=/dev/null
     source "$env_file"
     set +a
+}
+
+# Load secrets from Doppler (preferred) or fall back to ~/.claude-homelab/.env
+# Usage: load_env_file [/optional/fallback/path]
+load_env_file() {
+    # If secrets are already loaded (e.g., running under `doppler run`), skip
+    if [[ -n "${DOPPLER_ENVIRONMENT:-}" ]]; then
+        return 0
+    fi
+
+    # Try Doppler first
+    if command -v doppler &>/dev/null; then
+        if _load_from_doppler; then
+            return 0
+        fi
+        echo "WARN: Doppler fetch failed, falling back to .env file" >&2
+    fi
+
+    # Fallback to flat file
+    _load_from_file "$@"
 }
 
 # Validate that required environment variables are set and non-empty
@@ -39,7 +80,9 @@ validate_env_vars() {
     done
 
     if [[ ${#missing[@]} -gt 0 ]]; then
-        echo "ERROR: Missing required variables in ~/.claude-homelab/.env: ${missing[*]}" >&2
+        echo "ERROR: Missing required variables: ${missing[*]}" >&2
+        echo "Set them in Doppler (project: claude-homelab, config: prd)" >&2
+        echo "  doppler secrets set ${missing[*]}" >&2
         return 1
     fi
 }
