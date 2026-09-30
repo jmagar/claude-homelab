@@ -76,3 +76,4 @@ dist/
 
 # Personal local cheatsheet (never commit)
 CLAUDE.md.local
+worktrees/
